@@ -12,9 +12,11 @@ public class C {
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
 		int t = sc.nextInt();
+		int tc  = 0;
 		while(t-->0) {
 			int n = sc.nextInt();
 			System.out.println(n);
+			System.out.println("Case #"+ tc+ ": "+ res);
 		}
 	}
 

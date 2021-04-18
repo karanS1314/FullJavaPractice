@@ -1,0 +1,2 @@
+module newWave2 {
+}

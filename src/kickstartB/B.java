@@ -16,6 +16,76 @@ public class B {
 		while(t-->0) {
 			tc++;
 			int n = sc.nextInt();
+			int a[] = sc.readArray(n);
+			
+			int res = 0;
+
+			if(n==1){
+				res=1;
+			}
+			else{
+				int mxa[] = new int [n];
+				mxa[0] = 1;
+				mxa[1] = 2;
+				for(int i=2;i<n;i++){
+					if(a[i] - a[i-1] == a[i-1] - a[i-2]){
+						mxa[i] = mxa[i-1]+1;
+					}
+					else{
+						mxa[i] = 2;
+					}
+				}
+
+				int mxb[] = new int [n];
+				mxb[n-1] = 1;
+				mxb[n-2] = 2;
+				for(int i=n-3;i>=0;i--){
+					if(a[i] - a[i+1] == a[i+1] - a[i+2]){
+						mxb[i] = mxb[i+1]+1;
+					}
+					else{
+						mxb[i] = 2;
+					}
+				}
+
+				int mxs = 2;
+				for(int i=2;i<n;i++){
+					mxs = Math.max(mxs , mxa[i]);
+				}
+				if(mxs<n){
+					res = mxs + 1;
+				}
+				else{
+					res = mxs;
+				}
+
+
+				for(int i=3;i<n;i++){
+					if(a[i] - a[i-2] == 2*(a[i-2] - a[i-3])){
+						// int diff = a[i-2] - a[i-3];
+
+						int cf = mxb[i];
+						int cb = mxa[i-2];
+						
+
+						res = Math.max(cb+cf+1 , res);
+					}
+				}
+
+				for(int i=3;i<n;i++){
+					if(2*(a[i] - a[i-1]) == a[i-1] - a[i-3]){
+						// int diff = a[i] - a[i-1];
+
+						int cf = mxb[i-1];
+						int cb = mxa[i-3];
+			
+						res = Math.max(cb+cf+1 , res);
+					}
+				}
+			}
+			
+
+
 			System.out.println("Case #"+ tc+ ": "+ res );
 		}
 	}

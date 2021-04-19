@@ -9,18 +9,126 @@ import java.util.*;
 
 
 public class C {
+	static class Edge{
+		int src;
+		int dest;
+		int limit;
+		long fine;
+		
+		Edge(int i , int j , int limit , long fine){
+			src=i;
+			dest=j;
+			this.limit = limit;
+			this.fine = fine;
+		}
+	}
+	static class Pair{
+		int v;
+		String psf;
+		
+		Pair(int v , String psf ){
+			this.v = v;
+			this.psf = psf;
+		}
+	}
+	static Long gcd(ArrayList<Long> f)
+    {
+
+        Long result = 0L;
+        for (Long element: f){
+            result = gcd(result, element);
+ 
+            if(result == 1)
+            {
+               return 1L;
+            }
+        }
+ 
+        return result;
+    }
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
 		int t = sc.nextInt();
 		int tc  = 0;
 		while(t-->0) {
+			tc++;
 			int n = sc.nextInt();
-			System.out.println(n);
-			System.out.println("Case #"+ tc+ ": "+ res);
+			int q = sc.nextInt();
+			ArrayList<Edge>[] graph = new ArrayList[n+1];
+			for(int i=1;i<=n;i++) {
+				graph[i] = new ArrayList<>();
+			}
+
+			for(int i=0; i<n-1; i++) {
+				int src = sc.nextInt();
+				int dest = sc.nextInt();
+				int limit = sc.nextInt();
+				long fine = sc.nextInt();
+				graph[src].add(new Edge(src, dest, limit , fine));
+				graph[dest].add(new Edge(dest, src, limit , fine));
+			}
+
+			int strt = 1;
+			Queue<Pair> pq = new LinkedList<>();
+			boolean vis[] = new boolean[n+1];
+			pq.add(new Pair(strt , strt + ""));
+
+			String paths[] = new String[n+1];
+				
+			while(pq.size()>0) {
+				Pair curr = pq.poll();
+					
+				if(vis[curr.v]==true) {
+					continue;
+				} 
+				vis[curr.v] = true;
+
+				paths[curr.v] = curr.psf; 
+					
+				for(Edge e : graph[curr.v]) {
+					if(!vis[e.dest]) {
+						pq.add(new Pair(e.dest , curr.psf + e.dest));
+					}
+				}
+			}
+			ArrayList<Long> res = new ArrayList<>();
+			while(q-->0){
+				int c = sc.nextInt();
+				int w = sc.nextInt();
+
+				String path = paths[c];
+				char ca[] = path.toCharArray();
+				
+				int N = path.length();
+
+				ArrayList<Long> fineAl = new ArrayList<>();
+				for(int i=1;i<N;i++){
+					int a = Character.getNumericValue(ca[i]);
+					int b = Character.getNumericValue(ca[i-1]);
+					for(Edge e : graph[a]){
+						if(e.dest == b){
+							int limit = e.limit;
+							long fine = e.fine;
+
+							if(w>=limit){
+								fineAl.add(fine);
+							}
+							break;
+						}
+					}
+				}
+
+				//gcd of fineAl;
+				res.add(gcd(fineAl));
+
+			}
+			System.out.print("Case #"+ tc+ ": ");
+			for(Long e : res){
+				System.out.print(e + " ");
+			}
+			System.out.println();
 		}
 	}
-
-
 
 
 
@@ -105,7 +213,7 @@ public class C {
 		return toRet;
 	}
 
-	static int gcd(int a, int b) {
+	static Long gcd(Long a, Long b) {
 		if (b==0) return a;
 		return gcd(b, a%b);
 	}

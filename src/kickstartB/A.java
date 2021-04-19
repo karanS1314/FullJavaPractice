@@ -16,7 +16,24 @@ public static void main(String[] args) {
 	while(t-->0) {
 		tc++;
 		int n = sc.nextInt();
-		System.out.println("Case #"+ tc+ ": "+ res);
+		String s = sc.nextLine();
+		int res [] = new int[n];
+		res[0] = 1;
+		for(int i=1;i<n;i++){
+			char c = s.charAt(i);
+			if(c>s.charAt(i-1)){
+				res[i] = res[i-1]+1;
+			}
+			else{
+				res[i] = 1;
+			}
+		}
+
+		System.out.print("Case #"+ tc+ ": ");
+		for(int e : res){
+			System.out.print(e + " ");
+		}
+		System.out.println();
 	}
 }
 

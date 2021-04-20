@@ -1,4 +1,5 @@
-package interviewBit;
+package codeForces.codeforces716;
+
 
  //   * * * fuck you * * *   //
  import java.io.BufferedReader;
@@ -7,60 +8,26 @@ package interviewBit;
  import java.util.*;
   
  
- public class test {
-    static int candidate(int N , List<Integer> a){
-        int x = 0;
-        int count = 1;
-        int n = a.size();
-        
-        for(int i=1;i<n;i++){
-            if(a.get(x) != a.get(i)){
-                count--;
-            }
-            else{
-                count++;
-            }
-            
-            if(count == 0){
-                x = i;
-                count = 1;
-            }
-        }
-        System.out.println(x);
-        return a.get(x);
-    }
-    static boolean isPresent(int n , List<Integer> a , int x){
-        int count = 0;
-        
-        for(int i=0;i<n;i++){
-            if(a.get(i) == x) count++;
-        }
-        
-        if(count>n/3) return true;
-        
-        return false;
-    }
+ public class B {
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
-        ArrayList<Integer> a = new ArrayList<>();
-        for(int i=0;i<n;i++){
-            a.add(sc.nextInt());
-        }
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            int k = sc.nextInt();
 
-        if(n==0){
-            System.out.println(0);
+            long one = 1;
+            for(int i=1;i<=n;i++){
+                one*=2;
+                one%=mod;
+            }
+            one-=1;
+            
+            long count = (k*one)%mod;
+
+
+            System.out.println(count);
         }
-        if(n<=2){
-            System.out.println(a.get(0));
-        }
-        
-        int y = candidate(n , a);
-        System.out.println(y);
-        
-        if(isPresent(n , a , y)) System.out.println(y);
-        else System.out.println(0);
-        
      }
  
  
@@ -156,22 +123,18 @@ package interviewBit;
      //generates all the prime numbers upto n
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
- 
          boolean prime[] = new boolean[n + 1];
          for (int i = 0; i <= n; i++)
              prime[i] = true;
   
          for (int p = 2; p * p <= n; p++) 
          {
- 
              if (prime[p] == true) 
              {
- 
                  for (int i = p * p; i <= n; i += p)
                      prime[i] = false;
              }
          }
- 
          for (int i = 2; i <= n; i++)
          {
              if (prime[i] == true)
@@ -198,6 +161,72 @@ package interviewBit;
          E y = a[j];
          a[i]=x;
          a[j]=y;
+     }
+ 
+     static long nCr(long l, int r)
+     {
+            return fact(l) / (fact(r) *
+                 fact(l - r));
+     }
+     
+     // Returns factorial of n
+     static long fact(long n)
+     {
+         long res = 1;
+         for (int i = 2; i <= n; i++)
+             res = res * i;
+         return res;
+     }	
+ 
+     //count sort --> it runs in O(n) time but compromises in space
+     static ArrayList<Integer> countSort(int a[]){
+         int max = Integer.MIN_VALUE;
+         for(int i=0;i<a.length;i++){
+             max = Math.max(max , a[i]);
+         }
+ 
+         int posfre[] = new int[max+1];
+         boolean negPres = false;
+         for(int i=0;i<a.length;i++){
+             if(a[i]>=0){
+                 posfre[a[i]]++;
+             }
+             else{
+                 negPres = true;
+             }
+         }
+         ArrayList<Integer> res = new ArrayList<>();
+         if(negPres){
+             int min = Integer.MAX_VALUE;
+             for(int i=0;i<a.length;i++){
+                 min = Math.min(min , a[i]);
+             }
+ 
+             int negfre[] = new int[-1*min+1];
+             for(int i=0;i<a.length;i++){
+                 if(a[i]<0){
+                     negfre[-1*a[i]]++;
+                 }
+             }
+ 
+             for(int i=min;i<0;i++){
+                 for(int j=0;j<negfre[-1*i];j++){
+                     res.add(i);
+                 }
+             }
+             for(int i=0;i<=max;i++){
+                 for(int j=0;j<posfre[i];j++){
+                     res.add(i);
+                 }
+             }
+             return res;
+         }
+         for(int i=0;i<=max;i++){
+             for(int j=0;j<posfre[i];j++){
+                 res.add(i);
+             }
+         }
+         return res;
      }
  
      // write 

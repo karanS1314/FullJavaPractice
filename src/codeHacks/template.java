@@ -1,5 +1,4 @@
-
- //   * * * fuck you * * *   //
+ //   * * * its fun to do the impossible * * *   //
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +8,7 @@ import java.util.*;
 public class template {
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
-		
+
 	}
 
 
@@ -105,22 +104,18 @@ public class template {
 	//generates all the prime numbers upto n
 	static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
     {
-
         boolean prime[] = new boolean[n + 1];
         for (int i = 0; i <= n; i++)
             prime[i] = true;
  
         for (int p = 2; p * p <= n; p++) 
         {
-
             if (prime[p] == true) 
             {
-
                 for (int i = p * p; i <= n; i += p)
                     prime[i] = false;
             }
         }
-
         for (int i = 2; i <= n; i++)
         {
             if (prime[i] == true)
@@ -163,6 +158,57 @@ public class template {
 			res = res * i;
 		return res;
 	}	
+
+	//count sort --> it runs in O(n) time but compromises in space
+	static ArrayList<Integer> countSort(int a[]){
+		int max = Integer.MIN_VALUE;
+		for(int i=0;i<a.length;i++){
+			max = Math.max(max , a[i]);
+		}
+
+		int posfre[] = new int[max+1];
+		boolean negPres = false;
+		for(int i=0;i<a.length;i++){
+			if(a[i]>=0){
+				posfre[a[i]]++;
+			}
+			else{
+				negPres = true;
+			}
+		}
+		ArrayList<Integer> res = new ArrayList<>();
+		if(negPres){
+			int min = Integer.MAX_VALUE;
+			for(int i=0;i<a.length;i++){
+				min = Math.min(min , a[i]);
+			}
+
+			int negfre[] = new int[-1*min+1];
+			for(int i=0;i<a.length;i++){
+				if(a[i]<0){
+					negfre[-1*a[i]]++;
+				}
+			}
+
+			for(int i=min;i<0;i++){
+				for(int j=0;j<negfre[-1*i];j++){
+					res.add(i);
+				}
+			}
+			for(int i=0;i<=max;i++){
+				for(int j=0;j<posfre[i];j++){
+					res.add(i);
+				}
+			}
+			return res;
+		}
+		for(int i=0;i<=max;i++){
+			for(int j=0;j<posfre[i];j++){
+				res.add(i);
+			}
+		}
+		return res;
+	}
 
 	// write 
 

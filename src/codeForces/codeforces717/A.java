@@ -1,18 +1,55 @@
-package codeHacks;
+package codeForces.codeforces717;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
  
 
-public class test {
+public class A {
     //Good morning!
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
 		int t = sc.nextInt();
 		while(t-->0){
 			int n = sc.nextInt();
-			
+			int k = sc.nextInt();
+			int a[] = sc.readArray(n);
+
+			int mi = -1;
+			int mx = -1;
+			int mxI = -1;
+			int miI = -1;
+			while(k-->0){
+				for(int i=0;i<n-1;i++){
+					if(a[i]>0){
+						mx = a[i];
+						mxI = i;
+						break;
+					}
+				}
+				for(int i=n-1;i>0;i--){
+						mi = a[i];
+						miI = i;
+						break;
+					
+				}
+				if(mxI!=-1 && miI!=-1 ){
+					a[mxI]--;
+					a[miI]++;
+					mxI=-1;
+					miI=-1;
+				}
+				else{
+					break;
+				}
+
+			}
+
+			for(int e : a){
+				System.out.print(e+ " ");
+			}
+			System.out.println();
 		}
 	}
     
@@ -166,3 +203,4 @@ public class test {
 	// write 
 
 }
+

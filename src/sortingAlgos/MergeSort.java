@@ -10,6 +10,34 @@ package sortingAlgos;
  public class MergeSort {
     public static void main(String[] args) {
         FastScanner sc = new FastScanner();
+        int n = sc.nextInt();
+
+        int a[] = sc.readArray(n);
+        int b[] = sc.readArray(n);
+
+
+        int i = 0;
+        int j = 0;
+        int k = 0;
+
+        int res[] = new int[2*n];
+        if(i<n && j<n){
+            if(a[i]<b[j]){
+                res[k++] = a[i];
+                i++;
+            }
+            else{
+                res[k++] = b[j];
+                j++;
+            }
+        }
+        while(i<n){
+            res[k++] = a[i++];
+        }
+
+        while(j<n){
+            res[k++] = b[j++];
+        }
  
     }
  

@@ -1,67 +1,38 @@
-package codeForces.codeforces715;
+package dynamicProgramming;
 
- //   * * * fuck you * * *   //
+ //   * * * its fun to do the impossible * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
   
  
- public class B {
+ public class OptimalStrategy {
+     static int solve(int i , int j , int a[] , int dp[][]){
+         if(i>j) return 0;
+         if(dp[i][j] != -1) return dp[i][j];
+
+         int x = a[i] + Math.min(solve(i+2 , j , a , dp) , solve(i+1 , j-1 , a , dp));
+         int y = a[j] + Math.min(solve(i , j-2 , a , dp) , solve(i+1 , j-1 , a , dp));
+         
+         return dp[i][j] = Math.max(x , y);
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            String s = sc.nextLine();
-            int ts =0;
-            int ms =0;
-            ArrayList<Integer> at = new ArrayList<>();
-            ArrayList<Integer> am = new ArrayList<>();
-            boolean f = true;
-            for(int i=0;i<n;i++){
-                char c = s.charAt(i);
-                if(c=='T'){
-                    ts++;
-                    at.add(i);
-                }
-                else{
-                    ms++;
-                    am.add(i);
-                }
-                if(ts<ms){
-                    f=false;
-                    break;
-                }
-            }
-            if(ts-ms != ms || s.charAt(0)=='M' || s.charAt(n-1)=='M' ||!f){
-                System.out.println("NO");
-                continue;
-            }
+        int n = sc.nextInt();
+        int a[] = sc.readArray(n);
 
-            for(int i=0;i<at.size();i++){
-                if(am.size()<0){
-                    f=false;
-                    break;
-                }
-                if(at.get(0)<am.get(0)&& am.get(0)<at.get(at.size()-1)){
-                    at.remove(0);
-                    at.remove(at.size()-1);
-                    am.remove(0);
-                }
-                else{
-                    f=false;
-                    break;
-                }
-            }
-            if(f && at.size()==0 && am.size()==0){
-                System.out.println("YES");
-            }
-            else{
-                System.out.println("NO");
-            }
+        int dp[][] = new int[n][n];
 
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                dp[i][j] = -1;
+            }
         }
+
+        int x = solve(0 , n-1 , a, dp);
+        System.out.println(x);
+ 
      }
  
  
@@ -157,22 +128,18 @@ package codeForces.codeforces715;
      //generates all the prime numbers upto n
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
- 
          boolean prime[] = new boolean[n + 1];
          for (int i = 0; i <= n; i++)
              prime[i] = true;
   
          for (int p = 2; p * p <= n; p++) 
          {
- 
              if (prime[p] == true) 
              {
- 
                  for (int i = p * p; i <= n; i += p)
                      prime[i] = false;
              }
          }
- 
          for (int i = 2; i <= n; i++)
          {
              if (prime[i] == true)
@@ -201,8 +168,73 @@ package codeForces.codeforces715;
          a[j]=y;
      }
  
+     static int nCr(int n, int r)
+     {
+            return fact(n) / (fact(r) *
+                 fact(n - r));
+     }
+     
+     // Returns factorial of n
+     static int fact(int n)
+     {
+         int res = 1;
+         for (int i = 2; i <= n; i++)
+             res = res * i;
+         return res;
+     }	
+ 
+     //count sort --> it runs in O(n) time but compromises in space
+     static ArrayList<Integer> countSort(int a[]){
+         int max = Integer.MIN_VALUE;
+         for(int i=0;i<a.length;i++){
+             max = Math.max(max , a[i]);
+         }
+ 
+         int posfre[] = new int[max+1];
+         boolean negPres = false;
+         for(int i=0;i<a.length;i++){
+             if(a[i]>=0){
+                 posfre[a[i]]++;
+             }
+             else{
+                 negPres = true;
+             }
+         }
+         ArrayList<Integer> res = new ArrayList<>();
+         if(negPres){
+             int min = Integer.MAX_VALUE;
+             for(int i=0;i<a.length;i++){
+                 min = Math.min(min , a[i]);
+             }
+ 
+             int negfre[] = new int[-1*min+1];
+             for(int i=0;i<a.length;i++){
+                 if(a[i]<0){
+                     negfre[-1*a[i]]++;
+                 }
+             }
+ 
+             for(int i=min;i<0;i++){
+                 for(int j=0;j<negfre[-1*i];j++){
+                     res.add(i);
+                 }
+             }
+             for(int i=0;i<=max;i++){
+                 for(int j=0;j<posfre[i];j++){
+                     res.add(i);
+                 }
+             }
+             return res;
+         }
+         for(int i=0;i<=max;i++){
+             for(int j=0;j<posfre[i];j++){
+                 res.add(i);
+             }
+         }
+         return res;
+     }
+ 
      // write 
  
  }
  
-

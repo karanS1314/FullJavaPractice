@@ -1,3 +1,4 @@
+package codeForces.codeforces715;
 
  //   * * * fuck you * * *   //
  import java.io.BufferedReader;

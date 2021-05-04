@@ -1,3 +1,5 @@
+
+
  //   * * * its fun to do the impossible * * *   //
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,8 +8,11 @@ import java.util.*;
  
 
 public class template {
+   
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
+		int n = sc.nextInt();
+		
 
 	}
 

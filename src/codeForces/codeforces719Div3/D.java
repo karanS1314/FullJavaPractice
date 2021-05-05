@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.codeforces719Div3;
 
 
 
@@ -7,43 +7,41 @@ package codeForces.Practicer;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
+import java.util.Map.Entry;
   
  
- public class PaintingEggs {
+ public class D {
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            int a[] = sc.readArray(n);
+
+            HashMap<Integer, Long> map = new HashMap<>();
+
+            for(int i=0;i<n;i++){
+                if(!map.containsKey(a[i] - (i+1))){
+                    map.put(a[i] - (i+1) , (long) 1);
+                }
+                else{
+                    long count = map.get(a[i] - (i+1));
+                    count++;
+                    map.put(a[i] - (i+1) , count);
+                }
+            }
+            long res = 0;
+
+            for(Entry<Integer, Long> e : map.entrySet()){
+                res += e.getValue() * (e.getValue() - 1) / 2;
+            }
+            System.out.println(res);
+
+        }
          
-        int a[] = new int [n];
-        int g[] = new int [n];
-
-        for(int i=0;i<n;i++){
-            a[i] = sc.nextInt();
-            g[i] = sc.nextInt();
-        }
-        // System.out.println(Math.abs(1 - 999));
-        int diff = 0;
-
-        StringBuffer res = new StringBuffer("");
-
-        for(int i=0;i<n;i++){
-            if(diff + a[i] > 500){
-                res.append("G");
-                diff -= g[i];
-            }
-            else{
-                res.append("A");
-                diff += a[i];
-            }
-        }
-
-        System.out.println(res);
-
-        
  
      }
- 
  
  
  
@@ -178,17 +176,17 @@ package codeForces.Practicer;
          a[j]=y;
      }
  
-     static int nCr(int n, int r)
+     static int nCr(long count, int r)
      {
-            return fact(n) / (fact(r) *
-                 fact(n - r));
+            return fact(count) / (fact(r) *
+                 fact(count - r));
      }
      
      // Returns factorial of n
-     static int fact(int n)
+     static int fact(long count)
      {
          int res = 1;
-         for (int i = 2; i <= n; i++)
+         for (int i = 2; i <= count; i++)
              res = res * i;
          return res;
      }	

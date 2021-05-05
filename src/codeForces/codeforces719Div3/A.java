@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.codeforces719Div3;
 
 
 
@@ -9,41 +9,39 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class PaintingEggs {
+ public class A {
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            String s = sc.nextLine();
+
+            boolean can = true;
+
+            HashSet<Character> set = new HashSet<>();
+            set.add(s.charAt(0));
+            for(int i=1;i<n;i++){
+                if(s.charAt(i) == s.charAt(i-1)){
+                    continue;
+                }
+                else{
+                    if(set.contains(s.charAt(i))){
+                        // System.out.println(i);
+                        can = false;
+                        break;
+                    }
+                }
+                set.add(s.charAt(i));
+            }
+
+            if(can) System.out.println("YES");
+            else System.out.println("NO");
+        }
          
-        int a[] = new int [n];
-        int g[] = new int [n];
-
-        for(int i=0;i<n;i++){
-            a[i] = sc.nextInt();
-            g[i] = sc.nextInt();
-        }
-        // System.out.println(Math.abs(1 - 999));
-        int diff = 0;
-
-        StringBuffer res = new StringBuffer("");
-
-        for(int i=0;i<n;i++){
-            if(diff + a[i] > 500){
-                res.append("G");
-                diff -= g[i];
-            }
-            else{
-                res.append("A");
-                diff += a[i];
-            }
-        }
-
-        System.out.println(res);
-
-        
  
      }
- 
  
  
  

@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.codeforces719Div3;
 
 
 
@@ -9,41 +9,62 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class PaintingEggs {
+ public class B {
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
-         
-        int a[] = new int [n];
-        int g[] = new int [n];
+        int t = sc.nextInt();
 
-        for(int i=0;i<n;i++){
-            a[i] = sc.nextInt();
-            g[i] = sc.nextInt();
-        }
-        // System.out.println(Math.abs(1 - 999));
-        int diff = 0;
+        // ArrayList<Integer> te = new ArrayList<>();
+        // for(int i=1;i<mod;i++){
+        //     String s = String.valueOf(i);
+        //     Set<Character> set = new HashSet<>();
+        //     for(int j=0;j<s.length();j++){
+        //         set.add(s.charAt(j));
+        //     }
+        //     if(set.size()==1){
+        //         te.add(i);
+        //     }
+        // }
+        while(t-->0){
+            int n = sc.nextInt();
 
-        StringBuffer res = new StringBuffer("");
-
-        for(int i=0;i<n;i++){
-            if(diff + a[i] > 500){
-                res.append("G");
-                diff -= g[i];
+            if(n < 10){
+                System.out.println(n);
+                continue;
             }
-            else{
-                res.append("A");
-                diff += a[i];
+            double z = Math.log(n)/Math.log(10);
+            // System.out.println(z);
+            int x = (int)z;
+            x *= 9;
+
+            int res = x;
+            // System.out.println(x);
+            if(z*9 - x == 0){
+                // System.out.println(x + " " + z);
+                System.out.println(res);
+                continue;
             }
-        }
+            int temp = (int) (n / fastPow(10, (int)z)); // 5 for 509
+            // System.out.println("temp " + temp);
 
-        System.out.println(res);
+            res += temp-1;
 
-        
+            String te = "";
+            for(int i=0;i<(int)z+1;i++){
+                te = te + temp;
+            }
+            Long y = Long.parseLong(te);
+            // System.out.println("y " + y);
+            if(n >= y){
+                res++;
+            }
+
+            System.out.println(res);
+
+        } 
  
      }
- 
  
  
  

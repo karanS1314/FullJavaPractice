@@ -1,4 +1,5 @@
-package codeForces.Practicer;
+package codeForces.codeforces719Div3;
+
 
 
 
@@ -9,41 +10,78 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class PaintingEggs {
+ public class E {
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            String s = sc.nextLine();
+
+            int res = 0;
+
+            int mx = Integer.MIN_VALUE;
+
+            int st = 0;
+            int en = 0;
+            int flag = 0;
+
+            if(s.charAt(0) == '*') flag = 1;
+
+            int sa = -1;
+            int e = -1;
+            for(int i=0;i<s.length();i++){
+                char c = s.charAt(i);
+                // char ck = s.charAt(i-1);
+
+                if(c == '*'){
+                    if(flag == 0){
+                        flag = 1;
+                        st = i;
+                    }
+                    else{
+                        en = i;
+                    }
+                }
+                else{
+                    if(flag == 1){
+                        flag = 0;
+                       
+                    }
+                }
+                if(en - st + 1 > mx){
+                    mx = en - st + 1;
+                    e = en;
+                    sa = st;
+                }
+            }
+            // System.out.println(sa + " " + e);
+            int saa = 0;
+            for(int i=sa-1;i>=0;i--){
+                if(s.charAt(i)=='*'){
+                    res += sa - i - saa -1;
+                    saa++;
+                }
+            }
+
+            int eaa = 0;
+            for(int i=e+1;i<n;i++){
+                if(s.charAt(i)=='*'){
+                    res += i - e - eaa -1;
+                    eaa++;
+                }
+            }
+            if(res>1)
+                System.out.println(res-1);
+            else
+                System.out.println(res);
+            
+
+        }
          
-        int a[] = new int [n];
-        int g[] = new int [n];
-
-        for(int i=0;i<n;i++){
-            a[i] = sc.nextInt();
-            g[i] = sc.nextInt();
-        }
-        // System.out.println(Math.abs(1 - 999));
-        int diff = 0;
-
-        StringBuffer res = new StringBuffer("");
-
-        for(int i=0;i<n;i++){
-            if(diff + a[i] > 500){
-                res.append("G");
-                diff -= g[i];
-            }
-            else{
-                res.append("A");
-                diff += a[i];
-            }
-        }
-
-        System.out.println(res);
-
-        
  
      }
- 
  
  
  

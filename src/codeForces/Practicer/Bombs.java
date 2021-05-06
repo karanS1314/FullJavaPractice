@@ -1,5 +1,4 @@
-package codeForces.codeforces719Div3;
-
+package codeForces.Practicer;
 
 
 
@@ -10,30 +9,133 @@ package codeForces.codeforces719Div3;
  import java.util.*;
   
  
- public class E {
+ public class Bombs {
+     static class Point implements Comparable<Point>{
+         int x;
+         int y;
+
+         Point(int x , int y){
+             this.x = x;
+             this.y = y;
+         }
+
+         public int compareTo(Point o){
+            return Math.abs(this.x)+Math.abs(this.y) - Math.abs(o.y)+Math.abs(o.y);
+         }
+     }
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            String s = sc.nextLine();
-            char ca[] = s.toCharArray();
+        int n = sc.nextInt();
 
-            int cs[] = new int[n+1];
-
-            for(int i=1;i<n+1;i++){
-                cs[i] = cs[i-1] + (ca[i-1]=='*'?1:0);
-            }
-
-            long res = 0;
-
-            for(int i=0;i<n;i++){
-                if(ca[i] == '*') continue;
-                res += Math.min( cs[i] , cs[n] - cs[i] );
-            }
-            System.out.println(res);
+        Point p[] = new Point[n];
+        for(int i=0;i<n;i++){
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            p[i] = new Point(x , y);
         }
+
+        long res = 0;
+
+        ArrayList<String> ans = new ArrayList<>();
+
+        Arrays.sort(p);
+
+        for(int i=0;i<n;i++){
+            if(p[i].x <= 0 && p[i].y <= 0){// 3rd quad
+                if(p[i].x < 0){
+                    System.out.println("1 " + Math.abs(p[i].x) + " L" );
+                    res++;
+                }
+                if(p[i].y < 0){
+                    ans.add("1 " + Math.abs(p[i].y) + " D" );
+                    res++;
+                }       
+            }
+            else if(p[i].x <= 0 && p[i].y >= 0){// 2nd quad
+                if(p[i].x < 0){
+                    ans.add("1 " + Math.abs(p[i].x) + " L" );
+                    res++;
+                }
+                if(p[i].y > 0){
+                    ans.add("1 " + Math.abs(p[i].y) + " U" );
+                    res++;
+                }       
+            }
+            else if(p[i].x >= 0 && p[i].y <= 0){// 4th quad
+                if(p[i].x > 0){
+                    ans.add("1 " + Math.abs(p[i].x) + " R" );
+                    res++;
+                }
+                if(p[i].y < 0){
+                    ans.add("1 " + Math.abs(p[i].y) + " D" );
+                    res++;
+                }       
+            }
+            else if(p[i].x >= 0 && p[i].y >= 0){// 1st quad
+                if(p[i].x > 0){
+                    ans.add("1 " + Math.abs(p[i].x) + " R" );
+                    res++;
+                }
+                if(p[i].y > 0){
+                    ans.add("1 " + Math.abs(p[i].y) + " U" );
+                    res++;
+                }       
+            }
+
+            ans.add("2");
+            res++;
+
+            if(p[i].x <= 0 && p[i].y <= 0){// 3rd quad
+                if(p[i].x < 0){
+                    ans.add("1 " + Math.abs(p[i].x) + " R" );
+                    res++;
+                }
+                if(p[i].y < 0){
+                    ans.add("1 " + Math.abs(p[i].y) + " U" );
+                    res++;
+                }       
+            }
+            else if(p[i].x <= 0 && p[i].y >= 0){// 2nd quad
+                if(p[i].x < 0){
+                    ans.add("1 " + Math.abs(p[i].x) + " R" );
+                    res++;
+                }
+                if(p[i].y > 0){
+                    ans.add("1 " + Math.abs(p[i].y) + " D" );
+                    res++;
+                }  
+            }
+            else if(p[i].x >= 0 && p[i].y <= 0){// 4th quad
+                if(p[i].x > 0){
+                    ans.add("1 " + Math.abs(p[i].x) + " L" );
+                    res++;
+                }
+                if(p[i].y < 0){
+                    ans.add("1 " + Math.abs(p[i].y) + " U" );
+                    res++;
+                }  
+            }
+            else if(p[i].x >= 0 && p[i].y >= 0){// 1st quad
+                if(p[i].x > 0){
+                    ans.add("1 " + Math.abs(p[i].x) + " L" );
+                    res++;
+                }
+                if(p[i].y > 0){
+                    ans.add("1 " + Math.abs(p[i].y) + " D" );
+                    res++;
+                }  
+            }
+
+            ans.add("3");
+            res++;
+        }
+
+        System.out.println(res);
+        for(String e : ans){
+            System.out.println(e);
+        } 
+ 
      }
  
  

@@ -1,5 +1,4 @@
-package codeForces.codeforces719Div3;
-
+package codeForces.Practicer;
 
 
 
@@ -10,30 +9,36 @@ package codeForces.codeforces719Div3;
  import java.util.*;
   
  
- public class E {
+ public class ChoosingTeams {
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            String s = sc.nextLine();
-            char ca[] = s.toCharArray();
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int a[] = sc.readArray(n);
 
-            int cs[] = new int[n+1];
+        ruffleSort(a);
 
-            for(int i=1;i<n+1;i++){
-                cs[i] = cs[i-1] + (ca[i-1]=='*'?1:0);
+        int res = 0;
+        int i = 0;
+        int j = 2;
+
+        outer : while(i<n && j<n){
+            for(int tt=i;tt<=j;tt++){
+                if(a[tt] + k <=5){
+                    continue;
+                }
+                else{
+                    break outer;
+                }
             }
-
-            long res = 0;
-
-            for(int i=0;i<n;i++){
-                if(ca[i] == '*') continue;
-                res += Math.min( cs[i] , cs[n] - cs[i] );
-            }
-            System.out.println(res);
+            res++;
+            i += 3;
+            j += 3;
         }
+        
+        System.out.println(res);
+ 
      }
  
  

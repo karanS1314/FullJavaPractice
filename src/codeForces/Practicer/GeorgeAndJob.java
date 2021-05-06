@@ -1,5 +1,4 @@
-package codeForces.codeforces719Div3;
-
+package codeForces.Practicer;
 
 
 
@@ -10,30 +9,41 @@ package codeForces.codeforces719Div3;
  import java.util.*;
   
  
- public class E {
+ public class GeorgeAndJob {
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            String s = sc.nextLine();
-            char ca[] = s.toCharArray();
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        int k = sc.nextInt();
 
-            int cs[] = new int[n+1];
+        int p[] = sc.readArray(n);
 
-            for(int i=1;i<n+1;i++){
-                cs[i] = cs[i-1] + (ca[i-1]=='*'?1:0);
-            }
-
-            long res = 0;
-
-            for(int i=0;i<n;i++){
-                if(ca[i] == '*') continue;
-                res += Math.min( cs[i] , cs[n] - cs[i] );
-            }
-            System.out.println(res);
+        long s[] = new long[n+1];
+        long sum = 0;
+        for(int i=0;i<m;i++){
+            sum += p[i];
         }
+
+        s[m] = sum;
+
+        for(int i=m;i<n;i++){
+            s[i+1] = s[i] + p[i] - p[i-m];
+        }
+
+        long dp[][] = new long[n+1][k+1];
+
+        for(int i=m;i<=n;i++){
+            for(int j=1;j<=k;j++){
+                dp[i][j] = Math.max(dp[i-1][j] , dp[i-m][j-1] + s[i]);
+            }
+        }
+        long res = dp[n][k];
+       
+
+        System.out.println(res);
+
+ 
      }
  
  

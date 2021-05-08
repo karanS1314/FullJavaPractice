@@ -1,4 +1,4 @@
-
+package bitManipulation;
 
 //   * * * fuck you * * *   //
 import java.io.BufferedReader;

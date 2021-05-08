@@ -1,4 +1,4 @@
-package codeForces.codeforces720;
+package codeForces.Practicer;
 
 
 
@@ -9,43 +9,44 @@ package codeForces.codeforces720;
  import java.util.*;
   
  
- public class B {
+ public class LuckySumOfDigits {
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int n = sc.nextInt();
+        
+        int x = n;
 
-        while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
+        int f = 0;
 
-            int min = Integer.MAX_VALUE;
-            int mi = -1;
-            for(int i=0;i<n;i++){
-                if(a[i] < min){
-                    min = a[i];
-                    mi = i;
-                }
+        boolean can = true;
+        while(x > 0){
+            if(x % 7 == 0){
+                break;
+            }
+            else if(x < 4){
+                can = false;
             }
 
-            System.out.println(n-1);
-            int te = min;
-            for(int i=mi+1;i<n;i++){
-                a[i] = ++te;
-                int I = i+1;
-                int x = mi+1;
-                System.out.println(x + " " + I + " " + min + " " + a[i]);
-            }
-            te = min;
-            for(int i=mi-1;i>=0;i--){
-                a[i] = ++te;
-                int I = i+1;
-                int x = mi+1;
-                System.out.println(x + " " + I + " " + min + " " + a[i]);
-            }
+            x -= 4;
+            f++;
         }
-         
- 
+
+        if(!can){
+            System.out.println(-1);
+        }
+        else{
+            StringBuffer s = new StringBuffer("");
+            for(int i=0;i<f;i++){
+                s.append("4");
+            }
+            int q = x / 7;
+            for(int i=0;i<q;i++){
+                s.append("7");
+            }
+            System.out.println(s);
+        }
+
      }
  
  

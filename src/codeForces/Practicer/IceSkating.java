@@ -1,4 +1,4 @@
-package codeForces.codeforces720;
+package codeForces.Practicer;
 
 
 
@@ -9,42 +9,54 @@ package codeForces.codeforces720;
  import java.util.*;
   
  
- public class B {
+ public class IceSkating {
+     static void dfs(int point , int vis[] , Pair a[]){
+         if(vis[point] == 1) return;
+
+         vis[point] = 1;
+         
+         for(int i=0;i<a.length;i++){
+             if(vis[i] == 0){
+                if((a[i].x == a[point].x || a[i].y == a[point].y)){
+                    dfs(i , vis , a);
+                }
+             }
+         }
+     }
+     static class Pair{
+         int x;
+         int y;
+
+         Pair(int x , int y){
+             this.x = x;
+             this.y = y;
+         }
+     }
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int n = sc.nextInt();
+        
+        Pair a[] = new Pair[n];
 
-        while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
+        for(int i=0;i<n;i++){
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            Pair pp = new Pair(x , y);
+            a[i] = pp;
+        }
 
-            int min = Integer.MAX_VALUE;
-            int mi = -1;
-            for(int i=0;i<n;i++){
-                if(a[i] < min){
-                    min = a[i];
-                    mi = i;
-                }
-            }
+        int vis[] = new int[n];
 
-            System.out.println(n-1);
-            int te = min;
-            for(int i=mi+1;i<n;i++){
-                a[i] = ++te;
-                int I = i+1;
-                int x = mi+1;
-                System.out.println(x + " " + I + " " + min + " " + a[i]);
-            }
-            te = min;
-            for(int i=mi-1;i>=0;i--){
-                a[i] = ++te;
-                int I = i+1;
-                int x = mi+1;
-                System.out.println(x + " " + I + " " + min + " " + a[i]);
+        int numberOfDistintGrps = 0;
+        for(int i=0;i<n;i++){
+            if(vis[i] == 0){
+                dfs(i , vis , a);
+                numberOfDistintGrps++;
             }
         }
-         
+        int connections = numberOfDistintGrps - 1;
+        System.out.println(connections);
  
      }
  

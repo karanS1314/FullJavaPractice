@@ -1,4 +1,4 @@
-package codeForces.codeforces720;
+package codeForces.Practicer;
 
 
 
@@ -9,41 +9,11 @@ package codeForces.codeforces720;
  import java.util.*;
   
  
- public class B {
+ public class template {
     
      public static void main(String[] args) {
-        FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-
-        while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-
-            int min = Integer.MAX_VALUE;
-            int mi = -1;
-            for(int i=0;i<n;i++){
-                if(a[i] < min){
-                    min = a[i];
-                    mi = i;
-                }
-            }
-
-            System.out.println(n-1);
-            int te = min;
-            for(int i=mi+1;i<n;i++){
-                a[i] = ++te;
-                int I = i+1;
-                int x = mi+1;
-                System.out.println(x + " " + I + " " + min + " " + a[i]);
-            }
-            te = min;
-            for(int i=mi-1;i>=0;i--){
-                a[i] = ++te;
-                int I = i+1;
-                int x = mi+1;
-                System.out.println(x + " " + I + " " + min + " " + a[i]);
-            }
-        }
+         FastScanner sc = new FastScanner();
+         int n = sc.nextInt();
          
  
      }

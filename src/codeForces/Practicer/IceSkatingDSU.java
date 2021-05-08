@@ -1,4 +1,4 @@
-package codeForces.codeforces720;
+package codeForces.Practicer;
 
 
 
@@ -9,42 +9,65 @@ package codeForces.codeforces720;
  import java.util.*;
   
  
- public class B {
+ public class IceSkatingDSU {
+     static class Pair{
+         int x;
+         int y;
+
+         Pair(int x , int y){
+             this.x = x;
+             this.y = y;
+         }
+     }
+
+     static void union(Pair a[] , int l , int r , int par[] , int rank[]){
+        if(rank[l] > rank[r]){
+            par[r] = l;
+        }
+        else if(rank[r] > rank[l]){
+            par[l] = r;
+        }
+        else{
+            par[l] = r;
+            rank[r]++;
+        }
+     }
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int n = sc.nextInt();
+        
+        Pair a[] = new Pair[n];
 
-        while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
+        for(int i=0;i<n;i++){
+            int x = sc.nextInt();
+            int y = sc.nextInt();
+            Pair pp = new Pair(x , y);
+            a[i] = pp;
+        }
+        int par[] = new int[n];
+        int rank[] = new int[n];
+       
+        Arrays.fill(par , -1);
 
-            int min = Integer.MAX_VALUE;
-            int mi = -1;
-            for(int i=0;i<n;i++){
-                if(a[i] < min){
-                    min = a[i];
-                    mi = i;
+
+        for(int i=0;i<n-1;i++){
+            for(int j=i+1;j<n;j++){
+                if(a[i].x == a[j].x || a[i].y == a[j].y){
+                    union(a , i , j , par , rank);
                 }
             }
+        }
 
-            System.out.println(n-1);
-            int te = min;
-            for(int i=mi+1;i<n;i++){
-                a[i] = ++te;
-                int I = i+1;
-                int x = mi+1;
-                System.out.println(x + " " + I + " " + min + " " + a[i]);
-            }
-            te = min;
-            for(int i=mi-1;i>=0;i--){
-                a[i] = ++te;
-                int I = i+1;
-                int x = mi+1;
-                System.out.println(x + " " + I + " " + min + " " + a[i]);
+        int res = 0;
+
+        for(int i=0;i<n;i++){
+            if(par[i] == -1){
+                res++;
             }
         }
-         
+
+        System.out.println(res-1);
  
      }
  
@@ -173,18 +196,9 @@ package codeForces.codeforces720;
          return a*b%mod;
      }
  
-     //swap in any kind of generic array
-     static <E> void swap(int i  , int j , E []a){
-         E x = a[i];
-         E y = a[j];
-         a[i]=x;
-         a[j]=y;
-     }
- 
      static int nCr(int n, int r)
      {
-            return fact(n) / (fact(r) *
-                 fact(n - r));
+         return fact(n) / (fact(r) * fact(n - r));
      }
      
      // Returns factorial of n
@@ -194,8 +208,29 @@ package codeForces.codeforces720;
          for (int i = 2; i <= n; i++)
              res = res * i;
          return res;
-     }	
- 
+     }
+     
+     // to generate the lps array
+     // lps means longest preffix that is also a suffix
+     static void generateLPS(int lps[] , String p){
+        int l = 0;
+        int r = 1;
+   
+        while(l < p.length() && l < r && r < p.length()){
+            if(p.charAt(l) == p.charAt(r)){
+                lps[r] = l + 1;
+                l++;
+                r++;
+            }
+            else{
+                if(l > 0)
+                    l = lps[l - 1];
+                else
+                    r++;    
+            }
+        }
+     }
+     
      //count sort --> it runs in O(n) time but compromises in space
      static ArrayList<Integer> countSort(int a[]){
          int max = Integer.MIN_VALUE;

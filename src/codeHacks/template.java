@@ -128,6 +128,7 @@ public class template {
         }
     }
 	static final int mod=100000000 + 7;
+	
 	//fastPow
 	static long fastPow(long base, long exp) {
 		if (exp==0) return 1;
@@ -139,14 +140,6 @@ public class template {
 	//multiply two long numbers
 	static long mul(long a, long b) {
 		return a*b%mod;
-	}
-
-	//swap in any kind of generic array
-	static <E> void swap(int i  , int j , E []a){
-		E x = a[i];
-		E y = a[j];
-		a[i]=x;
-		a[j]=y;
 	}
 
 	static int nCr(int n, int r)
@@ -162,7 +155,29 @@ public class template {
 		for (int i = 2; i <= n; i++)
 			res = res * i;
 		return res;
-	}	
+	}
+	 
+    // to generate the lps array
+    // lps means longest preffix that is also a suffix
+    static void generateLPS(int lps[] , String p){
+        int l = 0;
+        int r = 1;
+   
+        while(l < p.length() && l < r && r < p.length()){
+            if(p.charAt(l) == p.charAt(r)){
+                lps[r] = l + 1;
+                l++;
+                r++;
+            }
+            else{
+                if(l > 0)
+                    l = lps[l - 1];
+                else
+                    r++;    
+            }
+        }
+    }
+     
 
 	//count sort --> it runs in O(n) time but compromises in space
 	static ArrayList<Integer> countSort(int a[]){

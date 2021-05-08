@@ -1,4 +1,4 @@
-package codeForces.codeforces720;
+package codeForces.Practicer;
 
 
 
@@ -7,44 +7,68 @@ package codeForces.codeforces720;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
+import java.util.Map.Entry;
   
  
- public class B {
+ public class LittleGirlAndGAme {
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        String s = sc.nextLine();
 
-        while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
+        Map<Character , Integer> map = new HashMap<>();
 
-            int min = Integer.MAX_VALUE;
-            int mi = -1;
-            for(int i=0;i<n;i++){
-                if(a[i] < min){
-                    min = a[i];
-                    mi = i;
+        for(int i = 0; i < s.length(); i++){
+            if(!map.containsKey(s.charAt(i))){
+                map.put(s.charAt(i) , 1);
+            }
+            else{
+                int count = map.get(s.charAt(i));
+                count++;
+                map.put(s.charAt(i) , count);
+            }
+        }
+
+        int odds = 0;
+        for(Entry<Character , Integer> e : map.entrySet()){
+            if((e.getValue() & 1) == 1){
+                odds++;
+            }
+        }
+
+        if(odds == 0 || odds == 1){
+            System.out.println("First");
+        }
+        else{
+            int count = 0;
+            int a[] = new int[2];
+            int sum = 0;
+            for(Entry<Character , Integer> e : map.entrySet()){
+                if((e.getValue() & 1) == 1 && count < 2){
+                    a[count] = e.getValue();
+                    count++;
+                }
+                else{
+                    sum += e.getValue();
                 }
             }
 
-            System.out.println(n-1);
-            int te = min;
-            for(int i=mi+1;i<n;i++){
-                a[i] = ++te;
-                int I = i+1;
-                int x = mi+1;
-                System.out.println(x + " " + I + " " + min + " " + a[i]);
+            int turn = 0;
+
+            if((sum & 1) == 1){
+                turn = 2;
             }
-            te = min;
-            for(int i=mi-1;i>=0;i--){
-                a[i] = ++te;
-                int I = i+1;
-                int x = mi+1;
-                System.out.println(x + " " + I + " " + min + " " + a[i]);
+            else{
+                turn = 1;
             }
-        }
-         
+
+            if(turn == 1){
+                System.out.println("Second");
+            }
+            else{
+                System.out.println("First");
+            }
+        } 
  
      }
  

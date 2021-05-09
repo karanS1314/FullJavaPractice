@@ -230,6 +230,7 @@ public class template {
 		return res;
 	}
 
+	// a -> z == 97 -> 122
+	
 	// write 
-
 }

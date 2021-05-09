@@ -9,12 +9,71 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class template {
-    
+ public class MorningJogging {
+     static class Pair implements Comparable<Pair>{
+         long val;
+         int ind;
+
+         Pair(long val , int ind){
+             this.val = val;
+             this.ind = ind;
+         }
+
+         public int compareTo(Pair o){
+             return (int) (this.val - o.val);
+         }
+     }
+     static void swap(long[][] b , int i , int j , int i1 , int j1){
+         long x = b[i][j];
+         long y = b[i1][j1];
+
+         b[i][j] = y;
+         b[i1][j1] = x;
+     }
+
      public static void main(String[] args) {
-         FastScanner sc = new FastScanner();
-         int n = sc.nextInt();
-         
+        FastScanner sc = new FastScanner();
+        int t = sc.nextInt();
+
+        while(t-->0){
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+
+            Pair p[] = new Pair[n*m];
+            long b[][] = new long[n][m];
+
+            int k = 0;
+            for(int i=0;i<n;i++){
+                for(int j=0;j<m;j++){
+                    b[i][j] = sc.nextLong();
+                    p[k++] = new Pair(b[i][j] , i);
+                }
+            }
+
+            Arrays.sort(p);
+
+            int count[] = new int[n]; // this denotes that in the ith ind row there are this count of numbers from which we have to chose our min         
+            for(int i=0;i<m;i++){
+                count[p[i].ind]++;
+            }
+
+            k = 0;
+            for(int i=0;i<n;i++){
+                ruffleSort(b[i]);
+                for(int j=0;j<count[i];j++){
+                    swap(b, i, j, i, k++);
+                }
+            }
+
+            for(int i=0;i<n;i++){
+                for(int j=0;j<m;j++){
+                    System.out.print(b[i][j] + " ");
+                }
+                System.out.println();
+            }
+            
+        }
+        
  
      }
  
@@ -28,18 +87,19 @@ package codeForces.Practicer;
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
      // this is needed.
-     static void ruffleSort(int[] a) {
+     static void ruffleSort(long[] b) {
          //ruffle
-         int n=a.length;
+         int n=b.length;
          Random r=new Random();
-         for (int i=0; i<a.length; i++) {
-             int oi=r.nextInt(n), temp=a[i];
-             a[i]=a[oi];
-             a[oi]=temp;
+         for (int i=0; i<b.length; i++) {
+             int oi=r.nextInt(n);
+             long temp=b[i];
+             b[i]=b[oi];
+             b[oi]=temp;
          }
          
          //then sort
-         Arrays.sort(a);
+         Arrays.sort(b);
      }
      
      // Use this to input code since it is faster than a Scanner

@@ -14,15 +14,7 @@ public class EpicTransformation {
         while(t-->0){
             int n = sc.nextInt();
             int a[] = sc.readArray(n);
-            ruffleSort(a);
-            HashMap<Integer, Integer> map = new HashMap<>();
-            for(int i=0; i<n; i++){
-                if(!map.containsKey(a[i])){
-                    map.put(a[i], 0);
-                }
-                int count = map.get(a[i]);
-                map.put(a[i],++count);
-            }
+            
             
         }
 	}

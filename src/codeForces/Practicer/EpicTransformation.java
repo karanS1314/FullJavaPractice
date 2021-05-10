@@ -15,8 +15,45 @@ public class EpicTransformation {
             int n = sc.nextInt();
             int a[] = sc.readArray(n);
             
-            
-        }
+			Map<Integer , Integer> map = new HashMap<>();
+			for(int i=0;i<n;i++){
+				if(!map.containsKey(a[i])){
+					map.put(a[i] , 0);
+				}
+				int y = map.get(a[i]);
+				y++;
+				map.put(a[i] , y);
+			}
+
+			PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+			for(Map.Entry<Integer , Integer> e : map.entrySet()){
+				pq.offer(-e.getValue());
+			}
+
+			while(pq.size() >= 2){
+				int l = pq.peek();
+				pq.poll();
+				int m = pq.peek();
+				pq.poll();
+				l++;
+				m++;
+
+				if(l < 0)
+					pq.offer(l);
+				if(m < 0)
+					pq.offer(m);
+			}
+
+			int res = 0;
+			if(pq.size() == 0){
+				res = 0;
+			}
+			else{
+				res = -1*pq.peek();
+			}
+			System.out.println(res);
+        }	
 	}
 
 

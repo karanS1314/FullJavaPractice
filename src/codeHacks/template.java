@@ -8,12 +8,26 @@ import java.util.*;
  
 
 public class template {
+	static class Pair implements Comparable<Pair>{
+		int a;
+		int b;
+
+		Pair(int a , int b){
+			this.a = a;
+			this.b = b;
+		}
+
+		public int compareTo(Pair o){
+			return this.a - o.a;
+		}
+	}
    
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
 		int n = sc.nextInt();
-		
 
+		
+ 
 	}
 
 
@@ -231,6 +245,8 @@ public class template {
 	}
 
 	// a -> z == 97 -> 122
+
+	// String.format("%.9f", ans) ,--> to get upto 9 decimal places , (ans is double)
 	
 	// write 
 }

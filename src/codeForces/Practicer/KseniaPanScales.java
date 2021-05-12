@@ -7,77 +7,87 @@ package codeForces.Practicer;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
-  
+
  
- public class Knapsack {
+ public class KseniaPanScales {
      static class Pair implements Comparable<Pair>{
-         long a;
-         long b;
+         int a;
+         int b;
  
-         Pair(long wa , long b){
-             this.a = wa;
+         Pair(int a , int b){
+             this.a = a;
              this.b = b;
          }
  
          public int compareTo(Pair o){
-             return (int)this.a - (int)o.a;
+             return this.a - o.a;
          }
      }
     
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        outer : while(t-->0){
-            int n = sc.nextInt();
-            long c = sc.nextLong();
+        String p = sc.nextLine();
 
-            long wa[] = sc.readArray(n);
-            Pair w[] = new Pair[n];
-            for(int i=0;i<n;i++){
-                Pair pp = new Pair(wa[i] , (long)(i+1));
-                w[i] = pp;
-            }
+        String w = sc.nextLine();
 
-            Arrays.sort(w);
+        String sa[] = p.split("\\|");
 
-            long sum = 0;
-
-            int i = 0;
-            int j = 0;
-
-            List<Long> res = new LinkedList<>();
-
-            while(i <= j && j < n){
-                if(i == j){
-                    res.clear();
-                    sum = 0;
-                }
-                if(sum + w[j].a > c){
-                    if(res.size() == 0) break;
-                    res.remove(0);
-                    i++;
-                }
-                else if(sum + w[j].a < (long)Math.ceil((double) c/ (double) 2)){
-                    res.add(w[j].b);
-                    sum += w[j].a;
-                    j++;
-                }
-                else{
-                    res.add(w[j].b);
-                    System.out.println(res.size());
-                    for(long e : res){
-                        System.out.print(e + " ");
-                    }
-                    System.out.println();
-                    continue outer;
-                }
-                // System.out.println(sum + " " + x++);
-            }
-
-            System.out.println(-1);
+        int a = 0;
+        int b = 0;
+        if(p.charAt(0) == '|'){
+            a = 0;
+        }
+        else{
+            a = sa[0].length();
+        }
+        
+        if(p.charAt(p.length() - 1) == '|'){
+            b = 0;
+        }
+        else{
+            b = sa[1].length();
         }
          
-  
+        int x = Math.abs(a - b);
+        
+        int n = w.length();
+
+        n -= x;
+        int y = n/2;
+        if(n >= 0 && (n & 1) == 0){
+            StringBuffer lef = new StringBuffer("");
+            StringBuffer ri = new StringBuffer("");
+
+            if(a > 0){
+                lef.append(sa[0]);
+            }
+            if(b > 0){
+                ri.append(sa[1]);
+            }
+            
+            if(x > 0){
+                String sub = w.substring(0 , x);
+                if(lef.length() > ri.length()){
+                    ri.append(sub);
+                }
+                else if(ri.length() > lef.length()){
+                    lef.append(sub);
+                }
+            }  
+            int z = x;
+            for(int i=0;i<y;i++){
+                lef.append(w.charAt(z++));
+            }
+            for(int i=0;i<y;i++){
+                ri.append(w.charAt(z++));
+            }
+
+            StringBuffer res = new StringBuffer(lef + "|" + ri);
+            System.out.println(res);
+        }
+        else{
+            System.out.println("Impossible");
+        }
      }
  
  
@@ -137,10 +147,10 @@ package codeForces.Practicer;
              return str;
          }
   
-         long[] readArray(int n) {
-             long[] a = new long[n];
+         int[] readArray(int n) {
+             int[] a = new int[n];
              for (int i = 0; i < n; i++)
-                 a[i] = nextLong();
+                 a[i] = nextInt();
              return a;
          }
   

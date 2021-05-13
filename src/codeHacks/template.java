@@ -142,6 +142,8 @@ public class template {
         }
     }
 	static final int mod=100000000 + 7;
+	static final int max_val = 2147483647;
+	static final int min_val = max_val + 1;
 	
 	//fastPow
 	static long fastPow(long base, long exp) {

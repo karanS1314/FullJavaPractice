@@ -9,7 +9,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class ABCString {
+ public class AssigningToClasses {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,189 +23,19 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
-
-     static boolean valid(int a[]){
-        int n = a.length;
-        int sum = 0;
-        for(int e : a){
-            sum += e;
-            if(sum < 0){
-                return false;
-            }
-        }
-        if(sum == 0) return true;
-        return false;
-     }
-    
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        
-        outer : while(t-->0){
-            String s = sc.nextLine();
-            if((s.length() & 1) == 1){
-                System.out.println("NO");
-                continue outer;
-            }
-            char c[] = s.toCharArray();
-            int a = 0;
-            int b = 0;
-            int cc = 0;
-            for(char ch : c){
-                if(ch == 'C'){
-                    cc++;
-                }
-                else if(ch == 'A'){
-                    a++;
-                }
-                else{
-                    b++;
-                }
-            }
-            long sum = 0;
-            int n = s.length();
-            char x = c[0];
-            int count = 0;
+        while(t-->0){
+            int n = sc.nextInt();
 
-            int aa[] = new int[s.length()];
-            for(int i=0;i<n;i++){
-                if(c[i] == x){
-                    count++;
-                    aa[i] = 1;
-                }
-            }
+            int a[] = sc.readArray(2*n);
 
-            if(count < n/2){
-                if(x == 'A'){
-                    if(count + b == cc){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'B'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'C'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
-                    }
-                    else if(count + cc == b){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'C'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'B'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
-                    }
-                    else{
-                        System.out.println("NO");
-                    }
-                }
-                else if(x == 'B'){
-                    if(count + a == cc){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'A'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'C'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
-                    }
-                    else if(count + cc == a){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'C'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'A'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
-                    }
-                    else{
-                        System.out.println("NO");
-                    }
-                }
-                else{
-                    if(count + b == a){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'B'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'A'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
-                    }
-                    else if(count + a == b){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'A'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'B'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
-                    }
-                    else{
-                        System.out.println("NO");
-                    }
-                }
-            }
-            else{
-                for(int i=0;i<n;i++){
-                    if(c[i] != x){
-                        aa[i] = -1;
-                    }
-                }
-                if(valid(aa)){
-                    System.out.println("YES");
-                }
-                else{
-                    System.out.println("NO");
-                }
-            }
-
-
-
+            ruffleSort(a);
+            System.out.println(Math.abs(a[n-1] - a[n]));
         }
-
+         
+  
      }
  
  
@@ -422,6 +252,34 @@ package codeForces.Practicer;
              }
          }
          return res;
+     }
+ 
+     // returns the index of the element which is just smaller than or
+     // equal to the tar in the given arraylist 
+     static int lowBound(ArrayList<Integer> ll , long tar , int l , int r){
+         if(l > r) return l;
+ 
+         int mid = l + (r - l) / 2;
+ 
+         if(ll.get(mid) >= tar){
+             return lowBound(ll , tar , l , mid - 1);
+         }
+ 
+         return lowBound(ll , tar , mid + 1 , r);
+     }
+ 
+     // returns the index of the element which is just greater than or
+     // equal to the tar in the given arraylist 
+     static int upBound(ArrayList<Integer> ll , long tar , int l , int r){
+         if(l > r) return l;
+ 
+         int mid = l + (r - l) / 2;
+ 
+         if(ll.get(mid) <= tar){
+             return upBound(ll , tar , l , mid - 1);
+         }
+ 
+         return upBound(ll , tar , mid + 1 , r);
      }
  
      // a -> z == 97 -> 122

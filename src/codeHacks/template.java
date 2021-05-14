@@ -21,7 +21,6 @@ public class template {
 			return this.a - o.a;
 		}
 	}
-   
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
 		int n = sc.nextInt();
@@ -244,6 +243,34 @@ public class template {
 			}
 		}
 		return res;
+	}
+
+	// returns the index of the element which is just smaller than or
+    // equal to the tar in the given arraylist 
+    static int lowBound(ArrayList<Integer> ll , long tar , int l , int r){
+		if(l > r) return l;
+
+		int mid = l + (r - l) / 2;
+
+        if(ll.get(mid) >= tar){
+            return lowBound(ll , tar , l , mid - 1);
+        }
+
+        return lowBound(ll , tar , mid + 1 , r);
+	}
+
+	// returns the index of the element which is just greater than or
+    // equal to the tar in the given arraylist 
+	static int upBound(ArrayList<Integer> ll , long tar , int l , int r){
+		if(l > r) return l;
+
+		int mid = l + (r - l) / 2;
+
+        if(ll.get(mid) <= tar){
+            return upBound(ll , tar , l , mid - 1);
+        }
+
+        return upBound(ll , tar , mid + 1 , r);
 	}
 
 	// a -> z == 97 -> 122

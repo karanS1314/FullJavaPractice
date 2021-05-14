@@ -9,203 +9,63 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class ABCString {
-     static class Pair implements Comparable<Pair>{
-         int a;
-         int b;
- 
-         Pair(int a , int b){
-             this.a = a;
-             this.b = b;
-         }
- 
-         public int compareTo(Pair o){
-             return this.a - o.a;
-         }
-     }
+ public class BoxFiiting {
+     static int minBound(LinkedList<Integer> ll , long tar , int l , int r){
+            if(l > r) return l;
 
-     static boolean valid(int a[]){
-        int n = a.length;
-        int sum = 0;
-        for(int e : a){
-            sum += e;
-            if(sum < 0){
-                return false;
+            int mid = l + (r - l) / 2;
+
+            if(ll.get(mid) >= tar){
+                return minBound(ll , tar , l , mid - 1);
             }
-        }
-        if(sum == 0) return true;
-        return false;
+
+            return minBound(ll , tar , mid + 1 , r);
      }
-    
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        
-        outer : while(t-->0){
-            String s = sc.nextLine();
-            if((s.length() & 1) == 1){
-                System.out.println("NO");
-                continue outer;
-            }
-            char c[] = s.toCharArray();
-            int a = 0;
-            int b = 0;
-            int cc = 0;
-            for(char ch : c){
-                if(ch == 'C'){
-                    cc++;
-                }
-                else if(ch == 'A'){
-                    a++;
-                }
-                else{
-                    b++;
-                }
-            }
-            long sum = 0;
-            int n = s.length();
-            char x = c[0];
-            int count = 0;
+        while(t-->0){
+            int n = sc.nextInt();
+            long w = sc.nextLong();
 
-            int aa[] = new int[s.length()];
+            LinkedList<Integer> ll = new LinkedList<>();
             for(int i=0;i<n;i++){
-                if(c[i] == x){
-                    count++;
-                    aa[i] = 1;
-                }
+                int y = sc.nextInt();
+                ll.add(y);
             }
+            Collections.sort(ll);
 
-            if(count < n/2){
-                if(x == 'A'){
-                    if(count + b == cc){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'B'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'C'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
+            int res = 0;
+
+            long sum = 0;               
+
+            while(ll.size() > 0){
+                int x = minBound(ll , w - sum , 0 , ll.size() - 1); // index of the element which is just smaller then w - sum
+                if(x == ll.size()){
+                    if(sum + ll.get(x-1) > w){
+                        res++;
+                        sum = 0;
+                        continue;
                     }
-                    else if(count + cc == b){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'C'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'B'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
-                    }
-                    else{
-                        System.out.println("NO");
-                    }
-                }
-                else if(x == 'B'){
-                    if(count + a == cc){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'A'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'C'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
-                    }
-                    else if(count + cc == a){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'C'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'A'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
-                    }
-                    else{
-                        System.out.println("NO");
-                    }
+                    sum += ll.get(x-1);
+                    ll.remove(x-1);
                 }
                 else{
-                    if(count + b == a){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'B'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'A'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
+                    if(sum + ll.get(x) > w){
+                        res++;
+                        sum = 0;
+                        continue;
                     }
-                    else if(count + a == b){
-                        for(int i=0;i<n;i++){
-                            if(c[i] == 'A'){
-                                aa[i] = 1;
-                            }
-                            else if(c[i] == 'B'){
-                                aa[i] = -1;
-                            }
-                        }
-                        if(valid(aa)){
-                            System.out.println("YES");
-                        }
-                        else{
-                            System.out.println("NO");
-                        }
-                    }
-                    else{
-                        System.out.println("NO");
-                    }
+                    sum += ll.get(x);
+                    ll.remove(x);
                 }
+
             }
-            else{
-                for(int i=0;i<n;i++){
-                    if(c[i] != x){
-                        aa[i] = -1;
-                    }
-                }
-                if(valid(aa)){
-                    System.out.println("YES");
-                }
-                else{
-                    System.out.println("NO");
-                }
-            }
+            res++;
+            System.out.println(res);
+        }    
 
-
-
-        }
-
+  
      }
  
  
@@ -422,6 +282,20 @@ package codeForces.Practicer;
              }
          }
          return res;
+     }
+    
+     static class Pair implements Comparable<Pair>{
+         int a;
+         int b;
+ 
+         Pair(int a , int b){
+             this.a = a;
+             this.b = b;
+         }
+ 
+         public int compareTo(Pair o){
+             return this.a - o.a;
+         }
      }
  
      // a -> z == 97 -> 122

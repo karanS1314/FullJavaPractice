@@ -26,9 +26,7 @@ public class NQueens {
 			}
 		}
 		return true;
-		}
-
-	
+	}
 	
 	static void printQueens(int n,int a[][],int row,ArrayList<Integer> al) {
 		if(row==n) {
@@ -70,8 +68,7 @@ public class NQueens {
 				System.out.print(-1);
 			}
 			System.out.println();
-			count=0;
-			
+			count=0;	
 		}
 	}
 

@@ -1,16 +1,14 @@
 package codeForces.Practicer;
 
 
-
  //   * * * its fun to do the impossible * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
- import java.util.Map.Entry;
   
  
- public class MaxMex {
+ public class Worms {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,53 +24,24 @@ package codeForces.Practicer;
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            int k = sc.nextInt();
-            int a[] = sc.readArray(n);
+        int n = sc.nextInt();
+        int a[] = sc.readArray(n);
 
-            HashMap<Integer, Integer> map = new HashMap<>();
-            for(int e : a){
-                map.put(e , map.getOrDefault(e , 0) + 1);
-            }
-            if(k == 0){
-                System.out.println(map.size());
-                continue;
-            }
+        int m = sc.nextInt();
+        int q[] = sc.readArray(m);
 
-            int max = min_val;
-            for(int i=0;i<n;i++){
-                max = Math.max(max , a[i]);
-            }
-
-            int mex = 0;
-            for(Entry<Integer , Integer> e : map.entrySet()){
-                if(map.containsKey(mex)){
-                    mex++;
-                }
-                else{
-                    break;
-                }
-            }
-
-            if(mex < max){
-                int x = (int)Math.ceil((double) (mex + max) / (double) 2);
-                if(map.containsKey(x)){
-                    System.out.println(map.size());
-                }
-                else{
-                    System.out.println(map.size() + 1);
-                }
-            }
-
-            else if(mex > max){
-                System.out.println(map.size() + k);
-            }
-            
+        ArrayList<Integer> pre = new ArrayList<>();
+        pre.add(a[0]);
+        
+        for(int i=1;i<n;i++){
+            int x = pre.get(i-1);
+            pre.add(x + a[i]);
         }
-         
-  
+
+        for(int e : q){
+            int ans = lowBound(pre, e, 0, pre.size()-1) + 1;
+            System.out.println(ans);
+        }
      }
  
  
@@ -293,16 +262,16 @@ package codeForces.Practicer;
  
      // returns the index of the element which is just smaller than or
      // equal to the tar in the given arraylist 
-     static int lowBound(ArrayList<Integer> ll , long tar , int l , int r){
+     static int lowBound(ArrayList<Integer> pre , long tar , int l , int r){
          if(l > r) return l;
  
          int mid = l + (r - l) / 2;
  
-         if(ll.get(mid) >= tar){
-             return lowBound(ll , tar , l , mid - 1);
+         if(pre.get(mid) >= tar){
+             return lowBound(pre , tar , l , mid - 1);
          }
  
-         return lowBound(ll , tar , mid + 1 , r);
+         return lowBound(pre , tar , mid + 1 , r);
      }
  
      // returns the index of the element which is just greater than or

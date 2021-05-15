@@ -7,10 +7,9 @@ package codeForces.Practicer;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
- import java.util.Map.Entry;
   
  
- public class MaxMex {
+ public class LessOrEqual {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,61 +25,30 @@ package codeForces.Practicer;
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            int k = sc.nextInt();
-            int a[] = sc.readArray(n);
-
-            HashMap<Integer, Integer> map = new HashMap<>();
-            for(int e : a){
-                map.put(e , map.getOrDefault(e , 0) + 1);
-            }
-            if(k == 0){
-                System.out.println(map.size());
-                continue;
-            }
-
-            int max = min_val;
-            for(int i=0;i<n;i++){
-                max = Math.max(max , a[i]);
-            }
-
-            int mex = 0;
-            for(Entry<Integer , Integer> e : map.entrySet()){
-                if(map.containsKey(mex)){
-                    mex++;
-                }
-                else{
-                    break;
-                }
-            }
-
-            if(mex < max){
-                int x = (int)Math.ceil((double) (mex + max) / (double) 2);
-                if(map.containsKey(x)){
-                    System.out.println(map.size());
-                }
-                else{
-                    System.out.println(map.size() + 1);
-                }
-            }
-
-            else if(mex > max){
-                System.out.println(map.size() + k);
-            }
-            
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int a[] = sc.readArray(n);
+        ruffleSort(a); 
+        
+        int res = -1;
+        if(k == 0){
+            res = a[0] - 1;
         }
-         
-  
+        else{
+            res = a[k-1];
+        }
+        int count = 0;
+        for(int i=0;i<n;i++){
+            if(a[i] <= res) count ++;
+        }
+        if(count != k || !(1 <= res && res <= 1000_000_000)){
+            System.out.println(-1);
+        }
+        else{
+            System.out.println(res);
+        } 
      }
- 
- 
- 
- 
- 
- 
-  
+
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so

@@ -10,7 +10,7 @@ package codeForces.Practicer;
  import java.util.Map.Entry;
   
  
- public class MaxMex {
+ public class PerfectKeyboard {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,55 +24,91 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
+     static StringBuffer dfs(HashMap<Character , HashMap<Character , Integer>> g , boolean vis[] , Character src , StringBuffer temp){
+        if(temp.length() == g.size()){
+            return temp;
+        }
+        vis[src] = true;
+
+        for(Entry<Character , Integer> e : g.get(src).entrySet()){
+            if(!vis[e.getKey()]){
+                temp = dfs(g , vis , e.getKey() , temp.append(e.getKey()));
+            }
+        }
+        return temp;
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
+        
         while(t-->0){
-            int n = sc.nextInt();
-            int k = sc.nextInt();
-            int a[] = sc.readArray(n);
-
-            HashMap<Integer, Integer> map = new HashMap<>();
-            for(int e : a){
-                map.put(e , map.getOrDefault(e , 0) + 1);
-            }
-            if(k == 0){
-                System.out.println(map.size());
+            String s = sc.nextLine();
+            if(s.length() == 1){
+                System.out.println("YES");
+                StringBuffer res = new StringBuffer("");
+                for(int i=97;i<123;i++){
+                    res.append((char)i);
+                }
+                System.out.println(res);
                 continue;
             }
+            char c[] = s.toCharArray();
+            HashMap<Character , HashMap<Character , Integer>> g = new HashMap<>();
 
-            int max = min_val;
-            for(int i=0;i<n;i++){
-                max = Math.max(max , a[i]);
-            }
-
-            int mex = 0;
-            for(Entry<Integer , Integer> e : map.entrySet()){
-                if(map.containsKey(mex)){
-                    mex++;
+            for(int i=0;i<s.length();i++){
+                if(i == 0){
+                    g.put(c[i] , new HashMap<>());
+                    g.get(c[i]).put(c[i+1] , 0);
                 }
+                else if(i == s.length() - 1){
+                    if(!g.containsKey(c[i])){
+                        g.put(c[i] , new HashMap<>());
+                    }
+                    g.get(c[i]).put(c[i-1] , 0);
+                }   
                 else{
+                    if(!g.containsKey(c[i])){
+                        g.put(c[i] , new HashMap<>());
+                    }
+                    g.get(c[i]).put(c[i-1] , 0);
+                    g.get(c[i]).put(c[i+1] , 0);
+                } 
+            }
+            boolean pos = false;
+            StringBuffer temp = new StringBuffer("");
+
+            for(Entry<Character , HashMap<Character , Integer>> e : g.entrySet()){
+                if(e.getValue().size() == 1){
+                    pos = true;
+                    boolean vis[] = new boolean[256];
+                    temp = dfs(g , vis , e.getKey() , temp.append(e.getKey()));
+                }
+                if(e.getValue().size() > 2){
+                    pos = false;
                     break;
                 }
             }
+            if(!pos){
+                System.out.println("NO");
+                continue;
+            }
+            System.out.println("YES");
 
-            if(mex < max){
-                int x = (int)Math.ceil((double) (mex + max) / (double) 2);
-                if(map.containsKey(x)){
-                    System.out.println(map.size());
-                }
-                else{
-                    System.out.println(map.size() + 1);
+            HashSet<Character> set = new HashSet<>();
+            for(int i=0;i<temp.length();i++){
+                set.add(temp.charAt(i));
+            }
+            StringBuffer res = new StringBuffer("");
+            for(int i=0;i<temp.length()/2;i++){
+                res.append(temp.charAt(i));
+            }
+            for(int i=97;i<123;i++){
+                if(!set.contains((char)i)){
+                    res.append((char)i);
                 }
             }
-
-            else if(mex > max){
-                System.out.println(map.size() + k);
-            }
-            
+            System.out.println(res);
         }
-         
-  
      }
  
  

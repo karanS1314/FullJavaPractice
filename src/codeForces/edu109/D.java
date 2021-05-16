@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.edu109;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class NiceMatrix {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,50 +23,47 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
-     static long sol(long a , long b , long c , long d){
-         long aa[] = new long[4];
-         aa[0] = a;
-         aa[1] = b;
-         aa[2] = c;
-         aa[3] = d;
-
-         Arrays.sort(aa);
-         return((aa[1] + aa[2])/2);
-     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int n = sc.nextInt();
         
-        while(t-->0){
-            int n = sc.nextInt();
-            int m = sc.nextInt();
-            long a[][] = new long[n+1][m+1];
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    a[i][j] = sc.nextLong();
-                }
-            }
+        long a[] = new long[n];
 
-            long ans[][] = new long[n+1][m+1];
-
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    long x = sol(a[i][j] , a[n+1-i][m+1-j] , a[i][m+1-j] , a[n+1-i][j]);
-                    ans[i][j] = x;
-                    ans[n+1-i][m+1-j] = x;
-                    ans[i][m+1-j] = x;
-                    ans[n+1-i][j] = x;
-                }
-            }
-
-            long res = 0;
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    res += Math.abs(ans[i][j] - a[i][j]);
-                }
-            }
-            System.out.println(res);
+        for(int i=0;i<n;i++){
+            a[i] = sc.nextLong();
         }
+        long time = 0;
+        boolean vis[] = new boolean[n];
+        for(int i=0;i<n;i++){
+            if(a[i] == 1 && !vis[i]){
+                long min = Integer.MAX_VALUE;
+                int ii = -1;
+                in1 : for(int j=i+1;j<n;j++){
+                    if(a[j] == 0){
+                        min = Math.min(j - i , min);
+                        ii = j;
+                        break in1;
+                    }
+                }
+
+                in2 : for(int j=i-1;j>=0;j--){
+                    if(a[j] == 0){
+                        if(i - j < min){
+                            min = i - j;
+                            ii = j;
+                            break in2;
+                        }
+                    }
+                }
+                if(min != Integer.MAX_VALUE){
+                    time += min;
+                    a[ii] = 1;
+                    vis[ii] = true;
+                }
+            }
+        }
+
+        System.out.println(time);
      }
  
  

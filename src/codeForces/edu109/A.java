@@ -1,5 +1,4 @@
-package codeForces.Practicer;
-
+package codeForces.edu109;
 
 
  //   * * * its fun to do the impossible * * *   //
@@ -9,7 +8,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class NiceMatrix {
+ public class A {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,50 +22,29 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
-     static long sol(long a , long b , long c , long d){
-         long aa[] = new long[4];
-         aa[0] = a;
-         aa[1] = b;
-         aa[2] = c;
-         aa[3] = d;
-
-         Arrays.sort(aa);
-         return((aa[1] + aa[2])/2);
-     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        
         while(t-->0){
-            int n = sc.nextInt();
-            int m = sc.nextInt();
-            long a[][] = new long[n+1][m+1];
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    a[i][j] = sc.nextLong();
-                }
+            int k = sc.nextInt();
+            if(k == 0 || k == 100){
+                System.out.println(1);
+                continue;
             }
 
-            long ans[][] = new long[n+1][m+1];
+            int a = k;
+            int b = 100 - k;
 
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    long x = sol(a[i][j] , a[n+1-i][m+1-j] , a[i][m+1-j] , a[n+1-i][j]);
-                    ans[i][j] = x;
-                    ans[n+1-i][m+1-j] = x;
-                    ans[i][m+1-j] = x;
-                    ans[n+1-i][j] = x;
-                }
-            }
+            int gcd = gcd(a, b);
+            a /= gcd;
+            b /= gcd;
 
-            long res = 0;
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    res += Math.abs(ans[i][j] - a[i][j]);
-                }
-            }
+            int res = a+b;
+
             System.out.println(res);
         }
+         
+  
      }
  
  

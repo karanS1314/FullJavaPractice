@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.edu109;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class NiceMatrix {
+ public class upD {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,50 +23,45 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
-     static long sol(long a , long b , long c , long d){
-         long aa[] = new long[4];
-         aa[0] = a;
-         aa[1] = b;
-         aa[2] = c;
-         aa[3] = d;
+     static long solve(long dp[][] , ArrayList<Integer> one , ArrayList<Integer> zeroes , int i , int j){
+        if(i == one.size()){
+            return 0;
+        }
+        if(j == zeroes.size()){
+            return Integer.MAX_VALUE;
+        }
 
-         Arrays.sort(aa);
-         return((aa[1] + aa[2])/2);
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+
+        return dp[i][j] = Math.min(solve(dp , one , zeroes , i + 1 , j + 1) + Math.abs(one.get(i) - zeroes.get(j)) ,
+                        solve(dp , one , zeroes , i , j + 1));
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int n = sc.nextInt();
         
-        while(t-->0){
-            int n = sc.nextInt();
-            int m = sc.nextInt();
-            long a[][] = new long[n+1][m+1];
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    a[i][j] = sc.nextLong();
-                }
-            }
+        ArrayList<Integer> one = new ArrayList<>();
+        ArrayList<Integer> zeroes = new ArrayList<>();
 
-            long ans[][] = new long[n+1][m+1];
-
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    long x = sol(a[i][j] , a[n+1-i][m+1-j] , a[i][m+1-j] , a[n+1-i][j]);
-                    ans[i][j] = x;
-                    ans[n+1-i][m+1-j] = x;
-                    ans[i][m+1-j] = x;
-                    ans[n+1-i][j] = x;
-                }
+        int a[] = new int[n];
+        for(int i=0;i<n;i++){
+            a[i] = sc.nextInt();
+            if(a[i] == 1){
+                one.add(i+1);
             }
-
-            long res = 0;
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    res += Math.abs(ans[i][j] - a[i][j]);
-                }
+            else{
+                zeroes.add(i+1);
             }
-            System.out.println(res);
         }
+        long dp[][] = new long[one.size()][zeroes.size()];
+        for(int i=0;i<one.size();i++){
+            for(int j=0;j<zeroes.size();j++){
+                dp[i][j] = -1;
+            }
+        }
+        System.out.println(solve(dp , one , zeroes , 0 , 0));
      }
  
  

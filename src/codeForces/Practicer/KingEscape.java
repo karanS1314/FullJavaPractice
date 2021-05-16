@@ -22,28 +22,100 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
+     static boolean res = false;
+
+     static boolean valid(int mat[][] , int i , int j , Pair a , int dp[][]){
+        if(i < 0 || i > mat.length-1 || j < 0 || j > mat.length-1){
+            return false;
+        }
+        if(dp[i][j] != 0){
+            if(dp[i][j] == 1){
+                return true;
+            }
+            else{
+                return false;
+            }
+        } 
+        if(a.a == i){
+            dp[i][j] = -1;
+            return false;
+        }
+        if(a.b == j){
+            dp[i][j] = -1;
+            return false;
+        }
+        int n = mat.length;
+        for(int l=a.a+1,m=a.b+1;l<=n&&m<=n;l++,m++){
+            if(i==a.a && j==a.b){
+                dp[i][j] = -1;
+                return false;
+            }
+        }
+        for(int l=a.a-1,m=a.a+1;l>=1&&m<=n;l--,m++){
+            if(l==a.a && m==a.b){
+                dp[i][j] = -1;
+                return false;
+            }
+        }
+        for(int l=a.a-1,m=a.b-1;l>=1&&m>=1;l--,m--){
+            if(l==a.a && m==a.b){
+                dp[i][j] = -1;
+                return false;
+            }
+        }
+        for(int l=a.a+1,m=a.b-1;l<=n&&m>=1;l++,m--){
+            if(l==a.a && m==a.b){
+                dp[i][j] = -1;
+                return false;
+            }
+        }
+        dp[i][j] = 1;
+        return true;
+     }
+     static void solve(int mat[][] , int i , int j , int vis[][] , Pair a , int dp[][]){
+        if(!valid(mat , i , j , a , dp) || vis[i][j] == 1 || res == true){
+            return;
+        }
+        if(mat[i][j] == 3){
+            res = true;
+            return;
+        }
+
+        vis[i][j] = 1;
+        solve(mat , i+1 , j , vis , a , dp);
+        solve(mat , i-1 , j , vis , a , dp);
+        solve(mat , i+1 , j+1 , vis , a , dp);
+        solve(mat , i-1 , j+1 , vis , a ,dp);
+        solve(mat , i+1 , j-1 , vis , a , dp);
+        solve(mat , i-1 , j-1 , vis , a , dp);
+        solve(mat , i , j+1 , vis , a , dp);
+        solve(mat , i , j-1 , vis , a , dp);
+        vis[i][j] = 0;
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int n = sc.nextInt();
-        
+        int mat[][] = new int[n+1][n+1];
+        int vis[][] = new int[n+1][n+1];
         int a1 = sc.nextInt();
         int a2 = sc.nextInt();
-
+        mat[a1][a2] = 1;
         Pair a = new Pair(a1 , a2);
 
         int b1 = sc.nextInt();
         int b2 = sc.nextInt();
-
-        Pair b = new Pair(b1 , b2);
+        mat[b1][b2] = 2;
 
         int c1 = sc.nextInt();
         int c2 = sc.nextInt();
+        mat[c1][c2] = 3;
 
-        Pair c = new Pair(c1 , c2);
+        int dp[][] = new int[n+1][n+1];
+        solve(mat , b1 , b2 , vis , a , dp);
+        if(res) System.out.println("YES");
+        else System.out.println("NO");
 
-        int mat[][] = new int[n+1][n+1];
-        
-  
+        res = false;
      }
  
  

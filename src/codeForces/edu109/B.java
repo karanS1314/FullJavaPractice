@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.edu109;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class NiceMatrix {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,59 +23,48 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
-     static long sol(long a , long b , long c , long d){
-         long aa[] = new long[4];
-         aa[0] = a;
-         aa[1] = b;
-         aa[2] = c;
-         aa[3] = d;
-
-         Arrays.sort(aa);
-         return((aa[1] + aa[2])/2);
-     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         
         while(t-->0){
             int n = sc.nextInt();
-            int m = sc.nextInt();
-            long a[][] = new long[n+1][m+1];
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    a[i][j] = sc.nextLong();
+            int a[] = sc.readArray(n);
+
+            int count = 0;
+
+            if(a[0] != 1){
+                if(a[n-1] == n){
+                    System.out.println(1);
+                    continue;
+                }
+                else{
+                    if(a[0] == n && a[n-1] == 1){
+                        System.out.println(3);
+                        continue;
+                    }
+                    System.out.println(2);
+                    continue;
                 }
             }
-
-            long ans[][] = new long[n+1][m+1];
-
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    long x = sol(a[i][j] , a[n+1-i][m+1-j] , a[i][m+1-j] , a[n+1-i][j]);
-                    ans[i][j] = x;
-                    ans[n+1-i][m+1-j] = x;
-                    ans[i][m+1-j] = x;
-                    ans[n+1-i][j] = x;
+            for(int i=0;i<n;i++){
+                if(a[i] != i+1){
+                    count++;
+                    break;
                 }
             }
-
-            long res = 0;
-            for(int i=1;i<=n;i++){
-                for(int j=1;j<=m;j++){
-                    res += Math.abs(ans[i][j] - a[i][j]);
-                }
-            }
-            System.out.println(res);
+            System.out.println(count);
         }
      }
- 
- 
- 
- 
- 
- 
-  
-     // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
+
+    static void swap(int[] a, int i, int j) {
+         int x = a[i];
+         int y = a[j];
+         a[i] = y;
+         a[j] = x;
+    }
+
+    // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
      // this is needed.

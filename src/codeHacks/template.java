@@ -1,6 +1,6 @@
 
 
- //   * * * its fun to do the impossible * * *   //
+ //   * * * the goal is to be worlds best * * *   //
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

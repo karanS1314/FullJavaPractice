@@ -1,52 +1,108 @@
-package codeForces.Practicer;
+package graph.Questions;
 
 
 
- //   * * * its fun to do the impossible * * *   //
+ //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
   
  
- public class BeautifulNumbers {
+ public class MotherVertex {
+     static class Pair implements Comparable<Pair>{
+         int a;
+         int b;
+ 
+         Pair(int a , int b){
+             this.a = a;
+             this.b = b;
+         }
+ 
+         public int compareTo(Pair o){
+             return this.a - o.a;
+         }
+     }
+     static class Edge{
+		int src;
+		int dest;
+		
+		Edge(int i , int j){
+			src=i;
+			dest=j;
+		}
+	}
      public static void main(String[] args) {
+        // basic :
+        // 1. If the graph is undirected and connected then each node is a mother vertex.
+        // 2. If the graph is undirected/ directed and it is disconnected then there is no mother vertex at all.
+        // 3. If the graph is directed and connected then the main question arises of mother vertex
+
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int vert = sc.nextInt();
 
-        while(t-->0){
-            int n = sc.nextInt();
-            int p[] = new int[n];
-            for(int i = 0; i < n; i++){
-                int x = sc.nextInt();
-                p[x - 1] = i;
-            }
+        ArrayList<Edge>[] graph = new ArrayList[vert];
+		// it is assumed here that each vertex is between [0 to vert-1]
+		
+		for(int i=0;i<vert;i++) {
+			graph[i] = new ArrayList<>();
+		}
+		int edges = sc.nextInt();
+		
+        // 0 index based graph
+		for(int i=0; i<edges; i++) {
+			int src = sc.nextInt();
+			int dest = sc.nextInt();
+            // directed graph
+			graph[src].add(new Edge(src, dest));
+		}
 
-            int res[] = new int[n];
+        int val_of_mother_vertex = findMotherVertex(graph , vert);
 
-            int l = n;
-            int r = 0;
-
-            for(int i = 0; i < n; i++){
-                l = Math.min(p[i] , l);
-                r = Math.max(p[i] , r);
-
-                if(r - l == i){
-                    res[i] = 1;
-                }
-            }
-
-            for(int e : res){
-                System.out.print(e);
-            }
-
-            System.out.println();
+        if(val_of_mother_vertex != -1){
+            System.out.println("Present " + val_of_mother_vertex);
+        }
+        else{
+            System.out.println("Not Present -1");
         }
      }
  
- 
- 
- 
+     static int findMotherVertex(ArrayList<Edge>[] graph , int vert){
+        for(int i = 0; i < vert; i++){
+            Stack<Integer> st = new Stack<>();
+            boolean vis[] = new boolean[vert];
+            dfs(graph , i , st , vis); // fill the stack
+
+            count = 1;
+            Arrays.fill(vis , false);
+            dfs(st.peek() , graph , vis); // check if the dfs from the top element can cover the whole graph
+
+            if(count == vert){ // if we can reach the whole graph from this vertex then its the mother vertex
+                return i;
+            }
+        }
+        return -1;
+     }
+     static int count = 0;
+     static void dfs(ArrayList<Edge>[] graph , int src , Stack<Integer> st , boolean vis[]){
+        vis[src] = true;
+        for(Edge nbrs : graph[src]){
+            if(vis[nbrs.dest] == false){
+                dfs(graph , nbrs.dest , st, vis);
+            }
+        }
+        st.add(src);
+     }
+     
+     static void dfs(int src , ArrayList<Edge>[] graph, boolean vis[]){
+        vis[src] = true;
+        for(Edge nbrs : graph[src]){
+            if(vis[nbrs.dest] == false){
+                dfs(nbrs.dest , graph , vis);
+                count++;
+            }
+        }
+     }
  
  
   

@@ -2,46 +2,56 @@ package codeForces.Practicer;
 
 
 
- //   * * * its fun to do the impossible * * *   //
+ //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
   
  
- public class BeautifulNumbers {
+ public class MaximumMedian {
+     static class Pair implements Comparable<Pair>{
+         int a;
+         int b;
+ 
+         Pair(int a , int b){
+             this.a = a;
+             this.b = b;
+         }
+ 
+         public int compareTo(Pair o){
+             return this.a - o.a;
+         }
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-
-        while(t-->0){
-            int n = sc.nextInt();
-            int p[] = new int[n];
-            for(int i = 0; i < n; i++){
-                int x = sc.nextInt();
-                p[x - 1] = i;
-            }
-
-            int res[] = new int[n];
-
-            int l = n;
-            int r = 0;
-
-            for(int i = 0; i < n; i++){
-                l = Math.min(p[i] , l);
-                r = Math.max(p[i] , r);
-
-                if(r - l == i){
-                    res[i] = 1;
-                }
-            }
-
-            for(int e : res){
-                System.out.print(e);
-            }
-
-            System.out.println();
+        int n = sc.nextInt();
+        long k = sc.nextLong();
+        
+        long a[] = new long[n];
+        for(int i = 0; i < n; i++){
+            a[i] = sc.nextLong();
         }
+
+        Arrays.sort(a);
+
+        long count = 0;
+
+        for(int i=n-2;i>=n/2;i--){
+            if(k <= 0) break;
+
+            long diff = a[n-1] - a[i];
+            a[i] += diff;
+            k -= diff; 
+        }
+
+        long y = k / (n/2 + 1);      
+        count = y;
+        k %= (n/2 + 1);
+
+        a[n/2] += count;
+
+        System.out.println(a[n/2]);
      }
  
  

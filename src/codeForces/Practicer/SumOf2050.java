@@ -2,45 +2,45 @@ package codeForces.Practicer;
 
 
 
- //   * * * its fun to do the impossible * * *   //
+ //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
   
  
- public class BeautifulNumbers {
+ public class SumOf2050 {
+     static class Pair implements Comparable<Pair>{
+         int a;
+         int b;
+ 
+         Pair(int a , int b){
+             this.a = a;
+             this.b = b;
+         }
+ 
+         public int compareTo(Pair o){
+             return this.a - o.a;
+         }
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-
         while(t-->0){
-            int n = sc.nextInt();
-            int p[] = new int[n];
-            for(int i = 0; i < n; i++){
-                int x = sc.nextInt();
-                p[x - 1] = i;
+            long n = sc.nextLong();
+            if(n % 2050 != 0){
+                System.out.println(-1);
+                continue;
             }
 
-            int res[] = new int[n];
-
-            int l = n;
-            int r = 0;
-
-            for(int i = 0; i < n; i++){
-                l = Math.min(p[i] , l);
-                r = Math.max(p[i] , r);
-
-                if(r - l == i){
-                    res[i] = 1;
-                }
+            n /= 2050;
+            long res = 0;
+            while(n > 0){
+                res += n%10;
+                n /= 10;
             }
-
-            for(int e : res){
-                System.out.print(e);
-            }
-
-            System.out.println();
+    
+            System.out.println(res);
         }
      }
  

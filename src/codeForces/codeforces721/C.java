@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.codeforces721;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class ReorderTheArray {
+ public class C {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -25,17 +25,49 @@ package codeForces.Practicer;
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
-        int a[] = sc.readArray(n);
-        
-        int res = 0;
-        ruffleSort(a);
-        for(int i = 0; i < n; i++){
-            if(a[i] > a[res]){
-                res++;
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            String s = sc.next();
+            char ca[] = s.toCharArray();
+            long a = 0;
+            long b = 0;
+            long zeroes = 0;
+            boolean mid_zeroe = false;
+            for(int i = 0; i < n; i++){
+                if(ca[i] == '0'){
+                    zeroes++;
+                }
+                if(n % 2 == 1 && ca[n/2] == '0'){
+                    mid_zeroe = true;
+                }
             }
-        }
-        System.out.println(res);
+            if(mid_zeroe){
+               if(zeroes > 1){
+                   a = min_val;
+               }
+               else{
+                   b = min_val;
+               }
+            }
+            else{
+                if(zeroes % 4 == 0){
+                    
+                }
+                else{
+                    b = min_val;
+                }
+            }
+            if(a > b){
+                System.out.println("BOB");
+            }
+            else if(b > a){
+                System.out.println("ALICE");
+            }
+            else{
+                System.out.println("DRAW");
+            }
+        }   
      }
   
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
@@ -275,12 +307,12 @@ package codeForces.Practicer;
  
          return upBound(ll,tar,mid+1 ,r);
      }
-     
-     static void swap(int i , int j , Pair a[]){
-         int x = a[i].b;
-         int y = a[j].b;
-         a[j].b = x;
-         a[i].b = y;
+ 
+     static void swap(int i , int j , int a[]){
+         int x = a[i];
+         int y = a[j];
+         a[j] = x;
+         a[i] = y;
      }
      // a -> z == 97 -> 122
  

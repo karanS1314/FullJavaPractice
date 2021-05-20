@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.codeforces721;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class ReorderTheArray {
+ public class A {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -25,17 +25,14 @@ package codeForces.Practicer;
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
-        int a[] = sc.readArray(n);
-        
-        int res = 0;
-        ruffleSort(a);
-        for(int i = 0; i < n; i++){
-            if(a[i] > a[res]){
-                res++;
-            }
-        }
-        System.out.println(res);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            double y = Math.log(n) / Math.log(2);
+            int x = (int)y;
+            int res = (1 << x)- 1;
+            System.out.println(res);
+        } 
      }
   
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
@@ -275,12 +272,12 @@ package codeForces.Practicer;
  
          return upBound(ll,tar,mid+1 ,r);
      }
-     
-     static void swap(int i , int j , Pair a[]){
-         int x = a[i].b;
-         int y = a[j].b;
-         a[j].b = x;
-         a[i].b = y;
+ 
+     static void swap(int i , int j , int a[]){
+         int x = a[i];
+         int y = a[j];
+         a[j] = x;
+         a[i] = y;
      }
      // a -> z == 97 -> 122
  

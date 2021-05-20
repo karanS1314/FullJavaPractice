@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.codeforces721;
 
 
 
@@ -7,9 +7,10 @@ package codeForces.Practicer;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
+import java.util.Map.Entry;
   
  
- public class ReorderTheArray {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -25,17 +26,30 @@ package codeForces.Practicer;
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
-        int a[] = sc.readArray(n);
-        
-        int res = 0;
-        ruffleSort(a);
-        for(int i = 0; i < n; i++){
-            if(a[i] > a[res]){
-                res++;
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            int a[] = sc.readArray(n);
+            HashMap<Integer , ArrayList<Integer>> map = new HashMap<>();
+
+            for(int i = 0; i < n; i++){
+                map.getOrDefault(a[i] , new ArrayList<>()).add(i);
             }
-        }
-        System.out.println(res);
+            int res = 0;
+            for(Entry<Integer, ArrayList<Integer>> e : map.entrySet()){
+                int carr = 1;
+                int curr = 0;
+                for(int i = 1; i < e.getValue().size(); i++){
+                    if(e.getValue().get(i) - e.getValue().get(i-1) == 1){
+                        carr++;
+                        
+                    }
+                    else{
+
+                    }
+                }
+            }
+        }   
      }
   
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
@@ -275,12 +289,12 @@ package codeForces.Practicer;
  
          return upBound(ll,tar,mid+1 ,r);
      }
-     
-     static void swap(int i , int j , Pair a[]){
-         int x = a[i].b;
-         int y = a[j].b;
-         a[j].b = x;
-         a[i].b = y;
+ 
+     static void swap(int i , int j , int a[]){
+         int x = a[i];
+         int y = a[j];
+         a[j] = x;
+         a[i] = y;
      }
      // a -> z == 97 -> 122
  

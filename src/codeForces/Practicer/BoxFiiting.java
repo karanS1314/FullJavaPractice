@@ -10,17 +10,6 @@ package codeForces.Practicer;
   
  
  public class BoxFiiting {
-     static int minBound(LinkedList<Integer> ll , long tar , int l , int r){
-            if(l > r) return l;
-
-            int mid = l + (r - l) / 2;
-
-            if(ll.get(mid) >= tar){
-                return minBound(ll , tar , l , mid - 1);
-            }
-
-            return minBound(ll , tar , mid + 1 , r);
-     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
@@ -28,7 +17,7 @@ package codeForces.Practicer;
             int n = sc.nextInt();
             long w = sc.nextLong();
 
-            LinkedList<Integer> ll = new LinkedList<>();
+            ArrayList<Integer> ll = new ArrayList<>();
             for(int i=0;i<n;i++){
                 int y = sc.nextInt();
                 ll.add(y);
@@ -40,32 +29,21 @@ package codeForces.Practicer;
             long sum = 0;               
 
             while(ll.size() > 0){
-                int x = minBound(ll , w - sum , 0 , ll.size() - 1); // index of the element which is just smaller then w - sum
-                if(x == ll.size()){
-                    if(sum + ll.get(x-1) > w){
-                        res++;
-                        sum = 0;
-                        continue;
-                    }
-                    sum += ll.get(x-1);
-                    ll.remove(x-1);
+                int x = lowBound(ll , w - sum , 0 , ll.size() - 1);
+                if(x >= ll.size()){
+                    x--;
                 }
-                else{
-                    if(sum + ll.get(x) > w){
-                        res++;
-                        sum = 0;
-                        continue;
-                    }
-                    sum += ll.get(x);
-                    ll.remove(x);
+                if(sum + ll.get(x) > w){
+                    res++;
+                    sum = 0;
+                    continue;
                 }
-
+                sum += ll.get(x);
+                ll.remove(x);
             }
-            res++;
+            if(sum > 0) res++;
             System.out.println(res);
         }    
-
-  
      }
  
  
@@ -297,7 +275,34 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
- 
+     
+     // returns the index of the element which is just smaller than or
+     // equal to the tar in the given arraylist 
+     static int lowBound(ArrayList<Integer> ll,long tar ,int l,int r){
+        if(l>r) return l;
+
+        int mid=l+(r-l)/2;
+
+        if(ll.get(mid)>=tar){
+            return lowBound(ll,tar,l,mid-1);
+        }
+
+        return lowBound(ll,tar,mid+1,r);
+    }
+
+    // returns the index of the element which is just greater than or
+    // equal to the tar in the given arraylist 
+    static int upBound(ArrayList<Integer> ll,long tar,int l ,int r){
+        if(l>r) return l;
+
+        int mid=l+(r-l)/2;
+
+        if(ll.get(mid)<=tar){
+            return upBound(ll,tar,l,mid-1);
+        }
+
+        return upBound(ll,tar,mid+1 ,r);
+    }
      // a -> z == 97 -> 122
  
      // String.format("%.9f", ans) ,--> to get upto 9 decimal places , (ans is double)

@@ -271,6 +271,12 @@ public class template {
         return upBound(ll,tar,mid+1 ,r);
 	}
 
+	static void swap(int i , int j , int a[]){
+		int x = a[i];
+		int y = a[j];
+		a[j] = x;
+		a[i] = y;
+	}
 	// a -> z == 97 -> 122
 
 	// String.format("%.9f", ans) ,--> to get upto 9 decimal places , (ans is double)

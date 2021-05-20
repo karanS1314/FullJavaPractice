@@ -7,7 +7,6 @@ package codeForces.Practicer;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
- import java.util.Map.Entry;
   
  
  public class BoatsComp {
@@ -32,59 +31,36 @@ package codeForces.Practicer;
             int n = sc.nextInt();
             int w[] = sc.readArray(n);
 
-            HashMap<Integer , Integer> map = new HashMap<>();
-
-            for(int i = 0; i < n; i++){
-                for(int j = i + 1; j < n; j++){
-                    map.put(w[i] + w[j] , map.getOrDefault(w[i] + w[j] , 0) + 1);
-                }
-            }
-
-            int mx = 0;
-            int mx_k = 0;
-
-            for(Entry<Integer , Integer> e : map.entrySet()){
-                if(e.getValue() > mx){
-                    mx_k = e.getKey();
-                    mx = e.getValue();
-                }
-            }
 
             ruffleSort(w);
-            ArrayList<Integer> al = new ArrayList<>();
-            for(int e : w){
-                al.add(e);
-            }
+
             int res = 0;
-            boolean found = false;
-            while(!found){
-                found = true;
-                int i = 0;
-                int j = al.size() - 1;
-    
-                while(i < j){
-                    int sum = al.get(i) + al.get(j);
-                    if(sum < mx_k){
-                        i++;
+            for(int i = 2; i <= 100; i++){
+                int l = 0;
+                int r = n - 1;
+                int pairs = 0;
+                while(l < r){
+                    int sum = w[l] + w[r];
+                    if(sum > i){
+                        r--;
                     }
-                    else if(sum > mx_k){
-                        j--;
+                    else if(sum < i){
+                        l++;
                     }
                     else{
-                        res++;
-                        al.remove(i);
-                        al.remove(j - 1);
-                        found = false;
-                        break;
+                        pairs++;
+                        l++;
+                        r--;
                     }
                 }
+                res = Math.max(pairs , res);
             }
 
             System.out.println(res);
         }
      }
  
- 
+ // 1 2 2 3
  
  
  

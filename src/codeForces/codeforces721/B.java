@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.codeforces721;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class ReorderTheArray {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,21 +23,110 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
+     static boolean isPalindrome(String str)
+     {
+  
+         // Pointers pointing to the beginning
+         // and the end of the string
+         int i = 0, j = str.length() - 1;
+  
+         // While there are characters to compare
+         while (i < j) {
+  
+             // If there is a mismatch
+             if (str.charAt(i) != str.charAt(j))
+                 return false;
+  
+             // Increment first pointer and
+             // decrement the other
+             i++;
+             j--;
+         }
+  
+         // Given string is a palindrome
+         return true;
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
-        int a[] = sc.readArray(n);
-        
-        int res = 0;
-        ruffleSort(a);
-        for(int i = 0; i < n; i++){
-            if(a[i] > a[res]){
-                res++;
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            String s = sc.nextLine();
+            char sb[] = s.toCharArray();
+            int a = 0;
+            int b = 0;
+            
+            int count = 0;
+            boolean contains = true;
+            while(contains){
+                contains = false;
+                if(count % 2 == 0){
+                    if(isPalindrome(sb.toString())){
+                        a++;
+                        boolean changed = false;
+                        int str = -1;
+                        for(int i = n - 1; i >= 0 && !changed; i--){
+                            char c = sb[i];
+                            if(c == '0'){
+                                contains = true;
+                                if(str == -1){
+                                    str = i;
+                                }
+                                sb[i] = 1;
+                                if(isPalindrome(sb.toString())){
+                                    sb[i] = 0;
+                                }
+                                else{
+                                    changed = true;
+                                }
+                            }
+                        }
+                        if(!changed){
+                            sb[str] = 1;
+                        }
+                    } 
+                    count++;
+                }
+                else{
+                    if(isPalindrome(sb.toString())){
+                        b++;
+                        boolean changed = false;
+                        int str = -1;
+                        for(int i = n - 1; i >= 0 && !changed; i--){
+                            char c = sb[i];
+                            if(c == '0'){
+                                contains = true;
+                                if(str == -1){
+                                    str = i;
+                                }
+                                sb[i] = 1;
+                                if(isPalindrome(sb.toString())){
+                                    sb[i] = 0;
+                                }
+                                else{
+                                    changed = true;
+                                }
+                            }
+                        }
+                        if(!changed){
+                            sb[str] = 1;
+                        }
+                    } 
+                    count++;
+                }
             }
-        }
-        System.out.println(res);
+            if(a > b){
+                System.out.println("BOB");
+            }
+            else if(b > a){
+                System.out.println("ALICE");
+            }
+            else{
+                System.out.println("DRAW");
+            }
+        } 
      }
-  
+
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
@@ -275,12 +364,12 @@ package codeForces.Practicer;
  
          return upBound(ll,tar,mid+1 ,r);
      }
-     
-     static void swap(int i , int j , Pair a[]){
-         int x = a[i].b;
-         int y = a[j].b;
-         a[j].b = x;
-         a[i].b = y;
+ 
+     static void swap(int i , int j , int a[]){
+         int x = a[i];
+         int y = a[j];
+         a[j] = x;
+         a[i] = y;
      }
      // a -> z == 97 -> 122
  

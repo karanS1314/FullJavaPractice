@@ -1,4 +1,4 @@
-package codeForces.codeforces721;
+package codeForces.Practicer;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.codeforces721;
  import java.util.*;
   
  
- public class D {
+ public class Polygon {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -28,21 +28,35 @@ package codeForces.codeforces721;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            long a[] = sc.readArray(n);
-            HashMap<Long , Long> map = new HashMap<>();
+            int a[][] = new int[n][n];
 
-            long res = 0;
             for(int i = 0; i < n; i++){
-                if(map.containsKey(a[i])){
-                    res += map.get(a[i]) * (n - i);
-                    map.put(a[i] , map.get(a[i]) + i + 1);
-                }
-                else{
-                    map.put(a[i] , (long)(i + 1));
+                String s = sc.nextLine();
+                for(int j = 0; j < n; j++){
+                    a[i][j] = (s.charAt(j) - '0');
                 }
             }
-            System.out.println(res);
-        }   
+            boolean can = true;
+            o : for(int i = 0; i < n - 1; i++){
+                for(int j = 0; j < n - 1; j++){
+                    if(a[i][j] == 1){
+                        if(a[i + 1][j] == 1 || a[i][j + 1] == 1){
+                            continue;
+                        }
+                        else{
+                            can = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            if(can){
+                System.out.println("YES");
+            }
+            else{
+                System.out.println("NO");
+            }
+        } 
      }
   
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
@@ -96,10 +110,10 @@ package codeForces.codeforces721;
              return str;
          }
   
-         long[] readArray(int n) {
-             long[] a = new long[n];
+         int[] readArray(int n) {
+             int[] a = new int[n];
              for (int i = 0; i < n; i++)
-                 a[i] = nextLong();
+                 a[i] = nextInt();
              return a;
          }
   

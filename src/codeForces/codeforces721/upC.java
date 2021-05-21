@@ -9,7 +9,7 @@ package codeForces.codeforces721;
  import java.util.*;
   
  
- public class D {
+ public class upC {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,26 +23,95 @@ package codeForces.codeforces721;
              return this.a - o.a;
          }
      }
+     static boolean isPalindrome(String str)
+     {
+  
+         // Pointers pointing to the beginning
+         // and the end of the string
+         int i = 0, j = str.length() - 1;
+  
+         // While there are characters to compare
+         while (i < j) {
+  
+             // If there is a mismatch
+             if (str.charAt(i) != str.charAt(j))
+                 return false;
+  
+             // Increment first pointer and
+             // decrement the other
+             i++;
+             j--;
+         }
+  
+         // Given string is a palindrome
+         return true;
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            long a[] = sc.readArray(n);
-            HashMap<Long , Long> map = new HashMap<>();
+            String s = sc.nextLine();
+            
+            boolean pal = isPalindrome(s);
 
-            long res = 0;
-            for(int i = 0; i < n; i++){
-                if(map.containsKey(a[i])){
-                    res += map.get(a[i]) * (n - i);
-                    map.put(a[i] , map.get(a[i]) + i + 1);
+            if(pal){
+                char ca[] = s.toCharArray();
+
+                long zeroes = 0;
+                for(int i = 0; i < n; i++){
+                    if(ca[i] == '0'){
+                        zeroes++;
+                    }
+                }
+                if(zeroes == 0){
+                    System.out.println("DRAW");
+                }
+                else if(zeroes % 2 == 0 || zeroes == 1){
+                    System.out.println("BOB");
                 }
                 else{
-                    map.put(a[i] , (long)(i + 1));
+                    System.out.println("ALICE");
                 }
             }
-            System.out.println(res);
-        }   
+            else{
+                // in all the cases alice will win
+                // only when there are two zereoes and 
+                // by chnging one zeroe u can make plaindrom will b a draw
+                char ca[] = s.toCharArray();
+                long zeroes = 0;
+                for(int i = 0; i < n; i++){
+                    if(ca[i] == '0'){
+                        zeroes++;
+                    }
+                }
+
+                if(zeroes != 2){
+                    System.out.println("ALICE");
+                }
+                else{
+                    int min_cost = 0;
+                    for(int i = 0; i < n/2; i++){
+                        if(ca[i] == '1'){
+                            if(ca[n - i -1] == '0'){
+                                min_cost++;
+                            }
+                        }
+                        else{
+                            if(ca[n - i - 1] == '1'){
+                                min_cost++;
+                            }
+                        }
+                    }
+                    if(min_cost == 1){
+                        System.out.println("DRAW");
+                    }
+                    else{
+                        System.out.println("ALICE");
+                    }
+                }
+            }
+        }      
      }
   
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
@@ -96,10 +165,10 @@ package codeForces.codeforces721;
              return str;
          }
   
-         long[] readArray(int n) {
-             long[] a = new long[n];
+         int[] readArray(int n) {
+             int[] a = new int[n];
              for (int i = 0; i < n; i++)
-                 a[i] = nextLong();
+                 a[i] = nextInt();
              return a;
          }
   

@@ -30,42 +30,19 @@ package codeForces.codeforces721;
             int n = sc.nextInt();
             String s = sc.next();
             char ca[] = s.toCharArray();
-            long a = 0;
-            long b = 0;
+
             long zeroes = 0;
-            boolean mid_zeroe = false;
             for(int i = 0; i < n; i++){
                 if(ca[i] == '0'){
                     zeroes++;
                 }
-                if(n % 2 == 1 && ca[n/2] == '0'){
-                    mid_zeroe = true;
-                }
             }
-            if(mid_zeroe){
-               if(zeroes > 1){
-                   a = min_val;
-               }
-               else{
-                   b = min_val;
-               }
-            }
-            else{
-                if(zeroes % 4 == 0){
-                    
-                }
-                else{
-                    b = min_val;
-                }
-            }
-            if(a > b){
+           
+            if(zeroes % 2 == 0 || zeroes == 1){
                 System.out.println("BOB");
             }
-            else if(b > a){
-                System.out.println("ALICE");
-            }
             else{
-                System.out.println("DRAW");
+                System.out.println("ALICE");
             }
         }   
      }

@@ -1,5 +1,4 @@
-package codeForces.codeforces721;
-
+package codeForces.Practicer;
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -9,7 +8,7 @@ package codeForces.codeforces721;
  import java.util.*;
   
  
- public class D {
+ public class Slime {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -25,25 +24,35 @@ package codeForces.codeforces721;
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            long a[] = sc.readArray(n);
-            HashMap<Long , Long> map = new HashMap<>();
-
-            long res = 0;
-            for(int i = 0; i < n; i++){
-                if(map.containsKey(a[i])){
-                    res += map.get(a[i]) * (n - i);
-                    map.put(a[i] , map.get(a[i]) + i + 1);
-                }
-                else{
-                    map.put(a[i] , (long)(i + 1));
-                }
+        int n = sc.nextInt();
+        int a[] = sc.readArray(n);
+        
+        PriorityQueue<Long> pq = new PriorityQueue<>();
+        for(int i = 0; i < n; i++){
+            pq.add((long)a[i]);
+        }
+        System.out.println(pq.peek());
+        while(pq.size() > 2){
+            long l = pq.poll();
+            if(l < 0){
+                
             }
-            System.out.println(res);
-        }   
+            long m = pq.poll();
+
+            pq.add(l - m);
+        }
+        long res = 0;
+        long o = pq.poll();
+        long z = pq.poll();
+        res = z - o;
+        System.out.println(res);
      }
+ 
+ 
+ 
+ 
+ 
+ 
   
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
@@ -96,10 +105,10 @@ package codeForces.codeforces721;
              return str;
          }
   
-         long[] readArray(int n) {
-             long[] a = new long[n];
+         int[] readArray(int n) {
+             int[] a = new int[n];
              for (int i = 0; i < n; i++)
-                 a[i] = nextLong();
+                 a[i] = nextInt();
              return a;
          }
   

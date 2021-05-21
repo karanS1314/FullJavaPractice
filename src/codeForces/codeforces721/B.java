@@ -61,7 +61,7 @@ package codeForces.codeforces721;
             while(contains){
                 contains = false;
                 if(count % 2 == 0){
-                    if(isPalindrome(sb.toString())){
+                    if(isPalindrome(String.valueOf(sb))){
                         a++;
                         boolean changed = false;
                         int str = -1;
@@ -84,11 +84,17 @@ package codeForces.codeforces721;
                         if(!changed){
                             sb[str] = 1;
                         }
+                        if(!contains){
+                            a--;
+                        }
+                    }
+                    else{
+                        
                     } 
                     count++;
                 }
                 else{
-                    if(isPalindrome(sb.toString())){
+                    if(isPalindrome(String.valueOf(sb))){
                         b++;
                         boolean changed = false;
                         int str = -1;
@@ -110,6 +116,9 @@ package codeForces.codeforces721;
                         }
                         if(!changed){
                             sb[str] = 1;
+                        }
+                        if(!contains){
+                            b--;
                         }
                     } 
                     count++;

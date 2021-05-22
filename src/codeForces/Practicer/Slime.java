@@ -26,33 +26,52 @@ package codeForces.Practicer;
         FastScanner sc = new FastScanner();
         int n = sc.nextInt();
         int a[] = sc.readArray(n);
-        
-        PriorityQueue<Long> pq = new PriorityQueue<>();
-        for(int i = 0; i < n; i++){
-            pq.add((long)a[i]);
+        if(n == 1){
+            System.out.println(a[0]);
         }
-        System.out.println(pq.peek());
-        while(pq.size() > 2){
-            long l = pq.poll();
-            if(l < 0){
-                
+        else{
+            PriorityQueue<Long> pq = new PriorityQueue<>();
+            long mx = min_val;
+            for(int i = 0; i < n; i++){
+                mx = Math.max(a[i] , mx);
             }
-            long m = pq.poll();
-
-            pq.add(l - m);
+            int count = 0;
+            for(int i = 0; i < n; i++){
+                if(a[i] == mx && count == 0){
+                    count = 1;
+                    continue;
+                }
+                pq.add((long)a[i]);
+            }
+            while(pq.size() > 2){
+                long l = pq.poll();
+                long m = pq.poll();
+                if(l < 0 && m < 0){
+                    pq.add(m);
+                    mx -= l;
+                }
+                else{
+                    pq.add(l - m);
+                }
+            }
+            long res = 0;
+            long o = pq.poll();
+            long z = 0;
+            if(pq.size() > 0){
+                z = pq.poll();
+            }
+            if(o < 0 && z < 0){
+                res = mx - o - z;
+            }
+            else{
+                res = o - z;
+                long x = res;
+                res = mx - x;
+            }
+        
+            System.out.println(res);
         }
-        long res = 0;
-        long o = pq.poll();
-        long z = pq.poll();
-        res = z - o;
-        System.out.println(res);
      }
- 
- 
- 
- 
- 
- 
   
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never

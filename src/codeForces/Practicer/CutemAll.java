@@ -7,9 +7,10 @@ package codeForces.Practicer;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
+ import java.util.Map.Entry;
   
  
- public class MaximumMedian {
+ public class CutemAll {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,36 +24,69 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
+     static class Edge{
+		int u;
+		int v;
+		
+		Edge(int i , int j){
+			u=i;
+			v=j;
+		}
+	}
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int n = sc.nextInt();
-        long k = sc.nextLong();
-        
-        long a[] = new long[n];
-        for(int i = 0; i < n; i++){
-            a[i] = sc.nextLong();
+        HashMap<Integer , LinkedList<Integer>> map = new HashMap<>();
+        for(int i = 1; i <= n; i++){
+            map.put(i , new LinkedList<>());
         }
-
-        Arrays.sort(a);
-
-        long count = 0;
-
-        // o(n){
-        for(int i=n-2;i>=n/2;i--){
-            if(k <= 0) break;
-
-            long diff = a[n-1] - a[i];
-            a[i] += diff;
-            k -= diff; 
+        for(int i = 1; i < n; i++){
+            int u = sc.nextInt();
+            int v = sc.nextInt();
+            map.get(u).add(v);
+            map.get(v).add(u);
         }
-        // }
-        long z = (n/2 + 1);
-        long y = k / z;      
-        count = y;
-
-        a[n/2] += count;
-
-        System.out.println(a[n/2]);
+        if((n  & 1) == 1){
+            System.out.println(-1);
+        }
+        else{
+            int size = 0;
+            int edges = 0;
+            int vis[] = new int[n + 1];
+            boolean found = true;
+            while(found){
+                ++size;
+                found = false;
+                for(Entry<Integer , LinkedList<Integer>> e : map.entrySet()){
+                    if(e.getValue().size() == size && vis[e.getKey()] == 0){
+                        in : for(int i = 0; i < e.getValue().size(); i++){
+                            if(vis[e.getValue().get(i)] == 0){
+                                vis[e.getKey()] = 1;
+                                vis[e.getValue().get(i)] = 1;
+                                edges++;
+                                found = true;
+                                break in;
+                            }
+                        }
+                    }
+                }
+            }
+            boolean poss = true;
+            for(int i = 1; i < n + 1; i++){
+                if(vis[i] == 0){
+                    poss = false;
+                    break;
+                }
+            }
+    
+            if(!poss){
+                System.out.println(0);
+            }
+            else{
+                int x = n - 1 - edges;
+                System.out.println(x);
+            }
+        }        
      }
   
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
@@ -293,6 +327,12 @@ package codeForces.Practicer;
          return upBound(ll,tar,mid+1 ,r);
      }
  
+     static void swap(int i , int j , int a[]){
+         int x = a[i];
+         int y = a[j];
+         a[j] = x;
+         a[i] = y;
+     }
      // a -> z == 97 -> 122
  
      // String.format("%.9f", ans) ,--> to get upto 9 decimal places , (ans is double)

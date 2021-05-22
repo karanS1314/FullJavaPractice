@@ -1,6 +1,5 @@
-package codeForces.Practicer;
 
-
+package codeForces.Practicer;   
 
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
@@ -9,7 +8,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class MaximumMedian {
+ public class YetAnotherCardDeck {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,35 +25,27 @@ package codeForces.Practicer;
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int n = sc.nextInt();
-        long k = sc.nextLong();
-        
-        long a[] = new long[n];
+        int q = sc.nextInt();
+        int a[] = sc.readArray(n);
+        int x[] = new int[51];
         for(int i = 0; i < n; i++){
-            a[i] = sc.nextLong();
+            if(x[a[i]] == 0){
+                x[a[i]] = i + 1;
+            }
         }
-
-        Arrays.sort(a);
-
-        long count = 0;
-
-        // o(n){
-        for(int i=n-2;i>=n/2;i--){
-            if(k <= 0) break;
-
-            long diff = a[n-1] - a[i];
-            a[i] += diff;
-            k -= diff; 
+        while(q-->0){
+            int val = sc.nextInt();
+            System.out.print(x[val] + " ");
+            for(int i = 1; i < 51; i++){
+                if(x[i] < x[val] && x[i] != 0){
+                    x[i]++;
+                }
+            }
+            x[val] = 1;
         }
-        // }
-        long z = (n/2 + 1);
-        long y = k / z;      
-        count = y;
-
-        a[n/2] += count;
-
-        System.out.println(a[n/2]);
+        System.out.println();
      }
-  
+
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
@@ -267,7 +258,7 @@ package codeForces.Practicer;
  
      // returns the index of the element which is just smaller than or
      // equal to the tar in the given arraylist 
-     static int lowBound(ArrayList<Integer> ll,long tar ,int l,int r){
+     static int lowBound(LinkedList<Integer> ll,long tar ,int l,int r){
          if(l>r) return l;
  
          int mid=l+(r-l)/2;
@@ -293,6 +284,12 @@ package codeForces.Practicer;
          return upBound(ll,tar,mid+1 ,r);
      }
  
+     static void swap(int i , int j , int a[]){
+         int x = a[i];
+         int y = a[j];
+         a[j] = x;
+         a[i] = y;
+     }
      // a -> z == 97 -> 122
  
      // String.format("%.9f", ans) ,--> to get upto 9 decimal places , (ans is double)

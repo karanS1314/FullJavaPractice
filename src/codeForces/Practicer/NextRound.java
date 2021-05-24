@@ -25,16 +25,21 @@ package codeForces.Practicer;
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
-        int k = sc.nextInt(); 
-        int a[] = sc.readArray(n);
+        String a = sc.nextLine();
+        String b = sc.nextLine();
 
-        int x = a[k-1];
+        String x = a.toLowerCase();
+        String y = b.toLowerCase();
+
         int count = 0;
-        int y = 0;
-        for(int i = 0; i < n; i++){
-            if(a[i] >= x && a[i] > 0){
-                count++;
+        for(int i = 0; i < y.length(); i++){
+            if(x.charAt(i) > y.charAt(i)){
+                count = 1;
+                break;
+            }
+            else if (x.charAt(i) < y.charAt(i)){
+                count = -1;
+                break;
             }
         }
         System.out.println(count);

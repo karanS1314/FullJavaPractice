@@ -1,4 +1,4 @@
-package kickstart.kicksatrtC;
+package codeForces.codeForces722;
 
 
 
@@ -23,55 +23,32 @@ package kickstart.kicksatrtC;
              return this.a - o.a;
          }
      }
-     static long solve(StringBuffer sb , int k){
-         if(sb.length() == 1){
-             int x = sb.charAt(0);
-             x -= 97;
-             return (long)x;
-         }
-         int x = sb.charAt(0);
-         x -= 97;
-         long res = 0;
-         res += ((x % mod) * (sb.length() - 1) % mod) % mod;
-         res = ((res % mod) * (k % mod)) % mod;
-         StringBuffer ros = new StringBuffer(sb.substring(1));
-         res += solve(ros , k);
-
-         return res;
-     }
-
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        int tt = 0;
         while(t-->0){
-            tt++;
             int n = sc.nextInt();
-            int k = sc.nextInt();
-            String s = sc.nextLine();
-            char tempArray[] = s.toCharArray();
-          
-            StringBuffer sb = new StringBuffer("");
-            int size = (n & 1) == 1 ? n/2 + 1 : n/2;
-
-            for(int i = 0; i < size; i++){
-                sb.append(tempArray[i]);
+            int a[] = sc.readArray(n);
+            int min = max_val;
+            for(int e : a){
+                min = Math.min(min , e);
             }
-            long x = solve(sb , k) % mod;
-            int l = (n&1) == 1 ? n/2 - 1 : n/2;
-            while(l-->0){
-                sb.append(sb.charAt(l));
-            }
-            for(int i = 0; i < n; i++){
-                if(s.charAt(i) > sb.charAt(i)){
-                    x++;
-                    break;
+            int res = 0;
+            for(int e : a){
+                if(e > min){
+                    res++;
                 }
             }
-            System.out.println("Case #"+ tt + ": " + x);
-        }
+            System.out.println(res);
+        } 
      }
-
+ 
+ 
+ 
+ 
+ 
+ 
+  
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so

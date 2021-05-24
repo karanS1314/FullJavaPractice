@@ -9,7 +9,7 @@ package kickstart.kicksatrtC;
  import java.util.*;
   
  
- public class A {
+ public class upA {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,22 +23,6 @@ package kickstart.kicksatrtC;
              return this.a - o.a;
          }
      }
-     static long solve(StringBuffer sb , int k){
-         if(sb.length() == 1){
-             int x = sb.charAt(0);
-             x -= 97;
-             return (long)x;
-         }
-         int x = sb.charAt(0);
-         x -= 97;
-         long res = 0;
-         res += ((x % mod) * (sb.length() - 1) % mod) % mod;
-         res = ((res % mod) * (k % mod)) % mod;
-         StringBuffer ros = new StringBuffer(sb.substring(1));
-         res += solve(ros , k);
-
-         return res;
-     }
 
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
@@ -49,26 +33,33 @@ package kickstart.kicksatrtC;
             int n = sc.nextInt();
             int k = sc.nextInt();
             String s = sc.nextLine();
-            char tempArray[] = s.toCharArray();
-          
-            StringBuffer sb = new StringBuffer("");
-            int size = (n & 1) == 1 ? n/2 + 1 : n/2;
+            char ca[] = s.toCharArray();
+            
+            int m = (n + 1)/2;
 
-            for(int i = 0; i < size; i++){
-                sb.append(tempArray[i]);
+            long ans = 0;
+
+            for(int i = 0; i < m; i++){
+                char c = ca[i];
+                int d = c - 'a';
+                ans = (ans + d * fastPow(k, m - i - 1)) % mod;
             }
-            long x = solve(sb , k) % mod;
-            int l = (n&1) == 1 ? n/2 - 1 : n/2;
-            while(l-->0){
-                sb.append(sb.charAt(l));
+            StringBuffer sb = new StringBuffer("");
+            for(int i = 0; i < m; i++){
+                sb.append(ca[i]);
             }
+            for(int i = 0; i < n - m; i++){
+                sb.append(ca[n - m - i - 1]);
+            }
+            
             for(int i = 0; i < n; i++){
                 if(s.charAt(i) > sb.charAt(i)){
-                    x++;
+                    ans++;
                     break;
                 }
             }
-            System.out.println("Case #"+ tt + ": " + x);
+            ans %= mod;
+            System.out.println("Case #"+ tt + ": " + ans);
         }
      }
 

@@ -1,7 +1,6 @@
 package kickstart.kicksatrtC;
 
 
-
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
@@ -9,7 +8,7 @@ package kickstart.kicksatrtC;
  import java.util.*;
   
  
- public class A {
+ public class upB {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,52 +22,25 @@ package kickstart.kicksatrtC;
              return this.a - o.a;
          }
      }
-     static long solve(StringBuffer sb , int k){
-         if(sb.length() == 1){
-             int x = sb.charAt(0);
-             x -= 97;
-             return (long)x;
-         }
-         int x = sb.charAt(0);
-         x -= 97;
-         long res = 0;
-         res += ((x % mod) * (sb.length() - 1) % mod) % mod;
-         res = ((res % mod) * (k % mod)) % mod;
-         StringBuffer ros = new StringBuffer(sb.substring(1));
-         res += solve(ros , k);
-
-         return res;
-     }
-
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         int tt = 0;
         while(t-->0){
             tt++;
-            int n = sc.nextInt();
-            int k = sc.nextInt();
-            String s = sc.nextLine();
-            char tempArray[] = s.toCharArray();
-          
-            StringBuffer sb = new StringBuffer("");
-            int size = (n & 1) == 1 ? n/2 + 1 : n/2;
-
-            for(int i = 0; i < size; i++){
-                sb.append(tempArray[i]);
-            }
-            long x = solve(sb , k) % mod;
-            int l = (n&1) == 1 ? n/2 - 1 : n/2;
-            while(l-->0){
-                sb.append(sb.charAt(l));
-            }
-            for(int i = 0; i < n; i++){
-                if(s.charAt(i) > sb.charAt(i)){
-                    x++;
+            long g = sc.nextLong();
+            long res = 0;
+            for(long i = 1; ; i++){
+                long temp = g - i * (i - 1)/2;
+                if(temp <= 0){
                     break;
                 }
+                if(temp % i == 0){
+                    temp /= i;
+                    res++;
+                }
             }
-            System.out.println("Case #"+ tt + ": " + x);
+            System.out.println("Case #"+ tt + ": " + res);
         }
      }
 

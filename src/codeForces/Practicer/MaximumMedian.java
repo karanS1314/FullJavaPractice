@@ -32,29 +32,30 @@ package codeForces.Practicer;
         for(int i = 0; i < n; i++){
             a[i] = sc.nextLong();
         }
-
         Arrays.sort(a);
-
-        long count = 0;
-
-        // o(n){
-        for(int i=n-2;i>=n/2;i--){
-            if(k <= 0) break;
-
-            long diff = a[n-1] - a[i];
-            a[i] += diff;
-            k -= diff; 
+        long l = a[n/2];
+        long r = 2_000_000_000;
+        while(l != r){
+            long mid = l + (r - l + 1)/2;
+            if(check(mid , a , k)){
+                l = mid;
+            }else{
+                r = mid - 1;
+            }
         }
-        // }
-        long z = (n/2 + 1);
-        long y = k / z;      
-        count = y;
-
-        a[n/2] += count;
-
-        System.out.println(a[n/2]);
+        System.out.println(l);
      }
-  
+     static boolean check(long mid , long a[] , long k){
+         int moves = 0;
+         for(int i = a.length / 2; i < a.length; i++){
+             if(mid - a[i] > 0){
+                moves += mid - a[i];
+             }
+             if(moves > k) return false;
+         }
+         if(moves > k) return false;
+         return true;
+     }
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so

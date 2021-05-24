@@ -1,4 +1,4 @@
-package kickstart.kicksatrtC;
+package codeForces.codeForces722;
 
 
 
@@ -9,7 +9,7 @@ package kickstart.kicksatrtC;
  import java.util.*;
   
  
- public class A {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,55 +23,67 @@ package kickstart.kicksatrtC;
              return this.a - o.a;
          }
      }
-     static long solve(StringBuffer sb , int k){
-         if(sb.length() == 1){
-             int x = sb.charAt(0);
-             x -= 97;
-             return (long)x;
-         }
-         int x = sb.charAt(0);
-         x -= 97;
-         long res = 0;
-         res += ((x % mod) * (sb.length() - 1) % mod) % mod;
-         res = ((res % mod) * (k % mod)) % mod;
-         StringBuffer ros = new StringBuffer(sb.substring(1));
-         res += solve(ros , k);
-
-         return res;
-     }
-
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        int tt = 0;
         while(t-->0){
-            tt++;
             int n = sc.nextInt();
-            int k = sc.nextInt();
-            String s = sc.nextLine();
-            char tempArray[] = s.toCharArray();
-          
-            StringBuffer sb = new StringBuffer("");
-            int size = (n & 1) == 1 ? n/2 + 1 : n/2;
-
-            for(int i = 0; i < size; i++){
-                sb.append(tempArray[i]);
-            }
-            long x = solve(sb , k) % mod;
-            int l = (n&1) == 1 ? n/2 - 1 : n/2;
-            while(l-->0){
-                sb.append(sb.charAt(l));
-            }
-            for(int i = 0; i < n; i++){
-                if(s.charAt(i) > sb.charAt(i)){
-                    x++;
-                    break;
+            int a[] = sc.readArray(n);
+            int z = 0;
+            int po = 0;
+            for(int e : a){
+                if(e == 0){
+                    z++;
+                }
+                else if(e > 0){
+                    po++;
                 }
             }
-            System.out.println("Case #"+ tt + ": " + x);
-        }
+            if(po == 0){
+                System.out.println( n);
+            }
+            else{
+                ArrayList<Integer> al = new ArrayList<>();
+                for(int i = 0; i < n; i++){
+                    if(a[i] <= 0){
+                        al.add(a[i]);
+                    }
+                }
+                Collections.sort(al);
+                int min = max_val;
+                for(int i = 0; i < al.size() - 1; i++){
+                    min = Math.min(Math.abs(al.get(i) - al.get(i + 1)) , min);
+                }
+                po = 0;
+                for(int e : a){
+                    if(e > 0 && e <= min){
+                        po++;
+                        break;
+                    }
+                }
+                if(po == 0){
+                    System.out.println(al.size());
+                }
+                else{
+                    int x = 0;
+                    if(z <= 1){
+                        x = al.size() + 1;
+                    }
+                    else{
+                        x = al.size();
+                    }
+                    System.out.println( x);
+                }               
+            }     
+        } 
      }
-
+ 
+ 
+ 
+ 
+ 
+ 
+  
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so

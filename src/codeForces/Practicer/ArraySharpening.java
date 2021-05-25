@@ -1,4 +1,4 @@
-package codeForces.codeForces722;
+package codeForces.Practicer;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.codeForces722;
  import java.util.*;
   
  
- public class B {
+ public class ArraySharpening {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,52 +29,32 @@ package codeForces.codeForces722;
         while(t-->0){
             int n = sc.nextInt();
             int a[] = sc.readArray(n);
-            int z = 0;
-            int po = 0;
-            for(int e : a){
-                if(e == 0){
-                    z++;
+           
+            boolean can = false;
+            int preEnd = -1;
+            int sufEnd = -1;
+
+            for(int i = 0; i < n; i++){
+                if(a[i] < i){
+                    break;
                 }
-                else if(e > 0){
-                    po++;
-                }
+                preEnd = i;
             }
-            if(po == 0){
-                System.out.println(n);
+            for(int i = n - 1; i >= 0; i--){
+                if(a[i] < n - i - 1){
+                    break;
+                }
+                sufEnd = i;
+            }
+            if(sufEnd <= preEnd){
+                can = true;
+            }
+            if(can){
+                System.out.println("Yes");
             }
             else{
-                ArrayList<Integer> al = new ArrayList<>();
-                for(int i = 0; i < n; i++){
-                    if(a[i] <= 0){
-                        al.add(a[i]);
-                    }
-                }
-                Collections.sort(al);
-                int min = max_val;
-                for(int i = 0; i < al.size() - 1; i++){
-                    min = Math.min(Math.abs(al.get(i) - al.get(i + 1)) , min);
-                }
-                po = 0;
-                for(int e : a){
-                    if(e > 0 && e <= min){
-                        po++;
-                        break;
-                    }
-                }
-                if(po == 0){
-                    System.out.println(al.size());
-                }
-                else{
-                    int x = 0;
-                    if(z <= 1){
-                        x = al.size() + 1;
-                    }
-                    else{
-                        x = al.size();
-                    }
-                    System.out.println(x);
-                }               
-            }     
+                System.out.println("No");
+            }
         } 
      }
  

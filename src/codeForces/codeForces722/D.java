@@ -24,10 +24,26 @@ package codeForces.codeForces722;
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
-            int n = sc.nextInt();
-            
+            StringBuffer s = new StringBuffer(sc.nextLine());
+            int count = 0;
+            for(int i = 0; i < s.length() - 1; i++){
+                if(s.charAt(i) == s.charAt(i + 1)){
+                    s.delete(i, i + 2);
+                    if(i == 0){
+                        i += 1;
+                    }
+                    i -= 2;
+                    count++;
+                }
+            }
+            if((count & 1) == 1){
+                System.out.println("YES");
+            }
+            else{
+                System.out.println("NO");
+            }
         } 
      }
  

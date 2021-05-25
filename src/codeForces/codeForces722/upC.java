@@ -1,15 +1,15 @@
 package codeForces.codeForces722;
 
 
-
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
+ import java.util.Map.Entry;
   
  
- public class B {
+ public class upC {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,67 +23,56 @@ package codeForces.codeForces722;
              return this.a - o.a;
          }
      }
+     static class Edge{
+		int src;
+		int dest;
+
+		Edge(int i , int j){
+			src=i;
+			dest=j;
+		}
+	}
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            int z = 0;
-            int po = 0;
-            for(int e : a){
-                if(e == 0){
-                    z++;
-                }
-                else if(e > 0){
-                    po++;
-                }
+            long a[][] = new long[n+1][2];
+            for(int i = 1; i <= n; i++){
+                a[i][0] = sc.nextLong();
+                a[i][1] = sc.nextLong();
             }
-            if(po == 0){
-                System.out.println(n);
+            int vert = n; 
+            // vertices aagyi
+            
+            ArrayList<Integer>[] graph = new ArrayList[vert + 1];
+            // it is assumed here that each vertex is between [1 to vert]
+            
+            for(int i = 1; i <= vert; i++) {
+                graph[i] = new ArrayList<>();
             }
-            else{
-                ArrayList<Integer> al = new ArrayList<>();
-                for(int i = 0; i < n; i++){
-                    if(a[i] <= 0){
-                        al.add(a[i]);
-                    }
-                }
-                Collections.sort(al);
-                int min = max_val;
-                for(int i = 0; i < al.size() - 1; i++){
-                    min = Math.min(Math.abs(al.get(i) - al.get(i + 1)) , min);
-                }
-                po = 0;
-                for(int e : a){
-                    if(e > 0 && e <= min){
-                        po++;
-                        break;
-                    }
-                }
-                if(po == 0){
-                    System.out.println(al.size());
-                }
-                else{
-                    int x = 0;
-                    if(z <= 1){
-                        x = al.size() + 1;
-                    }
-                    else{
-                        x = al.size();
-                    }
-                    System.out.println(x);
-                }               
-            }     
+            long edges = n - 1;
+            
+            for(int i = 0; i < edges; i++) {
+                int s = sc.nextInt();
+                int d = sc.nextInt();
+                graph[(int)s].add(d);
+                graph[(int)d].add(s);
+            }
+            long dp[][] = new long[n + 1][2];
+            solve(graph , a, 1 , 0 , dp);
+            System.out.println(Math.max(dp[1][0] , dp[1][1]));
         } 
      }
- 
- 
- 
- 
- 
- 
-  
+     static void solve(ArrayList<Integer>[] g , long a[][] , int v , int par , long dp[][]){
+        for(int n : g[(int)v]){
+            if(n != par){
+                solve(g , a , n , v , dp);
+                dp[(int)v][0] += Math.max(Math.abs(a[v][0] - a[n][0]) + dp[n][0] , Math.abs(a[v][0] - a[n][1]) + dp[n][1]);
+                dp[(int)v][1] += Math.max(Math.abs(a[v][1] - a[n][0]) + dp[n][0] , Math.abs(a[v][1] - a[n][1]) + dp[n][1]);
+            }
+        }
+     }
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
@@ -307,7 +296,6 @@ package codeForces.codeForces722;
  
          return lowBound(ll,tar,mid+1,r);
      }
- 
      // returns the index of the element which is just greater than or
      // equal to the tar in the given arraylist 
      static int upBound(ArrayList<Integer> ll,long tar,int l ,int r){

@@ -7,54 +7,52 @@ package codeForces.Practicer;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
- import java.util.Map.Entry;
   
  
- public class CutemAll {
-     static int ans = 0;
-
-     static void dfs(ArrayList<Integer> g[] , int cnt[] , int v , int par){
-        cnt[v] = 1;
-
-        for(int e : g[v]){
-            if(e != par){
-                dfs(g , cnt , e , v);
-                if((cnt[e] & 1) != 1){
-                    ans++;
-                    cnt[e] = 0;
-                }
-                cnt[v] += cnt[e];
-            }
-        }
-     }   
+ public class SplitIt {
+     static class Pair implements Comparable<Pair>{
+         int a;
+         int b;
+ 
+         Pair(int a , int b){
+             this.a = a;
+             this.b = b;
+         }
+ 
+         public int compareTo(Pair o){
+             return this.a - o.a;
+         }
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
-        
-        ArrayList<Integer>[] g = new ArrayList[n + 1];
-        for(int i = 1; i < n + 1; i++){
-            g[i] = new ArrayList<>();
-        }
-
-        for(int i = 0; i < n - 1; i++){
-            int u = sc.nextInt();
-            int v = sc.nextInt();
-            g[u].add(v);
-            g[v].add(u);
-        }
-        if((n & 1) == 1){
-            System.out.println(-1);
-        }
-        else{
-            int cnt[] = new int[n + 1];
-
-            dfs(g, cnt , 1 , 0);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            int k = sc.nextInt();
+            String s = sc.nextLine();
+            if(2 * k >= n){
+                System.out.println("NO");
+                continue;
+            }
+            if(k == 0){
+                System.out.println("YES");
+                continue;
+            }
+            char ca[] = s.toCharArray();
+            boolean flag = true;
+            String a = s.substring(0, k);
     
-            int res = ans;
-    
-            ans = 0;
-    
-            System.out.println(res);
+            StringBuffer b = new StringBuffer(s.substring(n - k));
+            b = b.reverse();
+            if(!a.equals(b.toString())){
+                flag = false;
+            }
+            if(flag){
+                System.out.println("YES");
+            }   
+            else{
+                System.out.println("NO");
+            }
         } 
      }
   

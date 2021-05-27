@@ -10,7 +10,7 @@ package codeForces.Practicer;
  import java.util.Map.Entry;
   
  
- public class ThreeSwimmers {
+ public class SumOfCubes {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -27,20 +27,33 @@ package codeForces.Practicer;
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
+        HashSet<Long> set = new HashSet<>();
+        for(long i = 1; i <= 10000; i++){
+            if(i == 10000){
+                System.out.println(fastPow(i , 3));
+            }
+            set.add(fastPow(i , 3));
+        }
         while(t-->0){
-            long p = sc.nextLong();
-            long a = sc.nextLong();
-            long b = sc.nextLong();
-            long c = sc.nextLong();
-            
-            long x = p % a == 0 ? p / a : p / a + 1;
-            long y = p % b == 0 ? p / b : p / b + 1;
-            long z = p % c == 0 ? p / c : p / c + 1;
+            long x = sc.nextLong();
 
-            System.out.println(Math.min(x * a - p , Math.min(y * b - p , z * c - p)));
-        }     
+            boolean found = false;
+            for(long i = 1; i <= 10000; i++){
+               if(set.contains(x - fastPow(i, 3))){
+                   found = true;
+                   break;
+               }
+            }
+
+            if(found){
+                System.out.println("YES");
+            }
+            else{
+                System.out.println("NO");
+            }
+        }
      }
-  
+ 
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
@@ -160,7 +173,7 @@ package codeForces.Practicer;
  
      //multiply two long numbers
      static long mul(long a, long b) {
-         return a*b%mod;
+         return a*b;
      }
  
      static int nCr(int n, int r)

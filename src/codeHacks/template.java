@@ -25,15 +25,9 @@ public class template {
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
 		int n = sc.nextInt();
-			
+
 	}
 
-
-
-
-
-
- 
 	// Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
 	// worst case since it uses a version of quicksort. Although this would never
 	// actually show up in the real world, in codeforces, people can hack, so
@@ -139,7 +133,7 @@ public class template {
                 al.get(i);
         }
     }
-	static final int mod=100000000 + 7;
+	static final int mod = 100000000 + 7;
 	static final int max_val = 2147483647;
 	static final int min_val = max_val + 1;
 	

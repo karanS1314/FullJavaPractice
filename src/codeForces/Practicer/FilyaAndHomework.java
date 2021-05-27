@@ -1,7 +1,6 @@
 package codeForces.Practicer;
 
 
-
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
@@ -10,7 +9,7 @@ package codeForces.Practicer;
  import java.util.Map.Entry;
   
  
- public class ThreeSwimmers {
+ public class FilyaAndHomework {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,21 +25,36 @@ package codeForces.Practicer;
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            long p = sc.nextLong();
-            long a = sc.nextLong();
-            long b = sc.nextLong();
-            long c = sc.nextLong();
-            
-            long x = p % a == 0 ? p / a : p / a + 1;
-            long y = p % b == 0 ? p / b : p / b + 1;
-            long z = p % c == 0 ? p / c : p / c + 1;
+        int n = sc.nextInt();
+        long a[] = sc.readArray(n);
 
-            System.out.println(Math.min(x * a - p , Math.min(y * b - p , z * c - p)));
-        }     
+        LinkedHashMap<Long , Integer> map = new LinkedHashMap<>();
+        for(long e : a){
+            map.put(e , 1);
+        }
+
+        if(map.size() > 3){
+            System.out.println("NO");
+        }
+        else if(map.size() < 3){
+            System.out.println("YES");
+        }
+        else{
+            ArrayList<Long> al = new ArrayList<>();
+            for(Map.Entry<Long , Integer> e : map.entrySet()){
+                al.add(e.getKey());
+            }
+            Collections.sort(al);
+
+            if((al.get(2) - al.get(1) == al.get(1) - al.get(0))){
+                System.out.println("YES");
+            }
+            else{
+                System.out.println("NO");
+            }
+        }
      }
-  
+ 
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
@@ -92,10 +106,10 @@ package codeForces.Practicer;
              return str;
          }
   
-         int[] readArray(int n) {
-             int[] a = new int[n];
+         long[] readArray(int n) {
+             long[] a = new long[n];
              for (int i = 0; i < n; i++)
-                 a[i] = nextInt();
+                 a[i] = nextLong();
              return a;
          }
   
@@ -146,7 +160,7 @@ package codeForces.Practicer;
                  al.get(i);
          }
      }
-     static final int mod=100000000 + 7;
+     static final int mod = 100000000 + 7;
      static final int max_val = 2147483647;
      static final int min_val = max_val + 1;
      

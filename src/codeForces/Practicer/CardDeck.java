@@ -10,7 +10,7 @@ package codeForces.Practicer;
  import java.util.Map.Entry;
   
  
- public class ThreeSwimmers {
+ public class CardDeck {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -28,19 +28,42 @@ package codeForces.Practicer;
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            long p = sc.nextLong();
-            long a = sc.nextLong();
-            long b = sc.nextLong();
-            long c = sc.nextLong();
-            
-            long x = p % a == 0 ? p / a : p / a + 1;
-            long y = p % b == 0 ? p / b : p / b + 1;
-            long z = p % c == 0 ? p / c : p / c + 1;
+            int n = sc.nextInt();
+            ArrayList<Integer> al = new ArrayList<>();
 
-            System.out.println(Math.min(x * a - p , Math.min(y * b - p , z * c - p)));
-        }     
+            for(int i = 0; i < n; i++){
+                int x = sc.nextInt();
+                al.add(x);
+            }
+            int N = n;
+            int j = n - 1;
+            int prev = n;
+            ArrayList<Integer> res = new ArrayList<>();
+            while(j >= 0){
+                if(al.get(j) < N){
+                    j--;
+                }
+                else{
+                    N--;
+                    for(int i = j; i < prev; i++){
+                        res.add(al.get(i));
+                    }
+                    prev = j;
+                    j--;
+                }
+            }
+            if(res.size() < n){
+                for(int i = j + 1; i < prev; i++){
+                    res.add(al.get(i));
+                }
+            }
+            for(int e : res){
+                System.out.print(e + " ");
+            }
+            System.out.println();
+        }
      }
-  
+ 
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
@@ -146,7 +169,7 @@ package codeForces.Practicer;
                  al.get(i);
          }
      }
-     static final int mod=100000000 + 7;
+     static final int mod = 100000000 + 7;
      static final int max_val = 2147483647;
      static final int min_val = max_val + 1;
      

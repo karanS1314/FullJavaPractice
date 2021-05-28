@@ -27,11 +27,56 @@ public class upC1 {
         int t = 1;
         while(t-->0){
             int n = sc.nextInt();
-            long a[] = new long[n + 1];
-            
+            long a[] = new long[n];
+            for(int i = 0; i < n; i++){
+                a[i] = sc.nextLong();
+            }
+
+            PriorityQueue<Long> pq = new PriorityQueue<>();
+            int post = 0;
+            for(long e : a){
+                if(e >= 0){
+                    post++;
+                }
+            }
+
+            long pre[] = new long[n];
+            pre[0] = a[0];
+            for(int i = 1; i < n; i++){
+                pre[i] = pre[i - 1] + a[i];
+            }
+            // while(!pq.isEmpty()){
+            //     System.out.println(pq.poll());
+            // }
+            long del = 0;
+            for(int i = 0; i < n; i++){
+                if(a[i] < 0){
+                    pq.add(a[i]);
+                }
+                if(pre[i] - del < 0){
+                    long x = pq.peek();
+                    del += x;
+                    pq.poll();
+                }
+            }
+
+            int res = post + pq.size();
+            System.out.println(res);
         } 
     }
-
+    static class c implements Comparator<Long>{
+        public int compare(Long o , Long t){
+            if(t > o){
+                return 1;
+            }
+            else if(t == o){
+                return 0;
+            }
+            else{
+                return -1;
+            }
+        }
+    }
     // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
     // worst case since it uses a version of quicksort. Although this would never
     // actually show up in the real world, in codeforces, people can hack, so

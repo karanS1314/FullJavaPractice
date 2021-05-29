@@ -9,7 +9,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class CardDeck {
+ public class GeorgeAndRound {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,46 +23,42 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
-     static class c implements Comparator<Integer> {
-        public int compare(Integer one , Integer two){
-            return two - one; 
-        }
-     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            ArrayList<Integer> al = new ArrayList<>();
-            TreeSet<Integer> set = new TreeSet<>(new c());
-            for(int i = 0; i < n; i++){
-                int x = sc.nextInt();
-                al.add(x);
-                set.add(x);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        long a[] = sc.readArray(n);
+        long b[] = sc.readArray(m);
+        Arrays.sort(a);
+        PriorityQueue<Long> pq = new PriorityQueue<>();
+        for(long e : b){
+            pq.add(e);
+        }
+
+        int str = -1;
+        for(int i = 0; i < n; i++){
+            if(pq.isEmpty()){
+                str = i;
+                break;
             }
-            int j = n - 1;
-            int prev = n;
-            ArrayList<Integer> res = new ArrayList<>();
-            int se = set.pollFirst();
-            while(j >= 0){             
-                if(al.get(j) == se){
-                    if(set.size() > 0)
-                        se = set.pollFirst();
-                    for(int i = j; i < prev; i++){
-                        res.add(al.get(i));
-                    }
-                    prev = j;
+            if(pq.peek() >= a[i]){
+                pq.poll();
+            }
+            else if(pq.peek() < a[i]){
+                while(!pq.isEmpty() && pq.peek() < a[i]){
+                    pq.poll();
+                }
+                if(pq.isEmpty()){
+                    str = i;
+                    break;
                 }
                 else{
-                    set.remove(al.get(j));
+                    pq.poll();
                 }
-                j--;
             }
-            for(int e : res){
-                System.out.print(e + " ");
-            }
-            System.out.println();
         }
+        int res = str >= 0 ? n - str : 0;
+        System.out.println(res);
      }
  
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
@@ -116,8 +112,8 @@ package codeForces.Practicer;
              return str;
          }
   
-         int[] readArray(int n) {
-             int[] a = new int[n];
+         long[] readArray(int n) {
+             long[] a = new long[n];
              for (int i = 0; i < n; i++)
                  a[i] = nextInt();
              return a;
@@ -277,7 +273,7 @@ package codeForces.Practicer;
  
      // returns the index of the element which is just smaller than or
      // equal to the tar in the given arraylist 
-     static int lowBound(ArrayList<Integer> ll,long tar ,int l,int r){
+     static int lowBound(LinkedList<Integer> ll,long tar ,int l,int r){
          if(l>r) return l;
  
          int mid=l+(r-l)/2;
@@ -291,16 +287,15 @@ package codeForces.Practicer;
  
      // returns the index of the element which is just greater than or
      // equal to the tar in the given arraylist 
-     static int upBound(ArrayList<Integer> ll,long tar,int l ,int r){
+     static int upBound(LinkedList<Integer> ll,long tar,int l ,int r){
          if(l>r) return l;
  
          int mid=l+(r-l)/2;
  
          if(ll.get(mid)<=tar){
-             return upBound(ll,tar,l,mid-1);
+            return upBound(ll,tar,mid+1,r);
          }
- 
-         return upBound(ll,tar,mid+1 ,r);
+         return upBound(ll,tar,l,mid-1);
      }
  
      static void swap(int i , int j , int a[]){

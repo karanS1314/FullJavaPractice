@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
-import java.util.Map.Entry;
  
 
 public class template {
@@ -260,10 +259,10 @@ public class template {
 		int mid=l+(r-l)/2;
 
         if(ll.get(mid)<=tar){
-            return upBound(ll,tar,l,mid-1);
+			return upBound(ll,tar,mid+1 ,r);
         }
 
-        return upBound(ll,tar,mid+1 ,r);
+        return upBound(ll,tar,l,mid-1);
 	}
 
 	static void swap(int i , int j , int a[]){

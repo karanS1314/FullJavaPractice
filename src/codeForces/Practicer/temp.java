@@ -7,9 +7,10 @@ package codeForces.Practicer;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
+ import java.util.Map.Entry;
   
  
- public class CardDeck {
+ public class temp {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,46 +24,10 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
-     static class c implements Comparator<Integer> {
-        public int compare(Integer one , Integer two){
-            return two - one; 
-        }
-     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            ArrayList<Integer> al = new ArrayList<>();
-            TreeSet<Integer> set = new TreeSet<>(new c());
-            for(int i = 0; i < n; i++){
-                int x = sc.nextInt();
-                al.add(x);
-                set.add(x);
-            }
-            int j = n - 1;
-            int prev = n;
-            ArrayList<Integer> res = new ArrayList<>();
-            int se = set.pollFirst();
-            while(j >= 0){             
-                if(al.get(j) == se){
-                    if(set.size() > 0)
-                        se = set.pollFirst();
-                    for(int i = j; i < prev; i++){
-                        res.add(al.get(i));
-                    }
-                    prev = j;
-                }
-                else{
-                    set.remove(al.get(j));
-                }
-                j--;
-            }
-            for(int e : res){
-                System.out.print(e + " ");
-            }
-            System.out.println();
-        }
+        int n = sc.nextInt();
+        int a[] = sc.readArray(n);
      }
  
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2

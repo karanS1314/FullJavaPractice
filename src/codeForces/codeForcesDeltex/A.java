@@ -49,13 +49,13 @@ package codeForces.codeForcesDeltex;
                     }
                     if(l != -1  && r != n){
                         if(i - l == r - i){
-                            b[i] = mod;
+                            b[i] = max_val;
                             continue;
                         }
                         b[i] = Math.min(r - i , i - l);
                     }
                     else if(l == -1 && r == n){
-                        b[i] = mod;
+                        b[i] = max_val;
                     }
                     else if(l == -1){
                         b[i] = r - i;

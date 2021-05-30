@@ -95,21 +95,6 @@ public class template {
 			return Long.parseLong(next());
 		}
 	}
-    // use this to find the index of any element in the array +1 /// 
-	// returns an array that corresponds to the index of the i+1th in the array a[]
-	// runs only for array containing different values enclosed btw 0 to n-1
-	static int[] indexOf(int[] a) {
-		int[] toRet=new int[a.length];
-		for (int i=0; i<a.length; i++) {
-			toRet[a[i]]=i+1;
-		}
-		return toRet;
-	}
-
-	static int gcd(int a, int b) {
-		if (b==0) return a;
-		return gcd(b, a%b);
-	}
 
 	//generates all the prime numbers upto n
 	static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
@@ -185,58 +170,6 @@ public class template {
         }
     }
      
-
-	//count sort --> it runs in O(n) time but compromises in space
-	static ArrayList<Integer> countSort(int a[]){
-		int max = Integer.MIN_VALUE;
-		for(int i=0;i<a.length;i++){
-			max = Math.max(max , a[i]);
-		}
-
-		int posfre[] = new int[max+1];
-		boolean negPres = false;
-		for(int i=0;i<a.length;i++){
-			if(a[i]>=0){
-				posfre[a[i]]++;
-			}
-			else{
-				negPres = true;
-			}
-		}
-		ArrayList<Integer> res = new ArrayList<>();
-		if(negPres){
-			int min = Integer.MAX_VALUE;
-			for(int i=0;i<a.length;i++){
-				min = Math.min(min , a[i]);
-			}
-
-			int negfre[] = new int[-1*min+1];
-			for(int i=0;i<a.length;i++){
-				if(a[i]<0){
-					negfre[-1*a[i]]++;
-				}
-			}
-
-			for(int i=min;i<0;i++){
-				for(int j=0;j<negfre[-1*i];j++){
-					res.add(i);
-				}
-			}
-			for(int i=0;i<=max;i++){
-				for(int j=0;j<posfre[i];j++){
-					res.add(i);
-				}
-			}
-			return res;
-		}
-		for(int i=0;i<=max;i++){
-			for(int j=0;j<posfre[i];j++){
-				res.add(i);
-			}
-		}
-		return res;
-	}
-
 	// returns the index of the element which is just smaller than or
     // equal to the tar in the given arraylist 
     static int lowBound(ArrayList<Integer> ll,long tar ,int l,int r){

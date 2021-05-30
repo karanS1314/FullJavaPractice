@@ -9,7 +9,7 @@ package codeForces.codeForcesDeltex;
  import java.util.*;
   
  
- public class D {
+ public class upB {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -30,7 +30,16 @@ package codeForces.codeForcesDeltex;
             int n = sc.nextInt();
             int a[] = sc.readArray(n);
 
-            
+            int total = 3 * n;
+            System.out.println(total);
+            for(int i = 0; i < n; i+=2){
+                int k = 2;
+                while(k-- > 0){
+                    System.out.println("2 " + (i + 1) + " " + (i + 2));
+                    System.out.println("2 " + (i + 1) + " " + (i + 2));
+                    System.out.println("1 " + (i + 1) + " " + (i + 2));
+                }
+            }
         }
      }
  

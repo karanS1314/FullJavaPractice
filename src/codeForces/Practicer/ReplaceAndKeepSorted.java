@@ -7,10 +7,9 @@ package codeForces.Practicer;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
-
   
  
- public class temp {
+ public class ReplaceAndKeepSorted {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,33 +25,43 @@ package codeForces.Practicer;
      }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            int min = max_val;
-            for(int e : a){
-                min = Math.min(e , min);
+        int n = sc.nextInt();
+        int q = sc.nextInt();
+        int k = sc.nextInt();
+
+        int a[] = sc.readArray(n);
+        int b[] = new int[n];
+        int m = b.length;
+
+        for(int i = 1; i < m - 1; i++){
+            b[i] += a[i + 1] - a[i - 1] - 2;
+        }
+        int dp[][] = new int[n - 1][n - 1];
+        for(int i = 1; i < n - 1; i++){
+            int sum = 0;
+            for(int j = i; j < n - 1; j++){
+                sum += b[j];
+                dp[i][j] = sum;
             }
+        }
+        while(q-->0){
+            int l = sc.nextInt();
+            int r = sc.nextInt();
             int res = 0;
-            for(int e : a){
-                if(e != min){
-                    res++;
-                }
+            if(l + 1 <= r - 1 && l < n && r > 1){
+                res += dp[l][r - 2];
+            }
+            if(l == r){
+                res += k - 1;
+            }
+            else{
+                res += k - a[r - 2] - 1;
+                res += a[l] - 2;
             }
             System.out.println(res);
         }
      }
-    static long sum(long n){
-        long temp = n;
-        long sum = 0;
-        while(temp > 0){
-            sum += temp % 10;
-            temp /= 10;
-        }
-
-        return sum;
-     }
+ 
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
@@ -120,21 +129,6 @@ package codeForces.Practicer;
          long nextLong() {
              return Long.parseLong(next());
          }
-     }
-     // use this to find the index of any element in the array +1 /// 
-     // returns an array that corresponds to the index of the i+1th in the array a[]
-     // runs only for array containing different values enclosed btw 0 to n-1
-     static int[] indexOf(int[] a) {
-         int[] toRet=new int[a.length];
-         for (int i=0; i<a.length; i++) {
-             toRet[a[i]]=i+1;
-         }
-         return toRet;
-     }
- 
-     static long gcd(long n, long l) {
-         if (l==0) return n;
-         return gcd(l, n%l);
      }
  
      //generates all the prime numbers upto n
@@ -211,58 +205,6 @@ package codeForces.Practicer;
          }
      }
       
- 
-     //count sort --> it runs in O(n) time but compromises in space
-     static ArrayList<Integer> countSort(int a[]){
-         int max = Integer.MIN_VALUE;
-         for(int i=0;i<a.length;i++){
-             max = Math.max(max , a[i]);
-         }
- 
-         int posfre[] = new int[max+1];
-         boolean negPres = false;
-         for(int i=0;i<a.length;i++){
-             if(a[i]>=0){
-                 posfre[a[i]]++;
-             }
-             else{
-                 negPres = true;
-             }
-         }
-         ArrayList<Integer> res = new ArrayList<>();
-         if(negPres){
-             int min = Integer.MAX_VALUE;
-             for(int i=0;i<a.length;i++){
-                 min = Math.min(min , a[i]);
-             }
- 
-             int negfre[] = new int[-1*min+1];
-             for(int i=0;i<a.length;i++){
-                 if(a[i]<0){
-                     negfre[-1*a[i]]++;
-                 }
-             }
- 
-             for(int i=min;i<0;i++){
-                 for(int j=0;j<negfre[-1*i];j++){
-                     res.add(i);
-                 }
-             }
-             for(int i=0;i<=max;i++){
-                 for(int j=0;j<posfre[i];j++){
-                     res.add(i);
-                 }
-             }
-             return res;
-         }
-         for(int i=0;i<=max;i++){
-             for(int j=0;j<posfre[i];j++){
-                 res.add(i);
-             }
-         }
-         return res;
-     }
- 
      // returns the index of the element which is just smaller than or
      // equal to the tar in the given arraylist 
      static int lowBound(ArrayList<Integer> ll,long tar ,int l,int r){
@@ -285,10 +227,10 @@ package codeForces.Practicer;
          int mid=l+(r-l)/2;
  
          if(ll.get(mid)<=tar){
-             return upBound(ll,tar,l,mid-1);
+             return upBound(ll,tar,mid+1 ,r);
          }
  
-         return upBound(ll,tar,mid+1 ,r);
+         return upBound(ll,tar,l,mid-1);
      }
  
      static void swap(int i , int j , int a[]){

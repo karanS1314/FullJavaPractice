@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.newPractice;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class ReplaceAndKeepSorted {
+ public class ShiftingBlocks {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,26 +23,35 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
+ 
+ // =================================================================================================
+ 
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
-        int q = sc.nextInt();
-        int k = sc.nextInt();
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            int a[] = sc.readArray(n);
 
-        int a[] = new int[n + 1];
-        for(int i = 1; i <= n; i++){
-            a[i] = sc.nextInt();
-        }
-
-        while(q-->0){
-            int l = sc.nextInt();
-            int r = sc.nextInt();
-            long sum = 0;
-
-            sum = (k - a[r]) + (a[l] - 1) + 2 * ((a[r] - a[l] + 1) - (r - l + 1));
-            System.out.println(sum);
+            int sum = ((n - 1) * (n)) / 2;
+            boolean cons = false;
+            for(int i = 0; i < n; i++){
+                sum -= a[i];
+                if(i > 0 && a[i] == 0 && a[i - 1] == 0){
+                    cons = true;
+                }
+            }
+            if(sum <= 0 && !cons){
+                System.out.println("YES");
+            }
+            else{
+                System.out.println("NO");
+            }
         }
      }
+ 
+ //==================================================================================================
+ 
  
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never

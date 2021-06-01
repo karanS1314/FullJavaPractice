@@ -1,4 +1,4 @@
-package codeForces.Practicer;
+package codeForces.newPractice;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.Practicer;
  import java.util.*;
   
  
- public class ReplaceAndKeepSorted {
+ public class PermutationTransformation {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -23,26 +23,68 @@ package codeForces.Practicer;
              return this.a - o.a;
          }
      }
+ 
+ // =================================================================================================
+ 
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int n = sc.nextInt();
-        int q = sc.nextInt();
-        int k = sc.nextInt();
+        int t = sc.nextInt();
+        while(t-->0){
+            int px = sc.nextInt();
+            int py = sc.nextInt();
 
-        int a[] = new int[n + 1];
-        for(int i = 1; i <= n; i++){
-            a[i] = sc.nextInt();
-        }
+            String s = sc.nextLine();
+            int u = 0;
+            int d = 0;
+            int r = 0;
+            int l = 0;
+            for(char c : s.toCharArray()){
+                if(c == 'U'){
+                    u++;
+                }
+                else if(c == 'R'){
+                    r++;
+                }
+                else if(c == 'D'){
+                    d++;
+                }
+                else{
+                    l++;
+                }
+            }
+            boolean poss = false;
+            if(px >= 0 && py >= 0){
+                if(u >= py && r >= px){
+                    poss = true;
+                }
+            }
+            else if(px <= 0 && py <= 0){
+                if(l >= Math.abs(px) && d >= Math.abs(py)){
+                    poss = true;
+                }
+            }
+            else if(px <= 0 && py >= 0){
+                if(l >= Math.abs(px) && u >= Math.abs(py)){
+                    poss = true;
+                }
+            }
+            else if(px >= 0 && py <= 0){
+                if(r >= Math.abs(px) && d >= Math.abs(py)){
+                    poss = true;
+                }
+            }
 
-        while(q-->0){
-            int l = sc.nextInt();
-            int r = sc.nextInt();
-            long sum = 0;
-
-            sum = (k - a[r]) + (a[l] - 1) + 2 * ((a[r] - a[l] + 1) - (r - l + 1));
-            System.out.println(sum);
+            if(poss){
+                System.out.println("YES");
+            }
+            else{
+                System.out.println("NO");
+            }
         }
      }
+ 
+ //==================================================================================================
+ 
  
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never

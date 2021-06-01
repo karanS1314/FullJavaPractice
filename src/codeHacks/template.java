@@ -21,11 +21,17 @@ public class template {
 			return this.a - o.a;
 		}
 	}
+
+// =================================================================================================
+
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
 		int n = sc.nextInt();
 
 	}
+
+//==================================================================================================
+
 
 	// Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
 	// worst case since it uses a version of quicksort. Although this would never

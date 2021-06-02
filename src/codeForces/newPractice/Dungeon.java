@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class ShiftingBlocks {
+ public class Dungeon {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,24 +29,20 @@ package codeForces.newPractice;
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        o : while(t-->0){
-            int n = sc.nextInt();
-            long a[] = new long[n];
-            for(int i = 0; i < n; i++){
-                a[i] = sc.nextLong();
-            }
+        while(t-->0){
+            long a = sc.nextLong();
+            long b = sc.nextLong();
+            long c = sc.nextLong();
 
-            long sum = 0;
-            int need = 0;
-            for(int i = 0; i < n; i++){
-                sum += a[i];
-                need += i;
-                if(sum < need){
-                    System.out.println("NO");
-                    continue o;
-                }
+            long sum = a + b + c;
+
+
+            if(sum % 9 == 0 && Math.min(a , Math.min(b , c)) >= sum / 9){
+                System.out.println("YES");
             }
-            System.out.println("YES");
+            else{
+                System.out.println("NO");
+            }
         }
      }
  

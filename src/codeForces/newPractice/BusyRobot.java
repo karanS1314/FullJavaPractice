@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class ShiftingBlocks {
+ public class template {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -27,27 +27,9 @@ package codeForces.newPractice;
  // =================================================================================================
  
      public static void main(String[] args) {
-        FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        o : while(t-->0){
-            int n = sc.nextInt();
-            long a[] = new long[n];
-            for(int i = 0; i < n; i++){
-                a[i] = sc.nextLong();
-            }
-
-            long sum = 0;
-            int need = 0;
-            for(int i = 0; i < n; i++){
-                sum += a[i];
-                need += i;
-                if(sum < need){
-                    System.out.println("NO");
-                    continue o;
-                }
-            }
-            System.out.println("YES");
-        }
+         FastScanner sc = new FastScanner();
+         int n = sc.nextInt();
+ 
      }
  
  //==================================================================================================

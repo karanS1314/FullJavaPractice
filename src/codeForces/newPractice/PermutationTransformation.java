@@ -10,77 +10,68 @@ package codeForces.newPractice;
   
  
  public class PermutationTransformation {
-     static class Pair implements Comparable<Pair>{
-         int a;
-         int b;
+     static class Node {
+        int val;
+        Node left;
+        Node right;
  
-         Pair(int a , int b){
-             this.a = a;
-             this.b = b;
-         }
- 
-         public int compareTo(Pair o){
-             return this.a - o.a;
-         }
+        Node(int val){
+            this.val = val;
+            this.left = null;
+            this.right = null;
+        }
      }
  
  // =================================================================================================
- 
+     
+     static HashMap<Integer , Integer> map = new HashMap<>();
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            int px = sc.nextInt();
-            int py = sc.nextInt();
+            int n = sc.nextInt();
+            int a[] = sc.readArray(n);
+            
+            Node root = construct(a , 0 , n - 1);
 
-            String s = sc.nextLine();
-            int u = 0;
-            int d = 0;
-            int r = 0;
-            int l = 0;
-            for(char c : s.toCharArray()){
-                if(c == 'U'){
-                    u++;
-                }
-                else if(c == 'R'){
-                    r++;
-                }
-                else if(c == 'D'){
-                    d++;
-                }
-                else{
-                    l++;
-                }
-            }
-            boolean poss = false;
-            if(px >= 0 && py >= 0){
-                if(u >= py && r >= px){
-                    poss = true;
-                }
-            }
-            else if(px <= 0 && py <= 0){
-                if(l >= Math.abs(px) && d >= Math.abs(py)){
-                    poss = true;
-                }
-            }
-            else if(px <= 0 && py >= 0){
-                if(l >= Math.abs(px) && u >= Math.abs(py)){
-                    poss = true;
-                }
-            }
-            else if(px >= 0 && py <= 0){
-                if(r >= Math.abs(px) && d >= Math.abs(py)){
-                    poss = true;
-                }
-            }
+            map = new HashMap<>();
 
-            if(poss){
-                System.out.println("YES");
+            fillLevels(root ,  0);
+
+            for(int e : a){
+                System.out.print(map.get(e) + " ");
             }
-            else{
-                System.out.println("NO");
+            System.out.println();
+        }
+     }
+     static void fillLevels(Node node  , int lev){
+        if(node == null){
+            return;
+        }
+
+        map.put(node.val , lev);
+
+        fillLevels(node.left , lev + 1);
+        fillLevels(node.right , lev + 1);
+     }
+     static Node construct(int a[] , int l , int r){
+        if(l > r){
+            return null;
+        }
+        int mx = min_val;
+        int mxi = -1;
+        for(int i = l; i <= r; i++){
+            if(a[i] > mx){
+                mx = a[i];
+                mxi = i;
             }
         }
+        Node node = new Node(a[mxi]);
+
+        node.left = construct(a , l , mxi - 1);
+        node.right = construct(a , mxi + 1 , r);
+
+        return node;
      }
  
  //==================================================================================================

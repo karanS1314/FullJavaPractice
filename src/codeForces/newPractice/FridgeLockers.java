@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class template {
+ public class FridgeLockers {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -31,6 +31,7 @@ package codeForces.newPractice;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
+            int m = sc.nextInt();
             int a[] = sc.readArray(n);
             
         }

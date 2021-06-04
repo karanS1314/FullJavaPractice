@@ -1,4 +1,4 @@
-package codeForces.newPractice;
+package codeForces.codeforcesEdu110;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class FridgeLockers {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,36 +26,14 @@ package codeForces.newPractice;
  
  // =================================================================================================
  
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int m = sc.nextInt();
-            long a[] = new long[n];
-            long sum = 0;
-            for(int i = 0; i < n; i++){
-                a[i] = sc.nextLong();
-                sum += a[i];
-            }
             
-            if(n != m || n == 2){
-                System.out.println(-1);
-                continue;
-            }
-            Arrays.sort(a);
-            System.out.println(2*sum);
-
-            for(int i = 1; i <= n; i++){
-                int j = i + 1;
-                if(i == n){
-                    j = 1;
-                }
-                System.out.println(i + " " + j);
-            }
         }
-     }
- 
+    }
  //==================================================================================================
  
  

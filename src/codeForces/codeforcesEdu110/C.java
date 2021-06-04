@@ -1,5 +1,4 @@
-package codeForces.newPractice;
-
+package codeForces.codeforcesEdu110;
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -9,7 +8,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class FridgeLockers {
+ public class C {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,35 +25,90 @@ package codeForces.newPractice;
  
  // =================================================================================================
  
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            int n = sc.nextInt();
-            int m = sc.nextInt();
-            long a[] = new long[n];
-            long sum = 0;
-            for(int i = 0; i < n; i++){
-                a[i] = sc.nextLong();
-                sum += a[i];
-            }
+            String s = sc.nextLine();
+            char ch[] = s.toCharArray();
             
-            if(n != m || n == 2){
-                System.out.println(-1);
-                continue;
-            }
-            Arrays.sort(a);
-            System.out.println(2*sum);
-
-            for(int i = 1; i <= n; i++){
-                int j = i + 1;
-                if(i == n){
-                    j = 1;
+            int l = 0;
+            int j = 0;  
+            int n = ch.length;
+            
+            long res = 0;
+            char last = '2';
+            int x = 0;
+            while(l < n && j < n){
+                int local = 1;
+                int i = l;
+                if(ch[i] == '?'){
+                    x++;
                 }
-                System.out.println(i + " " + j);
+                boolean f = false;
+                while(i <= j && j < n - 1){
+                    f = true;
+                    j++;
+                    if(ch[j] == '1' && ch[i] == '0' || ch[j] == '0' && ch[i] == '1'){
+                        local++;
+                    }
+                    else if(ch[j] == '?'){
+                        if(j - 1 >= l){
+                            if(ch[j - 1] == '1'){
+                                last = '1';
+                            }
+                            else if(ch[j - 1] == '0'){
+                                last = '0';
+                            }
+                        }
+                        x++;
+                        local++;
+                    }
+                    else if(ch[j] == '1' && ch[i] == '1' || ch[j] == '1' && ch[i] == '1'){
+                        break;
+                    }
+                    else if(ch[j] == '1' && ch[i] == '?' || ch[j] == '0' && ch[i] == '?'){
+                        if(x % 2 == 0){
+                            if(ch[j] != last || last == '2'){
+                                local++;
+                                x = 0;
+                            }
+                            else{
+                                x = 0;
+                                break;
+                            }
+                        }
+                        else{
+                            if(ch[j] == last || last == '2'){
+                                local++;
+                                x = 0;
+                            }
+                            else{
+                                x = 0;
+                                break;
+                            }
+                        }
+                    }
+                    i++;
+                }
+                last = '2';
+                res += local;
+                while(l != j){
+                    // System.out.println(local);
+                    l++;
+                    res += --local;
+                }
+                if(!f){
+                    break;
+                }
+                if(ch[l - 1] == '?'){
+                    res--;
+                    l--;
+                }
             }
+            System.out.println(res);
         }
-     }
+    }
  
  //==================================================================================================
  

@@ -146,6 +146,14 @@ public class template {
                 fact(n - r));
 	}
 	
+	static int gcd(int a, int b)
+	{
+		if (b == 0)
+		  return a;
+
+		return gcd(b, a % b);
+	}
+	
 	// Returns factorial of n
 	static int fact(int n)
 	{

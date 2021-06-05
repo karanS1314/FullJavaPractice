@@ -1,4 +1,5 @@
-package codeForces.codeforcesEdu110;
+package codeForces.newPractice;
+
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -8,108 +9,69 @@ package codeForces.codeforcesEdu110;
  import java.util.*;
   
  
- public class C {
-     static class Pair implements Comparable<Pair>{
-         int a;
-         int b;
+ public class MahmoudAndEhab {
+     static class Pair{
+         long a;
+         long lev;
  
-         Pair(int a , int b){
+         Pair(long a , long lev){
              this.a = a;
-             this.b = b;
-         }
- 
-         public int compareTo(Pair o){
-             return this.a - o.a;
+             this.lev = lev;
          }
      }
  
  // =================================================================================================
  
-    public static void main(String[] args) {
+     public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            String s = sc.nextLine();
-            char ch[] = s.toCharArray();
-            
-            int l = 0;
-            int j = 0;  
-            int n = ch.length;
-            
-            long res = 0;
-            char last = '2';
-            int x = 0;
-            while(l < n && j < n){
-                int local = 1;
-                int i = l;
-                j = l;
-                if(ch[i] == '?'){
-                    x++;
-                }
-                boolean f = false;
-                while(i <= j && j < n - 1){
-                    f = true;
-                    j++;
-                    if(ch[j] == '1' && ch[i] == '0' || ch[j] == '0' && ch[i] == '1'){
-                        local++;
-                    }
-                    else if(ch[j] == '?'){
-                        if(j - 1 >= l){
-                            if(ch[j - 1] == '1'){
-                                last = '1';
-                            }
-                            else if(ch[j - 1] == '0'){
-                                last = '0';
-                            }
-                        }
-                        x++;
-                        local++;
-                    }
-                    else if(ch[j] == '1' && ch[i] == '1' || ch[j] == '1' && ch[i] == '1'){
-                        break;
-                    }
-                    else if(ch[j] == '1' && ch[i] == '?' || ch[j] == '0' && ch[i] == '?'){
-                        if(x % 2 == 0){
-                            if(ch[j] != last || last == '2'){
-                                local++;
-                                x = 0;
-                            }
-                            else{
-                                x = 0;
-                                break;
-                            }
-                        }
-                        else{
-                            if(ch[j] == last || last == '2'){
-                                local++;
-                                x = 0;
-                            }
-                            else{
-                                x = 0;
-                                break;
-                            }
-                        }
-                    }
-                    i++;
-                }
-                if(!f){
-                    break;
-                }
-                last = '2';
-                res += local;
-                while(l != j){
-                    // System.out.println(local);
-                    l++;
-                    res += --local;
-                }    
-                if(ch[l - 1] == '?'){
-                    res--;
-                    l--;
+        long n = sc.nextLong();
+        ArrayList<ArrayList<Long>> g = new ArrayList<>();
+        for(int i = 0; i < n + 1; ++i){
+            g.add(new ArrayList<>());
+        }
+        for(int i = 0; i < n - 1; i++){
+            long u = sc.nextLong();
+            long v = sc.nextLong();
+            g.get((int)u).add(v);
+            g.get((int) v).add(u);
+        }
+        boolean vis[] = new boolean[(int)n + 1];
+
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(1 , 0));
+
+        ArrayList<Long> a = new ArrayList<>();
+        HashSet<Long> b = new HashSet<>();
+        while(q.size() > 0){
+            Pair top = q.poll();
+            vis[(int)top.a] = true;
+            if(top.lev % 2 == 0){
+                a.add(top.a);
+            }
+            else{
+                b.add(top.a);
+            }
+            int x = (int) top.a;
+            for(long e : g.get(x)){
+                if(!vis[(int)e]){
+                    q.add(new Pair(e , top.lev + 1));
                 }
             }
-            System.out.println(res);
         }
-    }
+        long res = 0;
+        for(long e : a){
+            int loc = 0;
+            int x = (int) e;
+            for(long nei : g.get(x)){
+                if(b.contains(nei)){
+                    loc++;
+                }
+            }
+            res += b.size() - loc;
+        }
+
+        System.out.println(res);
+     }
  
  //==================================================================================================
  
@@ -225,6 +187,14 @@ package codeForces.codeforcesEdu110;
      {
             return fact(n) / (fact(r) *
                  fact(n - r));
+     }
+     
+     static int gcd(int a, int b)
+     {
+         if (b == 0)
+           return a;
+ 
+         return gcd(b, a % b);
      }
      
      // Returns factorial of n

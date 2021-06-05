@@ -31,7 +31,7 @@ package codeForces.codeforcesEdu110;
         while(t-->0){
             int n = sc.nextInt();
             int a[] = sc.readArray(n);
-
+ 
             int b[] = new int[n];
             int j = 0;
             for(int i = 0; i < n; i++){
@@ -44,7 +44,7 @@ package codeForces.codeforcesEdu110;
                     b[j++] = a[i];
                 }
             }
-
+ 
             int pairs = 0;
             for(int i = 0; i < n; i++){
                 for(int k = i + 1; k < n; k++){
@@ -77,23 +77,13 @@ package codeForces.codeforcesEdu110;
          //then sort
          Arrays.sort(a);
      }
-
+ 
      static int gcd(int a, int b)
      {
-         // Everything divides 0
-         if (a == 0)
-           return b;
          if (b == 0)
            return a;
-       
-         // base case
-         if (a == b)
-             return a;
-       
-         // a is greater
-         if (a > b)
-             return gcd(a-b, b);
-         return gcd(a, b-a);
+
+         return gcd(b, a % b);
      }
      // Use this to input code since it is faster than a Scanner
      static class FastScanner {
@@ -260,4 +250,3 @@ package codeForces.codeforcesEdu110;
      
      // write 
  }
- 

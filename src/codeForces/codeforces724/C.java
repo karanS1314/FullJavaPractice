@@ -1,5 +1,4 @@
-package codeForces.newPractice;
-
+package codeForces.codeforces724;
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -9,7 +8,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class Shuffle {
+ public class C {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -31,28 +30,71 @@ package codeForces.newPractice;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int x = sc.nextInt();
-            int m = sc.nextInt();
+            String s = sc.nextLine();
+            TreeSet<Integer> c[] = new TreeSet[26];
+            char ch[] = s.toCharArray();
+            for(int i = 0; i < 26; i++){
+                c[i] = new TreeSet<>();
+            }
+            for(int i = 0; i < n - 1; i++){
+                c[ch[i] - 'a'].add((int)ch[i + 1]);
+            }
+            int x = ch[n - 1] - 'a';
+            int I = -1;
+            int J = -1;
+            for(int i = 0; i < 26; i++){
+                if(c[i].size() == 0 && i != x){
+                    I = i;
+                    break;
+                }
+            }
 
-            int s = x;
-            int e = x;
-            int res = 1;
-            while(m-->0){
-                int l = sc.nextInt();
-                int r = sc.nextInt();
+            if(I != -1){
+                String sb = "";
+                sb += (char)(I + 97);
+                System.out.println(sb);
+                continue;
+            }
 
-                if(l <= s && s <= r || l <= e && e <= r){
-                    if(l < s){
-                        s = l;
-                    }
-                    if(r > e){
-                        e = r;
+            o : for(int i = 0; i < 26; i++){
+                for(int j = 97; j < 123; j++){
+                    if(!c[i].contains(j)){
+                        J = j;
+                        I = i;
+                        break o;
                     }
                 }
-                res = Math.max(res , e - s + 1);
             }
-            System.out.println(res);
-        } 
+            if(I != - 1 && J != -1){
+                String sb = "";
+                sb += (char)(I + 97);
+                sb += J >= 0 ? (char)J : "";
+    
+                System.out.println(sb);
+                continue;
+            }
+            int K = -1;
+            o : for(int i = 0; i < 26; i++){
+                for(int j = 97; j < 123; j++){
+                    for(int k = 97; k < 123; k++){
+                        if(k == j) continue;
+                        if(!c[j - 97].contains(k)){
+                            J = j;
+                            I = i;
+                            K = k;
+                            break o;
+                        }
+                    }
+                }
+            }
+            // System.out.println(I + 97);
+            // System.out.println(J);
+            String sb = "";
+                sb += (char)(I + 97);
+                sb += J >= 0 ? (char)J : "";
+                sb += K >= 0 ? (char)K : "";
+                System.out.println(sb);
+        }
      }
  
  //==================================================================================================

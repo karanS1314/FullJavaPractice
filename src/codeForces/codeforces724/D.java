@@ -1,5 +1,4 @@
-package codeForces.newPractice;
-
+package codeForces.codeforces724;
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -9,7 +8,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class Shuffle {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -31,28 +30,12 @@ package codeForces.newPractice;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int x = sc.nextInt();
-            int m = sc.nextInt();
+            String s = sc.nextLine();
+            char ch[] = s.toCharArray();
 
-            int s = x;
-            int e = x;
-            int res = 1;
-            while(m-->0){
-                int l = sc.nextInt();
-                int r = sc.nextInt();
-
-                if(l <= s && s <= r || l <= e && e <= r){
-                    if(l < s){
-                        s = l;
-                    }
-                    if(r > e){
-                        e = r;
-                    }
-                }
-                res = Math.max(res , e - s + 1);
-            }
-            System.out.println(res);
-        } 
+            int c[] = new int[26];
+            for()
+        }
      }
  
  //==================================================================================================

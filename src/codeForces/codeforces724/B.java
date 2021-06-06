@@ -1,5 +1,4 @@
-package codeForces.newPractice;
-
+package codeForces.codeforces724;
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -9,7 +8,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class Shuffle {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,30 +28,31 @@ package codeForces.newPractice;
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        while(t-->0){
+        o : while(t-->0){
             int n = sc.nextInt();
-            int x = sc.nextInt();
-            int m = sc.nextInt();
-
-            int s = x;
-            int e = x;
-            int res = 1;
-            while(m-->0){
-                int l = sc.nextInt();
-                int r = sc.nextInt();
-
-                if(l <= s && s <= r || l <= e && e <= r){
-                    if(l < s){
-                        s = l;
-                    }
-                    if(r > e){
-                        e = r;
-                    }
+            ArrayList<Integer> a = new ArrayList<>();
+            int diff = max_val;
+            boolean neg = false;
+            for(int i = 0; i < n; i++){
+                int x = sc.nextInt();
+                a.add(x);
+                if(x < 0){
+                    neg = true;
                 }
-                res = Math.max(res , e - s + 1);
             }
-            System.out.println(res);
-        } 
+            if(neg){
+                System.out.println("NO");
+                continue o;
+            }
+            System.out.println("YES");
+            System.out.println("101");
+            for(int i = 0; i < 101; i++){
+                System.out.print(i + " ");
+            }
+            System.out.println();
+
+            
+        }
      }
  
  //==================================================================================================

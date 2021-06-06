@@ -1,4 +1,4 @@
-package codeForces.newPractice;
+package codeForces.codeforces724;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class Shuffle {
+ public class A {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,30 +29,41 @@ package codeForces.newPractice;
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        while(t-->0){
+        o : while(t-->0){
             int n = sc.nextInt();
-            int x = sc.nextInt();
-            int m = sc.nextInt();
-
-            int s = x;
-            int e = x;
-            int res = 1;
-            while(m-->0){
-                int l = sc.nextInt();
-                int r = sc.nextInt();
-
-                if(l <= s && s <= r || l <= e && e <= r){
-                    if(l < s){
-                        s = l;
-                    }
-                    if(r > e){
-                        e = r;
-                    }
-                }
-                res = Math.max(res , e - s + 1);
+            ArrayList<Integer> a = new ArrayList<>();
+            int diff = max_val;
+            for(int i = 0; i < n; i++){
+                int x = sc.nextInt();
+                a.add(x);
             }
-            System.out.println(res);
-        } 
+            Collections.sort(a);
+            int max = min_val;
+            int min = max_val;
+            for(int i = 0; i < n - 1; i++){
+                diff = Math.min(a.get(i + 1) - a.get(i) , diff);
+                max = Math.max(max , a.get(i));
+                min = Math.min(min , a.get(i));
+            }
+            max = Math.max(max , a.get(n - 1));
+            min = Math.min(min , a.get(n - 1));
+            for(int i = 0; i < n; i++){
+                if(a.get(i) % diff != 0){
+                    System.out.println("NO");
+                    continue o;
+                }
+            }
+            ArrayList<Integer> res = new ArrayList<>();
+            for(int i = min <= 0 ? min : 0 + diff; i <= max; i+=diff){
+                res.add(i);
+            }
+            System.out.println("YES");
+            System.out.println(res.size());
+            for(int e : res){
+                System.out.print(e + " ");
+            }
+            System.out.println();
+        }
      }
  
  //==================================================================================================

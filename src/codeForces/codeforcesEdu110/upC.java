@@ -89,7 +89,7 @@ package codeForces.codeforcesEdu110;
                 // remove redundancy
                 res -= ((pp.b - pp.a - 1) * (pp.b - pp.a)) / 2; 
                 // add
-                res += ((pp.b - 1 - stt + 1) * (pp.b - 1 - stt)) / 2;
+                res += ((pp.b - 1 - stt + 1) * (pp.b - 1 - stt + 1 + 1)) / 2;
                 //update start point
                 stt = pp.a + 1;
             }

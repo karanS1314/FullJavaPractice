@@ -1,5 +1,4 @@
-package codeForces.newPractice;
-
+package codeForces.codeforces724;
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -9,7 +8,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class template {
+ public class upB {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -27,9 +26,76 @@ package codeForces.newPractice;
  // =================================================================================================
  
      public static void main(String[] args) {
-         FastScanner sc = new FastScanner();
-         int n = sc.nextInt();
- 
+        FastScanner sc = new FastScanner();
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            String s = sc.nextLine();
+            char ch[] = s.toCharArray();
+            String res = "";
+
+            int c[] = new int[26]; // checking for single length chars
+            for(int i = 0; i < n; i++){
+                c[ch[i] - 'a']++;
+            }
+            for(int i = 0; i < 26; i++){
+                if(c[i] == 0){
+                    res += (char)(i + 97);
+                    break;
+                }
+            }
+            if(res != ""){
+                System.out.println(res);
+                continue;
+            }
+
+            HashSet<String> set1 = new HashSet<>(); // checking for 2 char strings
+            for(int i = 0; i < n - 1; i++){
+                String temp = "";
+                temp += ch[i];
+                temp += ch[i + 1];
+                set1.add(temp);
+            }
+            o : for(int i = 0; i < 26; i++){
+                for(int j = 0; j < 26; j++){
+                    String x = "";
+                    x += (char)(i + 97);
+                    x += (char)(j + 97);
+                    if(!set1.contains(x)){
+                        res = x;
+                        break o;
+                    }
+                }
+            }
+            if(res != ""){
+                System.out.println(res);
+                continue;
+            }
+
+            HashSet<String> set2 = new HashSet<>(); // checking for 3 char strings
+            for(int i = 0; i < n - 2; i++){
+                String temp = "";
+                temp += ch[i];
+                temp += ch[i + 1];
+                temp += ch[i + 2];
+                set2.add(temp);
+            }
+            o : for(int i = 0; i < 26; i++){
+                for(int j = 0; j < 26; j++){
+                    for(int k = 0; k < 26; k++){
+                        String x = "";
+                        x += (char)(i + 97);
+                        x += (char)(j + 97);
+                        x += (char)(k + 97);
+                        if(!set2.contains(x)){
+                            res = x;
+                            break o;
+                        }
+                    }
+                }
+            }
+            System.out.println(res);
+        }
      }
  
  //==================================================================================================
@@ -146,6 +212,14 @@ package codeForces.newPractice;
      {
             return fact(n) / (fact(r) *
                  fact(n - r));
+     }
+     
+     static int gcd(int a, int b)
+     {
+         if (b == 0)
+           return a;
+ 
+         return gcd(b, a % b);
      }
      
      // Returns factorial of n

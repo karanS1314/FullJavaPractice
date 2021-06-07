@@ -17,7 +17,10 @@ package codeForces.codeforcesEdu110;
          }
  
          public int compareTo(Pair o){
-             return this.a - o.a;
+            if(this.a == o.a){
+                return this.b - o.b;
+            }
+            return this.a - o.a;
          }
      }
  
@@ -30,9 +33,69 @@ package codeForces.codeforcesEdu110;
         while(t-->0){
             String s = sc.nextLine();
             char ch[] = s.toCharArray();
-            
+            int n = s.length();
+
+            int stt = 0;
+            // pair contains starting and end index of the substring which makes
+            // the string non beautiful.
+            // case 1: 11 00
+            // case 2: 1(?????....odd)0
+            // case 3: 1(?????...evem)1
+            ArrayList<Pair> al = new ArrayList<>();
+            int i = 0;
+            while(i < n){
+                int j = i;
+                //case 1 
+                if(i + 1 < n && ch[i] != '?'){
+                    //11 or 00
+                    if(ch[i] == ch[i + 1]){
+                        al.add(new Pair(i , i + 1));
+                    } 
+                    i++;
+                    continue;
+                }
+                else if(i + 1 == n){ // can never make a valid pair
+                    i++;
+                    continue;
+                }
+
+                //case 2 and 3
+                while(j < n && ch[j] == '?'){
+                    j++;
+                }
+                if(i - 1 < 0 || j == n){
+                    i = j;
+                    continue;
+                }
+                int st = i - 1;
+                int en = j;
+                int countOfMarks = j - i;
+                // case 2
+                if((countOfMarks & 1) == 1){
+                    if(ch[st] != ch[en]){
+                        al.add(new Pair(st , en));
+                    }
+                }
+                else{ // case 3
+                    if(ch[st] == ch[en]){
+                        al.add(new Pair(st , en));
+                    }
+                }
+                i = j; 
+            }
+            Collections.sort(al);
+            int res = 0;
+            for(Pair pp : al){
+                // remove redundancy
+                res -= ((pp.b - pp.a - 1) * (pp.b - pp.a)) / 2; 
+                // add
+                res += ((pp.b - 1 - stt + 1) * (pp.b - 1 - stt)) / 2;
+                //update start point
+                stt = pp.a + 1;
+            }
+            res += ((n - 1 - stt + 1) * (n - 1 - stt + 1 + 1)) / 2;
+            System.out.println(res);
         }
- 
      }
  
  //==================================================================================================

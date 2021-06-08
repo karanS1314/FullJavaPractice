@@ -26,8 +26,10 @@ public class template {
 
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
-		int n = sc.nextInt();
-
+		int t = sc.nextInt();
+		while(t-->0){
+			int n = sc.nextInt();
+		}
 	}
 
 //==================================================================================================

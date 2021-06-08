@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class FindtheArray {
+ public class YetAnotherBrokenKeyboard {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -28,12 +28,40 @@ package codeForces.newPractice;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            
+        long n = sc.nextLong();
+        int k = sc.nextInt();
+        String s = sc.nextLine();
+        HashSet<Character> set = new HashSet<>();
+        for(int i = 0; i < k; i++){
+            char x = sc.next().charAt(0);
+            set.add(x);
         }
+
+        int a[] = new int[(int)n];
+        for(int i = 0; i < n; i++){
+            if(set.contains(s.charAt(i))){
+                a[i] = 1;
+            }
+        }
+        
+        long res = 0;
+        int i = 0;
+        while(i < n){
+            int j = i;
+            if(a[i] == 0){
+                i++;
+                continue;
+            }
+            while(j < n && a[j] != 0){
+                j++;
+            }
+            long y = (long)j;
+            long x = (long)i;
+            res += ((y - x) * (y - x + 1)) / 2;
+            i = j;
+        }
+
+        System.out.println(res);
      }
  
  //==================================================================================================
@@ -150,6 +178,14 @@ package codeForces.newPractice;
      {
             return fact(n) / (fact(r) *
                  fact(n - r));
+     }
+     
+     static int gcd(int a, int b)
+     {
+         if (b == 0)
+           return a;
+ 
+         return gcd(b, a % b);
      }
      
      // Returns factorial of n

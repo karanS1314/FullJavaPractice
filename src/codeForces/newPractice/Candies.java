@@ -1,6 +1,7 @@
 package codeForces.newPractice;
 
 
+
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
@@ -8,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class MaximumProduct {
+ public class Candies {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,92 +30,15 @@ package codeForces.newPractice;
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            int n = sc.nextInt();
-            long a[] = new long[n];
-            for(int i = 0; i < n; i++){
-                a[i] = sc.nextLong();
-            }
+            long n = sc.nextLong();
 
-            ArrayList<Long> pos = new ArrayList<>();
-            ArrayList<Long> neg = new ArrayList<>();
-            for(long e : a){
-                if(e < 0){
-                    neg.add(e);
-                }
-                else{
-                    pos.add(e);
+            for(int k = 2; k < 30; k++){
+                int x = (1 << k) - 1;
+                if(n % x == 0){
+                    System.out.println(n/x);
+                    break;
                 }
             }
-
-            long res = 1;
-            if(neg.size() == 0 || pos.size() == 0){
-                Arrays.sort(a);
-                for(int i = n - 5; i < n; i++){
-                    res *= a[i];
-                }
-                System.out.println(res);
-                continue;
-            }
-
-            res = Long.MIN_VALUE;
-            Collections.sort(pos);
-            Collections.sort(neg);
-
-            if(pos.size() >= 5){
-                long can1 = 1;
-                for(int i = pos.size() - 5; i < pos.size(); i++){
-                    can1 *= pos.get(i);
-                }
-                res = Math.max(res , can1);
-            }
-            if(pos.size() >= 4 && neg.size() >= 1){
-                long can2 = 1;
-                for(int i = pos.size() - 4; i < pos.size(); i++){
-                    can2 *= pos.get(i);
-                }
-                for(int i = 0; i < 1; i++){
-                    can2 *= neg.get(i);
-                }
-                res = Math.max(res , can2);
-            }
-            if(pos.size() >= 3 && neg.size() >= 2){
-                long can2 = 1;
-                for(int i = pos.size() - 3; i < pos.size(); i++){
-                    can2 *= pos.get(i);
-                }
-                for(int i = 0; i < 2; i++){
-                    can2 *= neg.get(i);
-                }
-                res = Math.max(res , can2);
-            }
-            if(pos.size() >= 2 && neg.size() >= 3){
-                long can2 = 1;
-                for(int i = pos.size() - 2; i < pos.size(); i++){
-                    can2 *= pos.get(i);
-                }
-                for(int i = 0; i < 3; i++){
-                    can2 *= neg.get(i);
-                }
-                res = Math.max(res , can2);
-            }
-            if(pos.size() >= 1 && neg.size() >= 4){
-                long can3 = 1;
-                for(int i = pos.size() - 1; i < pos.size(); i++){
-                    can3 *= pos.get(i);
-                }
-                for(int i = 0; i < 4; i++){
-                    can3 *= neg.get(i);
-                }
-                res = Math.max(res , can3);
-            }
-            if(neg.size() >= 5){
-                long can2 = 1;
-                for(int i = 0; i < 5; i++){
-                    can2 *= neg.get(i);
-                }
-                res = Math.max(res , can2);
-            }
-            System.out.println(res);
         }
      }
  

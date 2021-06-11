@@ -1,6 +1,7 @@
 package codeForces.codeforces725duv3;
 
 
+
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
@@ -8,7 +9,7 @@ package codeForces.codeforces725duv3;
  import java.util.*;
   
  
- public class E {
+ public class upF {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,8 +30,23 @@ package codeForces.codeforces725duv3;
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            int n = sc.nextInt();
+            int l = sc.nextInt();
+            int r = sc.nextInt();
+
+            long fl = solve(l);
+            long fr = solve(r);
+
+            System.out.println(fr - fl);
         }
+     }
+     static long solve(int x){
+         long res = 0;
+         while(x > 0){
+            res += x;
+            x /= 10;
+         }
+
+         return res;
      }
  
  //==================================================================================================

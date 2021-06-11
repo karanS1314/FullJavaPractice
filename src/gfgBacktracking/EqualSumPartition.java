@@ -17,8 +17,8 @@ public class EqualSumPartition {
 		if(partition(a, sum-a[i], n, i+1,al)) {
 			return true;
 		}
-		
 		al.remove(al.size()-1);
+		
 		return partition(a, sum, n, i+1, al);
 	}
 	public static void main(String[] args) {

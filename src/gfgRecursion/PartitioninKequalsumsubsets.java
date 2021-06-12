@@ -1,4 +1,4 @@
-package codeForces.codeforces725duv3;
+package gfgRecursion;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.codeforces725duv3;
  import java.util.*;
   
  
- public class D {
+ public class PartitioninKequalsumsubsets {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -25,16 +25,61 @@ package codeForces.codeforces725duv3;
      }
  
  // =================================================================================================
- 
+     static int counter = 0;
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            
-
+            int k = sc.nextInt();
+            ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+            for(int i  = 0; i < k; i++) {
+                ans.add(new ArrayList<>());
+            }
+            solve(1 , n , k , 0 , ans);
         }
+     }
+     static void solve(int idx , int n , int k , int nos , ArrayList<ArrayList<Integer>> ans){
+        if(idx > n){
+            if(nos == k && checkSum(ans)){
+                counter++;
+                System.out.print(counter + ". ");
+                for(ArrayList<Integer> e : ans){
+                    System.out.print(e + " ");
+                }
+                System.out.println();
+            }
+            return;
+    }
+        for(int i = 0; i < ans.size(); i++){
+            if(ans.get(i).size() > 0){
+                ans.get(i).add(idx);
+                solve(idx + 1 , n , k , nos , ans);
+                ans.get(i).remove(ans.get(i).size() - 1);
+            }
+            else{
+                ans.get(i).add(idx);
+                solve(idx + 1 , n , k , nos + 1 , ans);
+                ans.get(i).remove(ans.get(i).size() - 1);
+                break;
+            }
+        }
+     }
+     static boolean checkSum(ArrayList<ArrayList<Integer>> ans){
+         int sum = -1;
+         for(ArrayList<Integer> e : ans){
+             int summ = 0;
+             for(int ee : e){
+                 summ += ee;
+             }
+             if(sum == -1){
+                 sum = summ;
+             }
+             else if(sum != summ){
+                return false;
+             } 
+         }
+         return true;
      }
  
  //==================================================================================================

@@ -1,4 +1,4 @@
-package codeForces.codeforces725duv3;
+package codeForces.newPractice;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.codeforces725duv3;
  import java.util.*;
   
  
- public class D {
+ public class PartitalReplacement {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -28,12 +28,21 @@ package codeForces.codeforces725duv3;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            
-
+            int a[][] = new int[5][5];
+            int I = -1;
+            int J = -1;
+            for(int i = 0; i < 5; i++){
+                for(int j = 0; j < 5; j++){
+                    a[i][j] = sc.nextInt();
+                    if(a[i][j] == 1){
+                        I = i;
+                        J = j;
+                    }
+                }
+            }
+            System.out.println(Math.abs(2 - J) + Math.abs(2 - I));
         }
      }
  

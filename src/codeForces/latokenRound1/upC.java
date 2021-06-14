@@ -1,3 +1,5 @@
+package codeForces.latokenRound1;
+
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -7,7 +9,7 @@
  import java.util.*;
   
  
- public class template {
+ public class upC {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -22,16 +24,54 @@
          }
      }
  
- //==================================================================================================
- 
+ // =================================================================================================
+     static void dfs(boolean vis[] , ArrayList<Integer> g[] , int s){
+         if(vis[s]){
+             return;
+         }
+
+         vis[s] = true;
+
+         for(int nei : g[s]){
+             dfs(vis , g , nei);
+         }  
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
+            ArrayList<Integer> g[] = new ArrayList[n + 1];
+            for(int i = 1; i < n + 1; i++){
+                g[i] = new ArrayList<>();
+            }
+            int a[] = new int[n];
+            int b[] = new int[n];
+
+            for(int i = 0; i < n; i++){
+                a[i] = sc.nextInt();
+            }
+            for(int i = 0; i < n; i++){
+                b[i] = sc.nextInt();
+
+                g[b[i]].add(a[i]);
+                g[a[i]].add(b[i]);
+            }
+
+            long count = 0;
+            boolean vis[] = new boolean[n + 1];
+            for(int i = 1; i < n + 1; i++){
+                if(!vis[i]){
+                    dfs(vis , g , i);
+                    count++;
+                }
+            }
+
+            long res = fastPow(2L , count);
+            System.out.println(res);
         }
      }
- 
+     
  //==================================================================================================
  
  
@@ -104,7 +144,7 @@
          }
      }
  
-     // generates all the prime numbers upto n
+     //generates all the prime numbers upto n
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
          boolean prime[] = new boolean[n + 1];
@@ -125,27 +165,27 @@
                  al.get(i);
          }
      }
-     static final int M = 1000_000_000 + 7;
-     static final int imx = Integer.MAX_VALUE;
-     static final int imi = Integer.MIN_VALUE;
+     static final int mod = 1000000000 + 7;
+     static final int max_val = 2147483647;
+     static final int min_val = max_val + 1;
      
      //fastPow
      static long fastPow(long base, long exp) {
          if (exp==0) return 1;
-         long half=fastPow(base, exp/2);
-         if (exp%2==0) return mul(half, half);
+         long half=fastPow(base, exp/2) % mod;
+         if (exp%2==0) return mul(half, half) % mod;
          return mul(half, mul(half, base));
      }
  
-     // multiply two long numbers
+     //multiply two long numbers
      static long mul(long a, long b) {
-         return a*b%M;
+         return a*b%mod;
      }
  
      static int nCr(int n, int r)
      {
-        return fact(n) / (fact(r) *
-            fact(n - r));
+            return fact(n) / (fact(r) *
+                 fact(n - r));
      }
      
      static int gcd(int a, int b)

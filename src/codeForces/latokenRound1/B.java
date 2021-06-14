@@ -1,3 +1,5 @@
+package codeForces.latokenRound1;
+
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -7,7 +9,7 @@
  import java.util.*;
   
  
- public class template {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -22,13 +24,44 @@
          }
      }
  
- //==================================================================================================
+ // =================================================================================================
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
+            long a[] = new long[n];
+            for(int i = 0; i < n; i++){
+                a[i] = sc.nextLong();
+            }
+            if(n == 1){
+                System.out.println(a[0]);
+                continue;
+            }
+
+            ArrayList<Long> al = new ArrayList<>();
+            al.add(0L);
+            for(long e : a){
+                al.add(e);
+            }
+            al.add(0L);
+            int m = n + 2;
+            long d = 0;
+            for(int i = 1; i < m - 1; i++){
+                if(al.get(i) > al.get(i + 1) && al.get(i) > al.get(i - 1)){
+                    long mx = Math.max(al.get(i - 1) , al.get(i + 1));
+                    d += al.get(i) - mx;
+                    al.set(i , mx);
+                }
+            }
+            long s = 0;
+            for(int i = 1; i < m; i++){
+                s += Math.abs(al.get(i) - al.get(i - 1));
+            }
+
+            long res = s + d;
+            System.out.println(res);
         }
      }
  
@@ -104,7 +137,7 @@
          }
      }
  
-     // generates all the prime numbers upto n
+     //generates all the prime numbers upto n
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
          boolean prime[] = new boolean[n + 1];
@@ -125,9 +158,9 @@
                  al.get(i);
          }
      }
-     static final int M = 1000_000_000 + 7;
-     static final int imx = Integer.MAX_VALUE;
-     static final int imi = Integer.MIN_VALUE;
+     static final int mod = 100000000 + 7;
+     static final int max_val = 2147483647;
+     static final int min_val = max_val + 1;
      
      //fastPow
      static long fastPow(long base, long exp) {
@@ -137,15 +170,15 @@
          return mul(half, mul(half, base));
      }
  
-     // multiply two long numbers
+     //multiply two long numbers
      static long mul(long a, long b) {
-         return a*b%M;
+         return a*b%mod;
      }
  
      static int nCr(int n, int r)
      {
-        return fact(n) / (fact(r) *
-            fact(n - r));
+            return fact(n) / (fact(r) *
+                 fact(n - r));
      }
      
      static int gcd(int a, int b)

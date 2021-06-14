@@ -1,3 +1,5 @@
+package codeForces.latokenRound1;
+
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -7,7 +9,7 @@
  import java.util.*;
   
  
- public class template {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -22,13 +24,55 @@
          }
      }
  
- //==================================================================================================
- 
+ // =================================================================================================
+     static void dfs(int u , ArrayList<ArrayList<Integer>> g , boolean[] vis){
+         vis[u] = true;
+         for(int to : g.get(u)){
+            if(!vis[to]){
+                dfs(to , g , vis);
+            }
+         }
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
+        long a2[] = new long[400010];
+        Arrays.fill(a2 , 1L);
+        for(int i = 1; i < 400010; i++){
+            a2[i] = a2[i - 1];
+            a2[i] *= 2;
+            a2[i] %= mod;
+        }
         while(t-->0){
             int n = sc.nextInt();
+            ArrayList<ArrayList<Integer>> g = new ArrayList<>();
+            for(int i = 0; i < n; i++){
+                g.add(new ArrayList<>());
+            }
+            ArrayList<Integer> a = new ArrayList<>();
+            ArrayList<Integer> b = new ArrayList<>();
+
+            for(int i = 0; i < n; i++){
+                int x = sc.nextInt();
+                x--;
+                a.add(x);
+            }
+            for(int i = 0; i < n; i++){
+                int x = sc.nextInt();
+                x--;
+                b.add(x);
+                g.get(a.get(i)).add(b.get(i));
+                g.get(b.get(i)).add(a.get(i));
+            }
+            boolean vis[] = new boolean[n];
+            int ans = 0;
+            for(int i = 0; i < n; i++){
+                if(!vis[i]){
+                    ans++;
+                    dfs(i , g , vis);
+                }
+            }
+            System.out.println(a2[ans]);
         }
      }
  
@@ -125,11 +169,11 @@
                  al.get(i);
          }
      }
-     static final int M = 1000_000_000 + 7;
-     static final int imx = Integer.MAX_VALUE;
-     static final int imi = Integer.MIN_VALUE;
+     static final long mod = 1000_000_000 + 7;
+     static final int mx_v = Integer.MAX_VALUE;
+     static final int mi_v = Integer.MIN_VALUE;
      
-     //fastPow
+     // fastPow
      static long fastPow(long base, long exp) {
          if (exp==0) return 1;
          long half=fastPow(base, exp/2);
@@ -139,13 +183,13 @@
  
      // multiply two long numbers
      static long mul(long a, long b) {
-         return a*b%M;
+         return a*b%mod;
      }
  
      static int nCr(int n, int r)
      {
-        return fact(n) / (fact(r) *
-            fact(n - r));
+            return fact(n) / (fact(r) *
+                 fact(n - r));
      }
      
      static int gcd(int a, int b)

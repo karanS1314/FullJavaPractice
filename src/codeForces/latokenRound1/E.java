@@ -1,3 +1,5 @@
+package codeForces.latokenRound1;
+
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -7,7 +9,7 @@
  import java.util.*;
   
  
- public class template {
+ public class E {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -22,13 +24,57 @@
          }
      }
  
- //==================================================================================================
- 
+ // =================================================================================================
+     static void dfs(long u , HashMap<Long , ArrayList<Long>> g , boolean[] vis){
+         int y = (int) u;
+         vis[y] = true;
+         for(long to : g.get(u)){
+            int x = (int) to;
+            if(!vis[x]){
+                dfs(to , g , vis);
+            }
+         }
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
+        long a2[] = new long[400000 + 10];
+        Arrays.fill(a2 , 1L);
+        for(int i = 1; i < 400000 + 10; i++){
+            a2[i] = a2[i - 1];
+            a2[i] *= 2;
+            a2[i] %= mod;
+        }
         while(t-->0){
             int n = sc.nextInt();
+            HashMap<Long , ArrayList<Long>> g = new HashMap<>();
+            for(int i = 0; i < n; i++){
+                g.put((long)i , new ArrayList<>());
+            }
+            ArrayList<Long> a = new ArrayList<>();
+            ArrayList<Long> b = new ArrayList<>();
+
+            for(int i = 0; i < n; i++){
+                long x = sc.nextLong();
+                x--;
+                a.add(x);
+            }
+            for(int i = 0; i < n; i++){
+                long x = sc.nextLong();
+                x--;
+                b.add(x);
+                g.get(a.get(i)).add(b.get(i));
+                g.get(b.get(i)).add(a.get(i));
+            }
+            boolean vis[] = new boolean[n];
+            int ans = 0;
+            for(int i = 0; i < n; i++){
+                if(!vis[i]){
+                    ans++;
+                    dfs((long)i , g , vis);
+                }
+            }
+            System.out.println(a2[ans]);
         }
      }
  
@@ -104,7 +150,7 @@
          }
      }
  
-     // generates all the prime numbers upto n
+     //generates all the prime numbers upto n
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
          boolean prime[] = new boolean[n + 1];
@@ -125,9 +171,9 @@
                  al.get(i);
          }
      }
-     static final int M = 1000_000_000 + 7;
-     static final int imx = Integer.MAX_VALUE;
-     static final int imi = Integer.MIN_VALUE;
+     static final long mod = 100000000 + 7;
+     static final int max_val = 2147483647;
+     static final int min_val = max_val + 1;
      
      //fastPow
      static long fastPow(long base, long exp) {
@@ -137,15 +183,15 @@
          return mul(half, mul(half, base));
      }
  
-     // multiply two long numbers
+     //multiply two long numbers
      static long mul(long a, long b) {
-         return a*b%M;
+         return a*b%mod;
      }
  
      static int nCr(int n, int r)
      {
-        return fact(n) / (fact(r) *
-            fact(n - r));
+            return fact(n) / (fact(r) *
+                 fact(n - r));
      }
      
      static int gcd(int a, int b)

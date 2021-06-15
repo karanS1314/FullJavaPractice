@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class ArenaOfGreed {
+ public class HelpfulMaths {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,19 +24,33 @@ package codeForces.newPractice;
          }
      }
  
- // =================================================================================================
+ //==================================================================================================
  
-     public static void main(String[] args) {
-        FastScanner sc = new FastScanner();
-        int t = 1;
-        while(t-->0){
-            int a[] = {1 , 3 , 4, 9, 9,  10 , 11 };
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        // Input
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        int[] nums = new int[(s.length()/2)+1];
+        int index = 0;
 
-            int x = Arrays.binarySearch(a, 8);
-            
-            System.out.println(x);
+        // Get actual numbers
+        for (char c : s.toCharArray()) {
+            if (c != '+') {
+                nums[index] = Character.getNumericValue(c);
+                index++;
+            }
+        }	
+
+        // Sort in non-decreasing order
+        Arrays.sort(nums);
+
+        // Output nums
+        for (int i = 0; i < nums.length-1; i++) {
+            System.out.print(nums[i]+"+");
         }
-     }
+        System.out.print(nums[nums.length-1]);
+    }	
  
  //==================================================================================================
  
@@ -45,7 +59,7 @@ package codeForces.newPractice;
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
      // this is needed.
-     static void ruffleSort(int[] a) {
+     static void sort(int[] a) {
          //ruffle
          int n=a.length;
          Random r=new Random();
@@ -110,7 +124,7 @@ package codeForces.newPractice;
          }
      }
  
-     //generates all the prime numbers upto n
+     // generates all the prime numbers upto n
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
          boolean prime[] = new boolean[n + 1];
@@ -131,9 +145,9 @@ package codeForces.newPractice;
                  al.get(i);
          }
      }
-     static final int mod = 100000000 + 7;
-     static final int max_val = 2147483647;
-     static final int min_val = max_val + 1;
+     static final int M = 1000_000_000 + 7;
+     static final int imx = Integer.MAX_VALUE;
+     static final int imi = Integer.MIN_VALUE;
      
      //fastPow
      static long fastPow(long base, long exp) {
@@ -143,15 +157,15 @@ package codeForces.newPractice;
          return mul(half, mul(half, base));
      }
  
-     //multiply two long numbers
+     // multiply two long numbers
      static long mul(long a, long b) {
-         return a*b%mod;
+         return a*b%M;
      }
  
      static int nCr(int n, int r)
      {
-            return fact(n) / (fact(r) *
-                 fact(n - r));
+        return fact(n) / (fact(r) *
+            fact(n - r));
      }
      
      static int gcd(int a, int b)

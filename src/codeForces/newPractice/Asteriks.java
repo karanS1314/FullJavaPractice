@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class ArenaOfGreed {
+ public class Asteriks {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,17 +24,20 @@ package codeForces.newPractice;
          }
      }
  
- // =================================================================================================
+ //==================================================================================================
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = 1;
         while(t-->0){
-            int a[] = {1 , 3 , 4, 9, 9,  10 , 11 };
-
-            int x = Arrays.binarySearch(a, 8);
+            int n = sc.nextInt();
+            for(int i = 1; i < n + 1; i++){
+                for(int j = 0; j < i; j++){
+                    System.out.print("*");
+                }
+                System.out.println();
+            }
             
-            System.out.println(x);
         }
      }
  
@@ -110,7 +113,7 @@ package codeForces.newPractice;
          }
      }
  
-     //generates all the prime numbers upto n
+     // generates all the prime numbers upto n
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
          boolean prime[] = new boolean[n + 1];
@@ -131,9 +134,9 @@ package codeForces.newPractice;
                  al.get(i);
          }
      }
-     static final int mod = 100000000 + 7;
-     static final int max_val = 2147483647;
-     static final int min_val = max_val + 1;
+     static final int M = 1000_000_000 + 7;
+     static final int imx = Integer.MAX_VALUE;
+     static final int imi = Integer.MIN_VALUE;
      
      //fastPow
      static long fastPow(long base, long exp) {
@@ -143,15 +146,15 @@ package codeForces.newPractice;
          return mul(half, mul(half, base));
      }
  
-     //multiply two long numbers
+     // multiply two long numbers
      static long mul(long a, long b) {
-         return a*b%mod;
+         return a*b%M;
      }
  
      static int nCr(int n, int r)
      {
-            return fact(n) / (fact(r) *
-                 fact(n - r));
+        return fact(n) / (fact(r) *
+            fact(n - r));
      }
      
      static int gcd(int a, int b)

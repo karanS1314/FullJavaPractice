@@ -67,6 +67,7 @@ package codeForces.latokenRound1;
                 }
             }
 
+
             long res = fastPow(2L , count);
             System.out.println(res);
         }

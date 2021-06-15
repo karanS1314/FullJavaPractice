@@ -31,7 +31,7 @@ public class LongestValidSubstring {
 				}
 			}
 			System.out.println(ans);
-			}
+		}
 
 	}
 

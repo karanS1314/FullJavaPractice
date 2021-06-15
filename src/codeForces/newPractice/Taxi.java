@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class ArenaOfGreed {
+ public class Taxi {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,17 +24,34 @@ package codeForces.newPractice;
          }
      }
  
- // =================================================================================================
+ //==================================================================================================
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = 1;
         while(t-->0){
-            int a[] = {1 , 3 , 4, 9, 9,  10 , 11 };
-
-            int x = Arrays.binarySearch(a, 8);
-            
-            System.out.println(x);
+            int n = sc.nextInt();
+            int a[] = sc.readArray(n);
+            int tar = 4;
+            LinkedList<Integer> ll = new LinkedList<>();
+            for(int i = 0; i < n; i++){
+                ll.add(a[i]);
+            }
+            Collections.sort(ll);
+            int count = 0;
+            int curr = 0;
+            while(ll.size() > 0){
+                int xi = lowBound(ll, tar - curr, 0 , ll.size());
+                if(xi >= 0 && xi < ll.size()){
+                    curr += ll.get(xi);
+                    ll.remove(xi);
+                }
+                else{
+                    curr = 0;
+                    count++;
+                }
+            }
+            System.out.println(count);
         }
      }
  
@@ -110,7 +127,7 @@ package codeForces.newPractice;
          }
      }
  
-     //generates all the prime numbers upto n
+     // generates all the prime numbers upto n
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
          boolean prime[] = new boolean[n + 1];
@@ -131,9 +148,9 @@ package codeForces.newPractice;
                  al.get(i);
          }
      }
-     static final int mod = 100000000 + 7;
-     static final int max_val = 2147483647;
-     static final int min_val = max_val + 1;
+     static final int M = 1000_000_000 + 7;
+     static final int imx = Integer.MAX_VALUE;
+     static final int imi = Integer.MIN_VALUE;
      
      //fastPow
      static long fastPow(long base, long exp) {
@@ -143,15 +160,15 @@ package codeForces.newPractice;
          return mul(half, mul(half, base));
      }
  
-     //multiply two long numbers
+     // multiply two long numbers
      static long mul(long a, long b) {
-         return a*b%mod;
+         return a*b%M;
      }
  
      static int nCr(int n, int r)
      {
-            return fact(n) / (fact(r) *
-                 fact(n - r));
+        return fact(n) / (fact(r) *
+            fact(n - r));
      }
      
      static int gcd(int a, int b)
@@ -194,7 +211,7 @@ package codeForces.newPractice;
       
      // returns the index of the element which is just smaller than or
      // equal to the tar in the given arraylist 
-     static int lowBound(ArrayList<Integer> ll,long tar ,int l,int r){
+     static int lowBound(LinkedList<Integer> ll,long tar ,int l,int r){
          if(l>r) return l;
  
          int mid=l+(r-l)/2;

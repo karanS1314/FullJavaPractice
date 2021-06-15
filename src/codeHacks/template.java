@@ -29,6 +29,8 @@
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
+            
+            
         }
      }
  
@@ -39,7 +41,7 @@
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
      // this is needed.
-     static void ruffleSort(int[] a) {
+     static void sort(int[] a) {
          //ruffle
          int n=a.length;
          Random r=new Random();

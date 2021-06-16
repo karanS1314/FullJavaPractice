@@ -1,4 +1,4 @@
-package codeForces.newPractice;
+package codeForces.virtual.cf720;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class HelpfulMaths {
+ public class A {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -28,23 +28,30 @@ package codeForces.newPractice;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = 1;
+        int t = sc.nextInt();
         while(t-->0){
             String s = sc.nextLine();
-            StringBuffer sb = new StringBuffer("");
-            for(int i = 0; i < s.length(); i+=2){
-                sb.append(s.charAt(i));
-            }
-            char a[] = sb.toString().toCharArray();
-            Arrays.sort(a);
-            for(int i = 0; i < a.length; i++){
-                if(i == a.length - 1){
-                    System.out.print(a[i]);
-                    continue;
+            char ca[] = s.toCharArray();
+            // alice even place changes .. bob odd
+            for(int i = 0; i < s.length(); i++){
+                if((i & 1) == 1){
+                    if(ca[i] == 'z'){
+                        ca[i] = 'y';
+                    }
+                    else{
+                        ca[i] = 'z';
+                    }
                 }
-                System.out.print(a[i] + "+");
-            }
-            System.out.println();
+                else{
+                    if(ca[i] == 'a'){
+                        ca[i] = 'b';
+                    }
+                    else{
+                        ca[i] = 'a';
+                    }
+                }
+            }    
+            System.out.println(String.valueOf(ca));        
         }
      }
  

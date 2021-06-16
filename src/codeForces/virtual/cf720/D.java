@@ -1,4 +1,4 @@
-package codeForces.newPractice;
+package codeForces.virtual.cf720;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class HelpfulMaths {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -30,21 +30,67 @@ package codeForces.newPractice;
         FastScanner sc = new FastScanner();
         int t = 1;
         while(t-->0){
-            String s = sc.nextLine();
-            StringBuffer sb = new StringBuffer("");
-            for(int i = 0; i < s.length(); i+=2){
-                sb.append(s.charAt(i));
+            int n = sc.nextInt();
+            int a[] = sc.readArray(n);
+            
+            HashMap<Integer , LinkedList<Integer>> map = new HashMap<>();
+            int i = 0;
+            for(int e : a){
+                map.put(e , map.getOrDefault(e, new LinkedList<>()));
+                map.get(e).add(i);
+                i++;
             }
-            char a[] = sb.toString().toCharArray();
-            Arrays.sort(a);
-            for(int i = 0; i < a.length; i++){
-                if(i == a.length - 1){
-                    System.out.print(a[i]);
-                    continue;
+
+            ArrayList<Integer> al = new ArrayList<>();
+            ArrayList<Integer> bl = new ArrayList<>();
+            al.add(-1);
+            bl.add(-1);
+
+            for(i = 0; i < n; i++){
+                int ao = al.get(al.size() - 1);
+                int a1 = bl.get(bl.size() - 1);
+
+                if(a[i] == ao){
+                    if(a[i] == a1){ // dono last ke equal
+                        //
+                    }
+                    else{ // sirf ao ke equal
+                        bl.add(a[i]);
+                    }
                 }
-                System.out.print(a[i] + "+");
+                else if(a[i] == a1){ // sirf a1 ke equal
+                    al.add(a[i]);
+                }
+                else{ // dono ke not equal 
+                    if(ao == - 1){
+                        bl.add(a[i]);
+                    }
+                    else if(a1 == -1){
+                        al.add(a[i]);
+                    }
+                    else{ // dono arraylist non empty 
+                        int next_ao = imx; // next index of ao in original array
+                        int next_a1 = imx; // " " " " " " " a1
+
+                        if(map.get(ao).size() > 0){
+                            next_ao = map.get(ao).get(0);
+                        }
+                        if(map.get(a1).size() > 0){
+                            next_a1 = map.get(a1).get(0);
+                        }
+
+                        if(next_ao > next_a1){
+                            al.add(a[i]);
+                        }
+                        else{
+                            bl.add(a[i]);
+                        }
+                    }   
+                }
+                map.get(a[i]).remove(0);
             }
-            System.out.println();
+            int res = al.size() + bl.size() - 2;
+            System.out.println(res);
         }
      }
  

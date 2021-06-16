@@ -17,17 +17,17 @@ package bitManipulation;
            }
            return;
        }
+       
        sub(mask , sm , n , k+1, tar , al);
        al.add(k);
        sub(mask | sm[k] , sm , n , k+1, tar , al);
        al.remove(al.size()-1);
-
     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int n = sc.nextInt();
         String s = sc.next();
-        int tar = 0;
+        int tar = 0; // mask of target skill string
         for(char ch : s.toCharArray()){
             int bit = ch -'a';
             tar = tar | ((1<<bit));
@@ -36,7 +36,7 @@ package bitManipulation;
         for(int i=0;i<n;i++){
             sa[i]=sc.next();
         }
-        int sm[] = new int[n];
+        int sm[] = new int[n]; // mask of each given developer skill string
         for(int i=0;i<n;i++){
             int mask = 0;
             for(char ch : sa[i].toCharArray()){
@@ -47,7 +47,7 @@ package bitManipulation;
         } 
         int myMask = 0;
         ArrayList<Integer> al = new ArrayList<>();
-        sub(myMask, sm, n, 0 , tar ,al);
+        sub(myMask, sm , n , 0 , tar ,al);
         int ans = res;
         res = 0;
         System.out.println(ans);

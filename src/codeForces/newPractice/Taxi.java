@@ -32,24 +32,48 @@ package codeForces.newPractice;
         while(t-->0){
             int n = sc.nextInt();
             int a[] = sc.readArray(n);
-            int tar = 4;
-            LinkedList<Integer> ll = new LinkedList<>();
-            for(int i = 0; i < n; i++){
-                ll.add(a[i]);
+            HashMap<Integer , Integer> map = new HashMap<>();
+            for(int i = 1; i <= 4; i++){
+                map.put(i , 0);
             }
-            Collections.sort(ll);
+            for(int e : a){
+                map.put(e , map.getOrDefault(e , 0) + 1);
+            }
             int count = 0;
-            int curr = 0;
-            while(ll.size() > 0){
-                int xi = lowBound(ll, tar - curr, 0 , ll.size());
-                if(xi >= 0 && xi < ll.size()){
-                    curr += ll.get(xi);
-                    ll.remove(xi);
+
+            // 4s
+            count += map.get(4);
+            // 3s with 1s
+            if(map.get(3) > 0){
+                if(map.get(3) > map.get(1)){ // 1s finish 3s finish
+                    count += map.get(3) - map.get(1);
+                    count += map.get(1);
+                    map.put(1 , 0);
+                }
+                else{ // 1s left 3 finish
+                    count += map.get(3);
+                    map.put(1 , map.get(1) - map.get(3));
+                }
+            }
+            // 2s with 2s
+            if(map.get(2) > 0){
+                count += map.get(2) / 2;
+                if((map.get(2) & 1) == 1){
+                    map.put(2 , 1);
                 }
                 else{
-                    curr = 0;
-                    count++;
+                    map.put(2 , 0);
                 }
+
+                // 2s with 1s
+                if(map.get(2) == 1){
+                    count++;
+                    map.put(1 , map.get(1) - 2);
+                }
+            }
+            // 1s with 1s
+            if(map.get(1) > 0){
+                count += Math.ceil((double) map.get(1) / (double)4);
             }
             System.out.println(count);
         }

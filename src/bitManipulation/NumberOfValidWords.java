@@ -1,4 +1,4 @@
-package bitManipulation;
+ package bitManipulation;
 
 //   * * * fuck you * * *   //
 import java.io.BufferedReader;
@@ -12,6 +12,9 @@ public class NumberOfValidWords {
 		FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
+			// puzzle ka pehla character word mei hona chahie
+			// word ke saare character puzzle mei hone chahie
+			// har puzzle ke corresponding btao kitne valid words hain
             int n = sc.nextInt();
             String w[] = new String[n];
             for(int i=0;i<n;i++){
@@ -22,6 +25,7 @@ public class NumberOfValidWords {
             for(int i=0;i<m;i++){
                 p[i]=sc.next();
             }
+			//
 			HashMap<Character, ArrayList<Integer>> map = new HashMap<>();
 			for(int i=0;i<26;i++){
 				map.put((char)('a'+i), new ArrayList<>());
@@ -33,6 +37,8 @@ public class NumberOfValidWords {
 					int bit = ch -'a';
 					mask = mask | ((1 << bit));
 				}
+				// har character jo word mei hai
+				// uske corresponding word ka bit mask daal dia 
 				HashSet<Character> set = new HashSet<>();
 				for(char ch : word.toCharArray()){
 					if(!set.contains(ch)){
@@ -51,6 +57,8 @@ public class NumberOfValidWords {
 					pmask = pmask | ((1 << bit));     
 				}
 				char fch = puzzle.charAt(0);
+				// bit masks of word corresponding to the 
+				// starting character of the puzzle
 				ArrayList<Integer> wtc = map.get(fch);
 				int count = 0;
 				

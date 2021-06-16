@@ -33,8 +33,8 @@ package bitManipulation;
             res = sol(n , k , i-1);
         } 
         else {
-            int one = nCr(i, k);
-            int zero = sol(n , k , i-1);
+            int zero = nCr(i, k);
+            int one = sol(n , k - 1 , i-1);
             res = zero + one;
         }
         return res;

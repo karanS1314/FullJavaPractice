@@ -1,4 +1,4 @@
-package codeForces.newPractice;
+package codeForces.virtual.cf720;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class HelpfulMaths {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -28,23 +28,51 @@ package codeForces.newPractice;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = 1;
+        int t = sc.nextInt();
         while(t-->0){
-            String s = sc.nextLine();
-            StringBuffer sb = new StringBuffer("");
-            for(int i = 0; i < s.length(); i+=2){
-                sb.append(s.charAt(i));
+            long B = sc.nextInt(); // B = attack power
+            long A = sc.nextInt(); // A = heath
+            int n = sc.nextInt();
+            int a[] = sc.readArray(n);
+            int b[] = sc.readArray(n);
+            
+            Pair c[] = new Pair[n];
+            for(int i = 0; i < n; i++){
+                c[i] = new Pair(a[i] , b[i]);
             }
-            char a[] = sb.toString().toCharArray();
-            Arrays.sort(a);
-            for(int i = 0; i < a.length; i++){
-                if(i == a.length - 1){
-                    System.out.print(a[i]);
-                    continue;
+            Arrays.sort(c);
+            boolean can = true;
+
+            for(int i = 0; i < n - 1; i++){
+                if(A <= 0){
+                    can = false;
+                    break;
                 }
-                System.out.print(a[i] + "+");
+                if(c[i].b % B == 0){
+                    A -= c[i].b / B * c[i].a;
+                }
+                else{
+                    A -= ((c[i].b / B) + 1) * c[i].a;
+                }
             }
-            System.out.println();
+            if(!can || A <= 0){
+                System.out.println("NO");
+                continue;
+            }
+
+            if(b[n - 1] % B == 0){
+                A -= ((c[n - 1].b / B) - 1) * c[n - 1].a;
+            }
+            else{
+                A -= (c[n - 1].b / B) * c[n - 1].a;
+            }
+            
+            if(A > 0){
+                System.out.println("YES");
+            }
+            else{
+                System.out.println("NO");
+            }
         }
      }
  

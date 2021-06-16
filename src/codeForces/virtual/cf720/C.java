@@ -1,4 +1,4 @@
-package codeForces.newPractice;
+package codeForces.virtual.cf720;
 
 
 
@@ -9,7 +9,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class HelpfulMaths {
+ public class C {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -25,27 +25,61 @@ package codeForces.newPractice;
      }
  
  //==================================================================================================
- 
+     static FastScanner sc = new FastScanner();
      public static void main(String[] args) {
-        FastScanner sc = new FastScanner();
+        
         int t = 1;
         while(t-->0){
-            String s = sc.nextLine();
-            StringBuffer sb = new StringBuffer("");
-            for(int i = 0; i < s.length(); i+=2){
-                sb.append(s.charAt(i));
-            }
-            char a[] = sb.toString().toCharArray();
-            Arrays.sort(a);
-            for(int i = 0; i < a.length; i++){
-                if(i == a.length - 1){
-                    System.out.print(a[i]);
-                    continue;
-                }
-                System.out.print(a[i] + "+");
-            }
-            System.out.println();
+            int n = sc.nextInt();
+            int ans = func(1 , n);
+            System.out.println("! " + ans);
+            System.out.flush();
         }
+     }
+     static int func(int l , int r){
+         if(r - l <= 1){
+            System.out.println("? " + l);
+            int ll = sc.nextInt();
+   
+            System.out.println("? " + r);
+            int rr = sc.nextInt();
+
+            if(rr < ll){
+                return r;
+            }
+            return l;
+         }
+         int mid = l + (r - l) / 2;
+         int midl = mid - 1;
+         int midr = mid + 1;
+
+         System.out.println("? " + mid);
+         int m = sc.nextInt();
+
+         System.out.println("? " + midl);
+         int ml = sc.nextInt();
+
+         System.out.println("? " + midr);
+         int mr = sc.nextInt();
+
+         if(m >= Math.max(mr , ml)){ // dono se hi bda ya equal hu
+            if(mr < ml){
+                return func(midr , r);
+            }
+            else{
+                return func(l , midl);
+            }
+         }
+         else if(m < Math.min(mr , ml)){ // dono se hi chota hu
+            return mid;
+         }
+          // ek se bada ya eqaul aur doosre se chota ya equal
+         if(mr < ml){
+            return func(midr , r);
+         }
+         else{
+            return func(l , midl);
+         }
      }
  
  //==================================================================================================

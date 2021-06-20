@@ -1,5 +1,4 @@
-package codeForces.codeForces726;
-
+package codeForces.codeForces727;
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -9,7 +8,7 @@ package codeForces.codeForces726;
  import java.util.*;
   
  
- public class F {
+ public class C {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -31,45 +30,37 @@ package codeForces.codeForces726;
         int t = 1;
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = {5706, 26963, 24465, 29359, 16828, 26501, 28146, 18468, 9962, 2996, 492, 11479, 23282, 19170, 15725, 6335};
-            System.out.println("res "+  perfectPeak(a));
-            
+            long k = sc.nextLong();
+            long s = sc.nextLong();
+            long a[] = sc.readLongArray(n);
+            sort(a);
+            ArrayList<Long> al = new ArrayList<>();
+            for(int i = 1; i < n; i++){
+                long temp = a[i] - a[i - 1];
+                if(temp <= s){
+                /// ???
+                }
+                else{
+                    al.add((temp - 1) / s);
+                }
+            }
+            Collections.sort(al);
+            Queue<Long> q = new LinkedList<>();
+            for(int i = 0; i < al.size(); i++){
+                q.add(al.get(i));
+            }
+            while(q.size() > 0){
+                if(q.peek() <= k){
+                    k -= q.poll();
+                }
+                else{
+                    break;
+                }
+            }
+            long res = q.size() + 1;
+            System.out.println(res);
         }
      }
-     static int perfectPeak(int[] a) {
-        int n = a.length;
-        if(n <= 2){
-            return 0;
-        }
-
-        int dpl[] = new int[n];
-        dpl[0] = a[0];
-        for(int i = 1; i < n - 1; i++){
-            dpl[i] = Math.max(a[i] , dpl[i - 1]);
-        }
-        for(int e : dpl){
-            System.out.print(e + " ");
-        }
-        System.out.println();
-
-        int dpr[] = new int[n];
-        dpr[n - 1] = a[n - 1];
-        for(int i = n - 2; i > 0; i--){
-            dpr[i] = Math.max(a[i] , dpr[i + 1]);
-        }
-        for(int e : dpr){
-            System.out.print(e + " ");
-        }
-        System.out.println();
-        
-        for(int i = 1; i < n - 1; i++){
-            if(a[i] > dpl[i - 1] && a[i] > dpr[i + 1]){
-                System.out.println("found "+ i + " " + a[i] + " " + dpl[i - 1] + " " + dpr[i + 1]);
-                return 1;
-            }
-        }
-        return 0;
-    }
  
  //==================================================================================================
  
@@ -78,18 +69,16 @@ package codeForces.codeForces726;
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
      // this is needed.
-     static void sort(int[] a) {
-         //ruffle
+     static void sort(long[] a) {
+         ArrayList<Long> al = new ArrayList<>();
          int n=a.length;
-         Random r=new Random();
-         for (int i=0; i<a.length; i++) {
-             int oi=r.nextInt(n), temp=a[i];
-             a[i]=a[oi];
-             a[oi]=temp;
+         for(int i = 0; i < n; i++){
+             al.add(a[i]);
          }
-         
-         //then sort
-         Arrays.sort(a);
+         Collections.sort(al);
+         for(int i = 0; i < n; i++){
+             a[i] = al.get(i);
+         }
      }
      
      // Use this to input code since it is faster than a Scanner

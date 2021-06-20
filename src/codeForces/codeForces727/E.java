@@ -1,5 +1,4 @@
-package codeForces.codeForces726;
-
+package codeForces.codeForces727;
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -9,7 +8,7 @@ package codeForces.codeForces726;
  import java.util.*;
   
  
- public class F {
+ public class E {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -28,48 +27,14 @@ package codeForces.codeForces726;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = 1;
+        int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = {5706, 26963, 24465, 29359, 16828, 26501, 28146, 18468, 9962, 2996, 492, 11479, 23282, 19170, 15725, 6335};
-            System.out.println("res "+  perfectPeak(a));
+            int a[] = sc.readArray(n);
+
             
         }
      }
-     static int perfectPeak(int[] a) {
-        int n = a.length;
-        if(n <= 2){
-            return 0;
-        }
-
-        int dpl[] = new int[n];
-        dpl[0] = a[0];
-        for(int i = 1; i < n - 1; i++){
-            dpl[i] = Math.max(a[i] , dpl[i - 1]);
-        }
-        for(int e : dpl){
-            System.out.print(e + " ");
-        }
-        System.out.println();
-
-        int dpr[] = new int[n];
-        dpr[n - 1] = a[n - 1];
-        for(int i = n - 2; i > 0; i--){
-            dpr[i] = Math.max(a[i] , dpr[i + 1]);
-        }
-        for(int e : dpr){
-            System.out.print(e + " ");
-        }
-        System.out.println();
-        
-        for(int i = 1; i < n - 1; i++){
-            if(a[i] > dpl[i - 1] && a[i] > dpr[i + 1]){
-                System.out.println("found "+ i + " " + a[i] + " " + dpl[i - 1] + " " + dpr[i + 1]);
-                return 1;
-            }
-        }
-        return 0;
-    }
  
  //==================================================================================================
  

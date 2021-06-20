@@ -1,5 +1,4 @@
-package codeForces.codeForces726;
-
+package codeForces.codeForces727;
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -9,7 +8,7 @@ package codeForces.codeForces726;
  import java.util.*;
   
  
- public class F {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -31,45 +30,39 @@ package codeForces.codeForces726;
         int t = 1;
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = {5706, 26963, 24465, 29359, 16828, 26501, 28146, 18468, 9962, 2996, 492, 11479, 23282, 19170, 15725, 6335};
-            System.out.println("res "+  perfectPeak(a));
+            int q = sc.nextInt();
+            String s = sc.nextLine();
+            int a[] = new int[n];
+            for(int i = 0; i < n; i++){
+                a[i] = s.charAt(i) - 96;
+            }
+            int pre[] = new int[n];
+            pre[0] = a[0];
+            for(int i = 1; i < n; i++){
+                pre[i] = pre[i - 1] + a[i];
+            }
+            while(q-->0){
+                int l = sc.nextInt();
+                int r = sc.nextInt();
+                long sum = 0;
+                if(l >= 2)
+                sum = pre[r - 1] - pre[l - 2];
+                else
+                sum = pre[r- 1];
+                System.out.println(sum);
+            }
+            // HashMap<Integer, Integer> map = new HashMap<>();
+            // for(int i = 0; i < n + 1; i++){
+            //     map.put(i , 0);
+            // }
+            // int aa[] = new int[n + 1];
+
+            // for(int i = 1; i < n + 1; i++){
+            //     map.put(i , map.get(i - 1))
+            // }
             
         }
      }
-     static int perfectPeak(int[] a) {
-        int n = a.length;
-        if(n <= 2){
-            return 0;
-        }
-
-        int dpl[] = new int[n];
-        dpl[0] = a[0];
-        for(int i = 1; i < n - 1; i++){
-            dpl[i] = Math.max(a[i] , dpl[i - 1]);
-        }
-        for(int e : dpl){
-            System.out.print(e + " ");
-        }
-        System.out.println();
-
-        int dpr[] = new int[n];
-        dpr[n - 1] = a[n - 1];
-        for(int i = n - 2; i > 0; i--){
-            dpr[i] = Math.max(a[i] , dpr[i + 1]);
-        }
-        for(int e : dpr){
-            System.out.print(e + " ");
-        }
-        System.out.println();
-        
-        for(int i = 1; i < n - 1; i++){
-            if(a[i] > dpl[i - 1] && a[i] > dpr[i + 1]){
-                System.out.println("found "+ i + " " + a[i] + " " + dpl[i - 1] + " " + dpr[i + 1]);
-                return 1;
-            }
-        }
-        return 0;
-    }
  
  //==================================================================================================
  

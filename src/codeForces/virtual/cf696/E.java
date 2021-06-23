@@ -1,3 +1,5 @@
+package codeForces.virtual.cf696;
+
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -7,7 +9,7 @@
  import java.util.*;
   
  
- public class template {
+ public class E {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -124,7 +126,7 @@
          for (int i = 2; i <= n; i++)
          {
              if (prime[i] == true)
-                 al.add(i);
+                 al.get(i);
          }
      }
      static final int M = 1000_000_000 + 7;

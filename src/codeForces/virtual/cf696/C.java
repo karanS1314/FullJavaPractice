@@ -1,13 +1,17 @@
+package codeForces.virtual.cf696;
+
 
 
  //   * * * the goal is to be worlds best * * *   //
+
+ // << harder implementation , map based , n ^ 2 log n solution >> 
  import java.io.BufferedReader;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
   
  
- public class template {
+ public class C {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,7 +33,51 @@
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            
+            n *= 2;
+            int a[] = sc.readArray(n);
+            Arrays.sort(a);
+            boolean found = false;
+
+            for(int j = 0; j < n - 1; j++){
+                int tar = a[n - 1] + a[j];
+                int x = tar;
+
+                HashMap<Integer , Integer> map = new HashMap<>(); // count of the array elements map
+                for(int i = 0; i < n; i++){
+                    map.put(a[i] , map.getOrDefault(a[i], 0) + 1);
+                }
+                
+                ArrayList<Pair> al = new ArrayList<>();
+                for(int i = n - 1; i >= 0; i--){
+                    if(map.get(a[i]) == 0){
+                        continue;
+                    }
+
+                    int f1 = x - a[i];
+                    map.put(a[i] , map.get(a[i]) - 1);
+
+                    if(map.containsKey(f1) && map.get(f1) > 0){
+                        al.add(new Pair(a[i] , f1));
+                        map.put(f1 , map.get(f1) - 1);
+                        x = Math.max(f1 , a[i]);
+                    }
+                    else{
+                        break;
+                    }
+                }
+                if(al.size() == n / 2){
+                    System.out.println("YES");
+                    System.out.println(tar);
+                    for(Pair pp : al){
+                        System.out.println(pp.a + " " + pp.b);
+                    }
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                System.out.println("NO");
+            }
             
         }
      }
@@ -124,7 +172,7 @@
          for (int i = 2; i <= n; i++)
          {
              if (prime[i] == true)
-                 al.add(i);
+                 al.get(i);
          }
      }
      static final int M = 1000_000_000 + 7;

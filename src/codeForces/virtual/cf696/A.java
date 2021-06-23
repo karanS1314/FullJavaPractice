@@ -1,3 +1,5 @@
+package codeForces.virtual.cf696;
+
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -7,7 +9,7 @@
  import java.util.*;
   
  
- public class template {
+ public class A {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,8 +31,54 @@
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            
-            
+            String b = sc.nextLine();
+            char ba[] = b.toCharArray();
+            if(n == 1){
+                System.out.println(1);
+                continue;
+            }
+            char aa[] = new char[n];
+            Arrays.fill(aa , '3');
+            int i = 0;
+            while(i < n - 1){
+                if(ba[i] ==ba[i + 1]){
+                    if(aa[i] == '3'){
+                        aa[i] = '1';
+                        aa[i + 1] ='0';
+                    }
+                    else{
+                        if(aa[i] == '1'){
+                            aa[i + 1] ='0';
+                        }
+                        else{
+                            aa[i + 1] = '1';
+                        }
+                    }
+                }
+                else{
+                    if(aa[i] == '3'){
+                        aa[i] = '1';
+                        aa[i + 1] ='1';
+                    }
+                    else if(aa[i] == '1'){
+                        aa[i + 1] = '1';
+                    }
+                    else if(aa[i] == '0'){
+                        if(ba[i] == '1'){
+                            aa[i + 1] = '0';
+                        }
+                        else{
+                            aa[i + 1] = '1';
+
+                        }
+                    }
+                }
+                i++;
+            }
+            for(char e : aa){
+                System.out.print(e);
+            }
+            System.out.println();
         }
      }
  
@@ -124,7 +172,7 @@
          for (int i = 2; i <= n; i++)
          {
              if (prime[i] == true)
-                 al.add(i);
+                 al.get(i);
          }
      }
      static final int M = 1000_000_000 + 7;

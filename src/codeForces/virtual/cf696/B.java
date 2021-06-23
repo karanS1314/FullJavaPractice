@@ -1,3 +1,5 @@
+package codeForces.virtual.cf696;
+
 
 
  //   * * * the goal is to be worlds best * * *   //
@@ -7,7 +9,7 @@
  import java.util.*;
   
  
- public class template {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,11 +28,30 @@
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
+        ArrayList<Integer> al = new ArrayList<>();
+        sieveOfEratosthenes(10000000, al);
         int t = sc.nextInt();
         while(t-->0){
-            int n = sc.nextInt();
-            
-            
+            int d = sc.nextInt();
+            int sec = 1 + d;
+            int secI = -1;
+            for(int i = 0; i < al.size(); i++){
+                if(sec <= al.get(i)){
+                    sec = al.get(i);
+                    secI = i;
+                    break;
+                }
+            }
+            int thir = sec + d;
+            // int thirI = -1;
+            for(int i = secI; i < al.size(); i++){
+                if(thir <= al.get(i)){
+                    thir = al.get(i);
+                    // thirI = i;
+                    break;
+                }
+            }
+            System.out.println(thir * sec);
         }
      }
  

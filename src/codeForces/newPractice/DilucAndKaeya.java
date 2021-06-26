@@ -1,7 +1,5 @@
 package codeForces.newPractice;
 
-
-
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
@@ -9,7 +7,7 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class template {
+ public class DilucAndKaeya {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,13 +22,34 @@ package codeForces.newPractice;
          }
      }
  
- // =================================================================================================
+ //==================================================================================================
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
+            char ca[] = sc.nextLine().toCharArray();
+            int res[] = new int[n];
+
+            HashMap<Double , Integer> map = new HashMap<>();
+            int d = 0;
+            int k = 0;
+            for(int i = 0; i < n; i++){
+                if(ca[i] == 'D') d++;
+                else k++;
+
+                double pp = 0;
+                if(k == 0){
+                    pp = 5_00_002;
+                }
+                else{
+                    pp = (double) d / (double) k;
+                }
+                map.put(pp , map.getOrDefault(pp, 0) + 1);
+                res[i] = map.get(pp);
+            }
+            print(res);
         }
      }
  
@@ -40,20 +59,42 @@ package codeForces.newPractice;
      // Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
      // worst case since it uses a version of quicksort. Although this would never
      // actually show up in the real world, in codeforces, people can hack, so
-     // this is needed.
-     static void ruffleSort(int[] a) {
-         //ruffle
-         int n=a.length;
-         Random r=new Random();
-         for (int i=0; i<a.length; i++) {
-             int oi=r.nextInt(n), temp=a[i];
-             a[i]=a[oi];
-             a[oi]=temp;
-         }
-         
-         //then sort
-         Arrays.sort(a);
-     }
+     // this is needed. 
+	 static void sort(int[] arr) {
+		 int n = arr.length;
+		 ArrayList<Integer> res = new ArrayList<>();
+		 for (int a : arr) {
+		 	 res.add(a);
+		 }
+		 Collections.sort(res);
+		 for (int i = 0; i < n; i++) {
+			 arr[i] = res.get(i);
+		 }
+	 }
+ 
+	 static void sort(long[] arr) {
+		 int n = arr.length;
+		 ArrayList<Long> res = new ArrayList<>();
+		 for (long a : arr) {
+			 res.add(a);
+		 }
+		 Collections.sort(res);
+		 for (int i = 0; i < n; i++) {
+			 arr[i] = res.get(i);
+		} 
+	 }
+ 
+	 static void revSort(int[] arr) {
+		 int n = arr.length;
+		 ArrayList<Integer> res = new ArrayList<>();
+		 for (int a : arr) {
+			 res.add(a);
+		 }
+		 Collections.sort(res, Collections.reverseOrder());
+		 for (int i = 0; i < n; i++) {
+			 arr[i] = res.get(i);
+		 }
+	 } 
      
      // Use this to input code since it is faster than a Scanner
      static class FastScanner {
@@ -105,8 +146,23 @@ package codeForces.newPractice;
              return Long.parseLong(next());
          }
      }
- 
-     //generates all the prime numbers upto n
+     
+     // print integers in array
+     static void print(int a[]){
+         for(int e : a){
+             System.out.print(e + " ");
+         }
+         System.out.println();
+     }
+
+     static void print(long a[]){
+         for(long e : a){
+             System.out.print(e + " ");
+         }
+         System.out.println();
+     }
+
+     // generates all the prime numbers upto n
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
          boolean prime[] = new boolean[n + 1];
@@ -124,13 +180,102 @@ package codeForces.newPractice;
          for (int i = 2; i <= n; i++)
          {
              if (prime[i] == true)
-                 al.get(i);
+                 al.add(i);
          }
      }
-     static final int mod = 100000000 + 7;
-     static final int max_val = 2147483647;
-     static final int min_val = max_val + 1;
+     static final int mod = 1000_000_000 + 7;
+     static final int imx = Integer.MAX_VALUE;
+     static final int imi = Integer.MIN_VALUE;
      
+	 static ArrayList<Integer> divisors(int n) {
+		 ArrayList<Integer> al = new ArrayList<>();
+		 for (int i = 1; i * i <= n; i++) {
+			 if (n % i == 0) {
+				 if (n == i * i) {
+					 al.add(i);
+				 } else {
+					 al.add(i);
+					 al.add(n / i);
+				 }
+		 	 }
+		 }
+		 Collections.sort(al);
+		 return al;
+	 }
+ 
+	 static int countDigits(int n) {
+		 int c = 0;
+		 while (n != 0) {
+			 c++;
+			 n /= 10;
+		 }
+		 return c;
+	 }
+ 
+	 static boolean palindrome(String str) {
+		 int s = 0;
+		 int e = str.length() - 1;
+		 while (s < e) {
+			 if (str.charAt(s) != str.charAt(e)) {
+				 return false;
+			 }
+			 s++;
+			 e--;
+		 }
+		 return true;
+	 }
+ 
+	 static void reverse(int[] arr, int s, int e) {
+		 while (s < e) {
+			 int temp = arr[s];
+			 arr[s++] = arr[e];
+			 arr[e--] = temp;
+		 }
+	 }
+     // starting exclusive ending inclusive
+	 static int getMax(int[] arr, int s, int e) {
+		 int maxi = s;
+		 for (int i = s + 1; i <= e; i++) {
+			 if (arr[i] > arr[maxi]) {
+				 maxi = i;
+			 }
+		 }
+		 return maxi;
+	 }
+
+     // starting exclusive ending inclusive
+     static int getMin(int[] arr, int s, int e) {
+	     int mini = s;
+		 for (int i = s + 1; i <= e; i++) {
+			 if (arr[i] < arr[mini]) {
+				 mini = i;
+			 }
+		 }
+		 return mini;
+	 }
+ 
+	 static long lcm(long n1, long n2) {
+		 return (n1 * n2) / gcd(n1, n2);
+ 	 }
+ 
+	 static int lcm(int n1, int n2) {
+		 return (n1 * n2) / gcd(n1, n2);
+	 }
+ 
+	 static long gcd(long num1, long num2) {
+		 if (num2 == 0) {
+			 return num1;
+		 }
+		 return gcd(num2, num1 % num2);
+	 }
+ 
+	 static int gcd(int num1, int num2) {
+		 if (num2 == 0) {
+			 return num1;
+		 }
+		 return gcd(num2, num1 % num2);
+	 }
+
      //fastPow
      static long fastPow(long base, long exp) {
          if (exp==0) return 1;
@@ -139,27 +284,19 @@ package codeForces.newPractice;
          return mul(half, mul(half, base));
      }
  
-     //multiply two long numbers
+     // multiply two long numbers % mod
      static long mul(long a, long b) {
          return a*b%mod;
      }
  
      static int nCr(int n, int r)
      {
-            return fact(n) / (fact(r) *
-                 fact(n - r));
-     }
-     
-     static int gcd(int a, int b)
-     {
-         if (b == 0)
-           return a;
- 
-         return gcd(b, a % b);
+        return factorial(n) / (factorial(r) *
+            factorial(n - r));
      }
      
      // Returns factorial of n
-     static int fact(int n)
+     static int factorial(int n)
      {
          int res = 1;
          for (int i = 2; i <= n; i++)
@@ -216,12 +353,18 @@ package codeForces.newPractice;
          return upBound(ll,tar,l,mid-1);
      }
  
-     static void swap(int i , int j , int a[]){
+     static void swap(int a[] , int i , int j){
          int x = a[i];
          int y = a[j];
          a[j] = x;
          a[i] = y;
      }
+     static void swap(long a[] , int i , int j){
+         long x = a[i];
+         long y = a[j];
+         a[j] = x;
+         a[i] = y;
+    }
      // a -> z == 97 -> 122
  
      // String.format("%.9f", ans) ,--> to get upto 9 decimal places , (ans is double)

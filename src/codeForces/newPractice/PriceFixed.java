@@ -1,3 +1,4 @@
+package codeForces.newPractice;
  
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
@@ -6,18 +7,30 @@
  import java.util.*;
   
  
- public class template {
+ public class PriceFixed {
      static class Pair implements Comparable<Pair>{
-         int a;
-         int b;
+         long a;
+         long b;
  
-         Pair(int a , int b){
+         Pair(long a , long b){
              this.a = a;
              this.b = b;
          }
  
          public int compareTo(Pair o){
-             return this.a - o.a;
+             if(this.b > o.b){
+                 return 1;
+             }
+             else if(this.b == o.b){
+                if(this.a > o.a){
+                    return -1;
+                }
+                else if(this.a == o.a){
+                    return 0;
+                }
+                return 1;
+             }
+             return -1;
          }
      }
  
@@ -25,10 +38,52 @@
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
             int n = sc.nextInt();
+            long a[] = new long[n];
+            long b[] = new long[n];
+            for(int i = 0; i < n; i++){
+                a[i] = sc.nextLong();
+                b[i] = sc.nextLong();
+            }
+            Pair pa[] = new Pair[n];
+            for(int i = 0; i < n; i++){
+                Pair pp = new Pair(a[i] , b[i]);
+                pa[i] = pp;
+            }
+            Arrays.sort(pa);
 
+            int i = 0;
+            int j = n - 1;
+
+            int rem = 0;
+            int pr = 0;
+            while(i <= j){ 
+                long lcrem = Math.min(pa[i].b - rem , pa[j].a);
+                if(lcrem == pa[i].b - rem && lcrem == pa[j].a){
+                    if(rem >= pa[i].b){
+                        pr += pa[j].a * 1;
+                    }
+                    else{
+                        pr += Math.min(pa[j].b - rem , pa[j].a) * 2;
+                        pa[j].a -= Math.min(pa[i].b - rem , pa[j].a);
+                        pr += pa[j].a * 1;
+                    }
+                }
+                else if(lcrem == pa[i].b - rem){
+                    pr += pa[i].a * 1;
+                    rem += pa[i].a;
+                    i++;
+                }
+                else if(lcrem == pa[j].a){
+                    pr += lcrem * 2;
+                    rem += lcrem;
+                    j--;
+                }
+            }
+          
+            System.out.println(pr);
         }
      }
  

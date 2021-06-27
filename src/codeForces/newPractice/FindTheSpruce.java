@@ -1,4 +1,5 @@
 package codeForces.newPractice;
+
  
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
@@ -7,30 +8,18 @@ package codeForces.newPractice;
  import java.util.*;
   
  
- public class PriceFixed {
+ public class FindTheSpruce {
      static class Pair implements Comparable<Pair>{
-         long a;
-         long b;
+         int a;
+         int b;
  
-         Pair(long a , long b){
+         Pair(int a , int b){
              this.a = a;
              this.b = b;
          }
  
          public int compareTo(Pair o){
-             if(this.b > o.b){
-                 return 1;
-             }
-             else if(this.b == o.b){
-                if(this.a > o.a){
-                    return -1;
-                }
-                else if(this.a == o.a){
-                    return 0;
-                }
-                return 1;
-             }
-             return -1;
+             return this.a - o.a;
          }
      }
  
@@ -38,55 +27,12 @@ package codeForces.newPractice;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = 1;
+        int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            long a[] = new long[n];
-            long b[] = new long[n];
-            for(int i = 0; i < n; i++){
-                a[i] = sc.nextLong();
-                b[i] = sc.nextLong();
-            }
-            Pair p[] = new Pair[n];
-            for(int i = 0; i < n; i++){
-                Pair pp = new Pair(a[i] , b[i]);
-                p[i] = pp;
-            }
-            Arrays.sort(p);
 
-            int i = 0;
-            int j = n - 1;
-
-            int rem = 0;
-            long pr = 0;
-            while(i < j){ 
-                long lmi = Math.min(p[i].b - rem , p[j].a);
-                if(lmi <= 0){ // satisfying ith pair fully
-                    pr += p[i].a * 1;
-                    rem += p[i].a;
-                    i++;
-                }
-                else{ // ya to saare remove kro jth mei se ya kuch remove kro
-                    pr += (lmi) * 2;
-                    rem += lmi;
-                    p[j].a -= lmi;
-                    if(p[j].a == 0){
-                        j--;
-                    }
-                }
-            }
-            if(rem >= p[i].b){
-                pr += p[i].a * 1;
-            }
-            else{
-                pr += Math.min(p[i].b - rem , p[i].a) * 2;
-                p[i].a -= Math.min(p[i].b - rem , p[i].a);
-                pr += p[i].a * 1;
-            }
-            System.out.println(pr);
         }
      }
-
  
  //==================================================================================================
  

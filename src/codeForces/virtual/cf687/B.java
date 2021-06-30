@@ -1,4 +1,4 @@
-package codeForces.virtual.cf689;
+package codeForces.virtual.cf687;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.virtual.cf689;
  import java.util.*;
   
  
- public class C {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,10 +29,39 @@ package codeForces.virtual.cf689;
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            int n = sc.nextInt();
-            
+            long n = sc.nextInt();
+            long k = sc.nextInt();
+            int c[] = sc.readArray((int)n);
 
+            HashMap<Long , Integer> map = new HashMap<>();
+            for(long e : c){
+                map.put(e , map.getOrDefault(e , 0) + 1);
+            }
+
+            long min = Long.MAX_VALUE;
+            for(Map.Entry<Long , Integer> e : map.entrySet()){
+                long fixed = e.getKey();
+                min = Math.min(min , countDays(c , fixed , k));
+            }
+
+            System.out.println(min);
         }
+     }
+
+     static long countDays(int c[] , long fixed , long k){
+        int n = c.length;
+        long count = 0;
+        int i = 0;
+        while(i < n){
+            if(c[i] == fixed){
+                i++;
+                continue;
+            }
+            count++;
+            i += k;
+        }
+
+        return count;
      }
  
  //==================================================================================================

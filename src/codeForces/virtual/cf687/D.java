@@ -1,4 +1,4 @@
-package codeForces.virtual.cf689;
+package codeForces.virtual.cf687;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.virtual.cf689;
  import java.util.*;
   
  
- public class C {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -30,7 +30,6 @@ package codeForces.virtual.cf689;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            
 
         }
      }

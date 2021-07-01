@@ -1,6 +1,6 @@
-package codeForces.virtual.cf687;
+package codeForces.virtual.cf693;
 
- 
+
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
@@ -8,7 +8,7 @@ package codeForces.virtual.cf687;
  import java.util.*;
   
  
- public class C {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,45 +24,95 @@ package codeForces.virtual.cf687;
      }
  
  //==================================================================================================
-     static int count(char a[] , int p , int k , int n , int x , int y){
-         int m = 0;
-         for(int i = p + k; i < n; i+=k){
-            if(a[i] == '0'){
-                m += x;
-            }
-         }
-
-         return m;
-     }
+ 
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int p = sc.nextInt();
-            int k = sc.nextInt();
-            char ca[] = sc.nextLine().toCharArray();
-            int x = sc.nextInt();
-            int y = sc.nextInt();
+            long a[] = sc.readLongArray(n);
+            // alice -- even
+            // bob -- odd
 
-            int a[] = new int[n];
-            
-            p--; // 0 based indexing ke liye
-            int res = n * x; // to create all the platforms
-            for(int i = n - 1; i >= p; i--){
-                a[i] = ca[i] == '1' ? 0 : x; // agar ith vala bnana pda 
-                
-                if(i + k < n){
-                    a[i] += a[i + k];
+            PriorityQueue<Long> ev = new PriorityQueue<>(new C());
+            PriorityQueue<Long> od = new PriorityQueue<>(new C());
+
+            for(long e : a){
+                if((e & 1) == 1){
+                    od.add(e);
                 }
-                
-                res = Math.min(res , a[i] + y * (i - p));
+                else{
+                    ev.add(e);
+                }
             }
 
-            System.out.println(res);
+            int count = 0;
+            long alice = 0;
+            long bob = 0;
+            while(od.size() > 0 && ev.size() > 0){
+                if((count & 1) != 1){ // alice turn
+                    count++;
+                    if(od.peek() > ev.peek()){
+                        od.poll();
+                    }
+                    else{   
+                        alice += ev.poll();
+                    }
+                }
+                else{ // bob turn
+                    count++;
+                    if(ev.peek() > od.peek()){
+                        ev.poll();
+                    }
+                    else{
+                        bob += od.poll();
+                    }
+                }
+            }
+            while(ev.size() > 0){
+                if((count & 1) != 1){ // alice turn
+                    count++;   
+                    alice += ev.poll();
+                }
+                else{ // bob turn
+                    count++;
+                    ev.poll();
+                }
+            }
+            while(od.size() > 0){
+                if((count & 1) != 1){ // alice turn 
+                    count++;
+                    od.poll();
+                }
+                else{ // bob turn
+                    count++;
+                    bob += od.poll();
+                }
+            }
+
+            if(bob == alice){
+                System.out.println("Tie");
+            }
+            else if(bob > alice){
+                System.out.println("Bob");
+            }
+            else{
+                System.out.println("Alice");
+            }
         }
      }
- 
+     
+     static class C implements Comparator<Long>{
+         public int compare(Long one , Long two){
+             if(two > one){
+                 return 1;
+             }
+             else if(two == one){
+                 return 0;
+             }
+             return -1;
+         }
+     }
  //==================================================================================================
  
  

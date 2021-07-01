@@ -1,4 +1,4 @@
-package codeForces.virtual.cf687;
+package codeForces.virtual.cf693;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.virtual.cf687;
  import java.util.*;
   
  
- public class C {
+ public class A {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,42 +24,32 @@ package codeForces.virtual.cf687;
      }
  
  //==================================================================================================
-     static int count(char a[] , int p , int k , int n , int x , int y){
-         int m = 0;
-         for(int i = p + k; i < n; i+=k){
-            if(a[i] == '0'){
-                m += x;
-            }
-         }
-
-         return m;
-     }
+ 
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
+            int w = sc.nextInt();
+            int h = sc.nextInt();
             int n = sc.nextInt();
-            int p = sc.nextInt();
-            int k = sc.nextInt();
-            char ca[] = sc.nextLine().toCharArray();
-            int x = sc.nextInt();
-            int y = sc.nextInt();
-
-            int a[] = new int[n];
             
-            p--; // 0 based indexing ke liye
-            int res = n * x; // to create all the platforms
-            for(int i = n - 1; i >= p; i--){
-                a[i] = ca[i] == '1' ? 0 : x; // agar ith vala bnana pda 
-                
-                if(i + k < n){
-                    a[i] += a[i + k];
-                }
-                
-                res = Math.min(res , a[i] + y * (i - p));
+            if(n == 1){
+                System.out.println("YES");
+                continue;
             }
 
-            System.out.println(res);
+            int temp = w * h;
+            int twos = 0;
+            while(temp % 2 == 0){
+                temp /= 2;
+                twos++;
+            }
+            if(n <= fastPow(2L , twos)){
+                System.out.println("YES");
+            }
+            else{
+                System.out.println("NO");
+            }
         }
      }
  

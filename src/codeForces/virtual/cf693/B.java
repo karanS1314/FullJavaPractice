@@ -1,6 +1,5 @@
-package codeForces.virtual.cf687;
+package codeForces.virtual.cf693;
 
- 
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
@@ -8,7 +7,7 @@ package codeForces.virtual.cf687;
  import java.util.*;
   
  
- public class C {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,42 +23,42 @@ package codeForces.virtual.cf687;
      }
  
  //==================================================================================================
-     static int count(char a[] , int p , int k , int n , int x , int y){
-         int m = 0;
-         for(int i = p + k; i < n; i+=k){
-            if(a[i] == '0'){
-                m += x;
-            }
-         }
-
-         return m;
-     }
+ 
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int p = sc.nextInt();
-            int k = sc.nextInt();
-            char ca[] = sc.nextLine().toCharArray();
-            int x = sc.nextInt();
-            int y = sc.nextInt();
-
-            int a[] = new int[n];
-            
-            p--; // 0 based indexing ke liye
-            int res = n * x; // to create all the platforms
-            for(int i = n - 1; i >= p; i--){
-                a[i] = ca[i] == '1' ? 0 : x; // agar ith vala bnana pda 
-                
-                if(i + k < n){
-                    a[i] += a[i + k];
-                }
-                
-                res = Math.min(res , a[i] + y * (i - p));
+            int a[] = sc.readArray(n);
+            int sum = 0;
+            for(int e : a){
+                sum += e;
             }
+            if((sum & 1) == 1){
+                System.out.println("NO");
+                continue;
+            }
+            
+            int o = 0;
+            int tt = 0;
 
-            System.out.println(res);
+            for(int e : a){
+                if(e == 2){
+                    tt++;
+                }
+                else{
+                    o++;
+                }
+            }
+            if((o == 0) && (tt % 2) == 1){
+                System.out.println("NO");
+            }
+            else if((o & 1) != 1){
+                System.out.println("YES");
+            }
+            else{
+                System.out.println("NO");
+            }
         }
      }
  

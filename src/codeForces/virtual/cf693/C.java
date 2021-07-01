@@ -1,6 +1,6 @@
-package codeForces.virtual.cf687;
+package codeForces.virtual.cf693;
 
- 
+
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
@@ -24,42 +24,29 @@ package codeForces.virtual.cf687;
      }
  
  //==================================================================================================
-     static int count(char a[] , int p , int k , int n , int x , int y){
-         int m = 0;
-         for(int i = p + k; i < n; i+=k){
-            if(a[i] == '0'){
-                m += x;
-            }
-         }
-
-         return m;
-     }
+ 
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int p = sc.nextInt();
-            int k = sc.nextInt();
-            char ca[] = sc.nextLine().toCharArray();
-            int x = sc.nextInt();
-            int y = sc.nextInt();
+            long a[] = sc.readLongArray(n);
 
-            int a[] = new int[n];
-            
-            p--; // 0 based indexing ke liye
-            int res = n * x; // to create all the platforms
-            for(int i = n - 1; i >= p; i--){
-                a[i] = ca[i] == '1' ? 0 : x; // agar ith vala bnana pda 
-                
-                if(i + k < n){
-                    a[i] += a[i + k];
+            long pre[] = new long[n];
+            for(int i = n - 1; i >= 0; i--){
+                pre[i] = a[i];
+                if(i + a[i] < n){
+                    pre[i] += pre[(int)(i + a[i])];
                 }
-                
-                res = Math.min(res , a[i] + y * (i - p));
             }
 
-            System.out.println(res);
+            long mx = imi;
+            for(int i = 0; i < n; i++){
+                if(mx < pre[i]){
+                    mx = pre[i];
+                }
+            }
+            System.out.println(mx);
         }
      }
  

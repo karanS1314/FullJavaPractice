@@ -8,7 +8,7 @@ package codeForces.virtual.cf687;
  import java.util.*;
   
  
- public class D {
+ public class main {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -27,10 +27,15 @@ package codeForces.virtual.cf687;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
             int n = sc.nextInt();
-
+            if(n >= 6){
+                System.out.println("NO");
+            }
+            else{
+                System.out.println("YES");
+            }
         }
      }
  

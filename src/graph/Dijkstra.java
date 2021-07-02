@@ -44,12 +44,12 @@ public class Dijkstra {
 			graph[dest].add(new Edge(dest, src, wt));
 		}
 		int strt = sc.nextInt();
-		PriorityQueue<Pair> pq = new PriorityQueue<>();
-		boolean vis[] = new boolean[vert];
+		PriorityQueue<Pair> pq = new PriorityQueue<>(); // o vert max space
+		boolean vis[] = new boolean[vert];//o vert space
 		pq.add(new Pair(strt , " ", 0));
 		
-		while(pq.size()>0) {
-			Pair curr = pq.poll();
+		while(pq.size()>0){
+			Pair curr = pq.poll(); // O(logV) * O(V)
 			
 			if(vis[curr.v]==true) {
 				continue;
@@ -60,14 +60,15 @@ public class Dijkstra {
 			
 			System.out.println(curr.v + " " + curr.psf + "@" + curr.wsf );
 			
-			for(Edge e : graph[curr.v]) {
+			for(Edge e : graph[curr.v]){ // O(E) 
 				if(!vis[e.dest]) {
-					pq.add(new Pair(e.dest , curr.psf + e.src , curr.wsf+e.wt));
+					pq.add(new Pair(e.dest , curr.psf + e.src , curr.wsf+e.wt)); // O(logV)
 				}
 			}
 			
 		}
 
-	}
+		// overall time complexity  O((V * E)(logV))
+	}	
 
 }

@@ -61,7 +61,7 @@ public class KruskalsMST {
         Collections.sort(al);
 
         int par[] = new int[vert];
-        for(int i=0;i<vert;i++) {
+        for(int i=0;i<vert;i++) { // each element is the parent of their own
             par[i]=i;
         }
 

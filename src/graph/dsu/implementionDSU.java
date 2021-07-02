@@ -27,14 +27,12 @@ public class implementionDSU {
         int arr[] = new int[n];
         int par[] = new int[n];
         int rank[] = new int[n];
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++){ // each element is their own parent
             arr[i]=sc.nextInt();
             par[i]=i;
         }
         int a = sc.nextInt();
         int b = sc.nextInt();
         union(a, b, par, rank);
-
-
     }
 }

@@ -1,4 +1,4 @@
-package codeForces.codeForces730;
+package codeForces.virtual.cf679;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -24,40 +24,59 @@ package codeForces.codeForces730;
      }
  
  //==================================================================================================
-     
-     static long n;
-     static long a;
-     static long b;
+ 
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
-            n = sc.nextInt();
-            a = sc.nextInt();
-            b = sc.nextInt();
-
-            if(solve(1)){
-                System.out.println("YES");
+            char a[] = {'P', 'T', 'T', 'P', 'T'};
+            int n = a.length;
+            int k = 1;
+            int mip = -1;
+            int mit = -1;
+            for(int i = 0; i < a.length; i++){
+                if(mit == -1 && a[i] == 'T'){
+                    mit = i;
+                }
+                if(mip == -1 && a[i] == 'P'){
+                    mip = i;
+                }
             }
-            else{
-                System.out.println("NO");
+            if(mit == -1 || mip == -1){
+                System.out.println(-1);
+                continue;
             }
+
+            int count = 0;
+            while(mip < n && mit < n){
+                if(Math.abs(mip - mit) <= k){
+                    mip++;
+                    mit++;
+                    while(mip < n && a[mip] != 'P'){
+                        mip++;
+                    }
+                    while(mit < n && a[mit] != 'T'){
+                        mit++;
+                    }
+                    count++;
+                }
+                else{
+                    if(mip < mit){
+                        mip++;
+                        while(mip < n && a[mip] != 'P'){
+                            mip++;
+                        }
+                    }
+                    else{
+                        mit++;
+                        while(mit < n && a[mit] != 'T'){
+                            mit++;
+                        }
+                    }
+                }
+            }
+            System.out.println(count);
         }
-     }
-
-     static boolean solve(long x){
-        if(x == n) return true;
-
-        if(x > n){
-            return false;
-        }
-        
-        boolean m = solve(x * a);
-        boolean n = solve(x + b);
-
-        if(m || n) return true;
-
-        return false;
      }
  
  //==================================================================================================

@@ -1,4 +1,4 @@
-package codeForces.codeForces730;
+package codeForces.virtual.cf679;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.codeForces730;
  import java.util.*;
   
  
- public class C {
+ public class A {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,40 +24,23 @@ package codeForces.codeForces730;
      }
  
  //==================================================================================================
-     
-     static long n;
-     static long a;
-     static long b;
+ 
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            n = sc.nextInt();
-            a = sc.nextInt();
-            b = sc.nextInt();
+            int n = sc.nextInt();
+            int a[] = sc.readArray(n);
 
-            if(solve(1)){
-                System.out.println("YES");
+            for(int i = 0; i < n; i += 2){
+                swap(a, i, i + 1);
+                a[i] *= -1;
             }
-            else{
-                System.out.println("NO");
+            for(int e : a){
+                System.out.print(e + " ");
             }
+            System.out.println();
         }
-     }
-
-     static boolean solve(long x){
-        if(x == n) return true;
-
-        if(x > n){
-            return false;
-        }
-        
-        boolean m = solve(x * a);
-        boolean n = solve(x + b);
-
-        if(m || n) return true;
-
-        return false;
      }
  
  //==================================================================================================

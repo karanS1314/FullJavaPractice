@@ -1,4 +1,4 @@
-package codeForces.codeForces730;
+package codeForces.virtual.cf679;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.codeForces730;
  import java.util.*;
   
  
- public class C {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,40 +24,64 @@ package codeForces.codeForces730;
      }
  
  //==================================================================================================
-     
-     static long n;
-     static long a;
-     static long b;
+ 
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            n = sc.nextInt();
-            a = sc.nextInt();
-            b = sc.nextInt();
+            int n = sc.nextInt();
+            int m = sc.nextInt();
 
-            if(solve(1)){
-                System.out.println("YES");
+            long a[][] = new long[n][m];
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < m; j++){
+                    a[i][j] = sc.nextLong();
+                }
             }
-            else{
-                System.out.println("NO");
+
+            long b[][] = new long[m][n];
+            for(int i = 0; i < m; i++){
+                for(int j = 0; j < n; j++){
+                    b[i][j] = sc.nextLong();
+                }
+            }
+
+            if(n == 1){
+                for(int i = 0; i < n; i++){
+                    for(int j = 0; j < m; j++){
+                        System.out.print(a[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+            }
+
+            HashMap<Long , Integer> map = new HashMap<>();
+            for(int i = 0; i < n; i++){
+                map.put(b[0][i] , i);
+            }
+
+            Pair pa[] = new Pair[n];
+            for(int i = 0; i < n; i++){
+                pa[i] = new Pair(map.get(a[i][0]) , i);
+            }
+
+            Arrays.sort(pa);
+
+            long res[][] = new long[n][m];
+            for(int i = 0; i < n; i++){
+                int r = pa[i].b;
+                for(int j = 0; j < m; j++){
+                    res[i][j] = a[r][j];
+                }
+            }
+
+            for(int i = 0; i < n; i++){
+                for(int j = 0; j < m; j++){
+                    System.out.print(res[i][j] + " ");
+                }
+                System.out.println();
             }
         }
-     }
-
-     static boolean solve(long x){
-        if(x == n) return true;
-
-        if(x > n){
-            return false;
-        }
-        
-        boolean m = solve(x * a);
-        boolean n = solve(x + b);
-
-        if(m || n) return true;
-
-        return false;
      }
  
  //==================================================================================================

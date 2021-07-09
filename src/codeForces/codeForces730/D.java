@@ -143,14 +143,14 @@ package codeForces.codeForces730;
          System.out.println();
      }
 
-     // generates all the prime numbers upto n
+     // generates all the prime numbers upto n in O(n(log(log(n))))
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
          boolean prime[] = new boolean[n + 1];
          for (int i = 0; i <= n; i++)
              prime[i] = true;
   
-         for (int p = 2; p * p <= n; p++) 
+         for (int p = 2; p * p <= n; p++) // root n
          {
              if (prime[p] == true) 
              {
@@ -285,26 +285,6 @@ package codeForces.codeForces730;
          return res;
      }
       
-     // to generate the lps array
-     // lps means longest preffix that is also a suffix
-     static void generateLPS(int lps[] , String p){
-         int l = 0;
-         int r = 1;
-    
-         while(l < p.length() && l < r && r < p.length()){
-             if(p.charAt(l) == p.charAt(r)){
-                 lps[r] = l + 1;
-                 l++;
-                 r++;
-             }
-             else{
-                 if(l > 0)
-                     l = lps[l - 1];
-                 else
-                     r++;    
-             }
-         }
-     }
       
      // returns the index of the element which is just smaller than or
      // equal to the tar in the given arraylist 

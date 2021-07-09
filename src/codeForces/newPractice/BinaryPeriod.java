@@ -1,4 +1,4 @@
-package codeForces.virtual.cf679;
+package codeForces.newPractice;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.virtual.cf679;
  import java.util.*;
   
  
- public class B {
+ public class BinaryPeriod {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -27,38 +27,32 @@ package codeForces.virtual.cf679;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            int m = sc.nextInt();
-            int a = 0;
-            int b = 0;
-            int row[] = new int[n*m + 1];
-            int col[] = new int[n*m + 1];
-            for(int i = 0; i < n; i++){
-                for(int j = 0; j < m; j++){
-                    a = sc.nextInt();
-                    col[a] = j;
-                }
+        int tt = sc.nextInt();
+        while(tt-->0){
+            String t = sc.nextLine();  
+            int o = 0;
+            int z = 0;
+            
+            for(int i = 0; i < t.length(); i++){
+                if(t.charAt(i) == '1') o++;
+                else z++;
             }
 
-            for(int i = 0; i < m; i++){
-                for(int j = 0; j < n; j++){
-                    b = sc.nextInt();
-                    row[b] = j;
-                }
+            if(o == 0 || z == 0){
+                System.out.println(t);
             }
-
-            int res[][] = new int[n][m];
-            for(int i = 1; i < n * m + 1; i++){
-                res[row[i]][col[i]] = i;
-            }
-
-            for(int i = 0; i < n; i++){
-                for(int j = 0; j < m; j++){
-                    System.out.print(res[i][j] + " ");
+            else{
+                char a[] = new char[2 * t.length()];
+                for(int i = 0; i < a.length; i++){
+                    if((i & 1) == 1){
+                        a[i] = '1';
+                    }
+                    else{
+                        a[i] = '0';
+                    }
                 }
-                System.out.println();
+
+                System.out.println(String.valueOf(a));
             }
         }
      }

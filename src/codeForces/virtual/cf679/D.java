@@ -28,7 +28,7 @@ package codeForces.virtual.cf679;
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        while(t-->0){
+       o:while(t-->0){
             int n = sc.nextInt();
             int m = sc.nextInt();
 
@@ -46,20 +46,21 @@ package codeForces.virtual.cf679;
                 }
             }
 
-            if(n == 1){
-                for(int i = 0; i < n; i++){
-                    for(int j = 0; j < m; j++){
-                        System.out.print(a[i][j] + " ");
+            long tar = a[0][0];
+            int I = -1;
+            m:for(int i = 0; i < m; i++){
+                for(int j = 0; j < n; j++){
+                    if(b[i][j] == tar){
+                        I = i;
+                        break m;
                     }
-                    System.out.println();
                 }
             }
-
             HashMap<Long , Integer> map = new HashMap<>();
             for(int i = 0; i < n; i++){
-                map.put(b[0][i] , i);
+                map.put(b[I][i] , i);
             }
-
+            
             Pair pa[] = new Pair[n];
             for(int i = 0; i < n; i++){
                 pa[i] = new Pair(map.get(a[i][0]) , i);

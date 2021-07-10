@@ -3,8 +3,8 @@ package kmp;
 public class StringMatching {
     public static void main(String[] args) {
 
-        String t = "abcabxabcabcd"; // -->i
-        String s = "abcabcd"; // -->j
+        String t = "aabaaabaaac"; // -->i
+        String s = "aabaaac"; // -->j
 
         int m = t.length();  
         int n = s.length();
@@ -40,8 +40,9 @@ public class StringMatching {
                 }
             }
 
-            if(j == n - 1){
+            if(j == n){
                 matchStartPos = i - n;
+                break;
             }
         }
 

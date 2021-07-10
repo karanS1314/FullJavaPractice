@@ -1,4 +1,4 @@
-package codeForces.virtual.edu97;
+package atCoder.practice.beginner209;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.virtual.edu97;
  import java.util.*;
   
  
- public class C {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -27,25 +27,58 @@ package codeForces.virtual.edu97;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            sort(a);
-            for(int i = 0; i < n - 1; i++){
-                if(a[i] == a[i + 1]){
-                    a[i + 1]++;
-                }
-                else if(a[i] > a[i + 1]){
-                    a[i + 1] = a[i];
-                }
-            }
-            HashSet<Integer> set = new HashSet<>();
-            for(int e : a){
-                set.add(e);
-            }
+            int q = sc.nextInt();
 
-            System.out.println(set.size());
+            ArrayList<Integer> g[] = new ArrayList[n + 1];
+            for(int i = 1; i < n + 1; i++){
+                g[i] = new ArrayList<>();
+            }
+            int a , b;
+            for(int i = 0; i < n - 1; i++){
+                a = sc.nextInt();
+                b = sc.nextInt();
+                g[a].add(b);
+                g[b].add(a);
+            }
+           
+            int c , d;
+
+            while(q --> 0){
+                c = sc.nextInt();
+                d = sc.nextInt();
+
+                boolean vis[] = new boolean[n + 1];
+                Queue<Pair> qu = new LinkedList<>();
+                qu.add(new Pair(c , 0));
+
+                int count = 0;
+                while(qu.size() > 0){
+                    Pair rem = qu.poll();
+
+                    vis[rem.a] = true;
+
+                    if(rem.a == d){
+                        count = rem.b;
+                        break;
+                    }
+
+                    for(int nbr : g[rem.a]){
+                        if(vis[nbr] == false){
+                            qu.add(new Pair(nbr , rem.b + 1));
+                        }
+                    }
+                }
+                // System.out.println(count);
+                if((count & 1) == 1){
+                    System.out.println("Road");
+                }
+                else{
+                    System.out.println("Town");
+                }
+            }
         }
      }
  

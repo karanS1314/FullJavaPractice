@@ -1,4 +1,4 @@
-package codeForces.virtual.edu97;
+package atCoder.practice.beginner209;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -27,25 +27,21 @@ package codeForces.virtual.edu97;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            sort(a);
-            for(int i = 0; i < n - 1; i++){
-                if(a[i] == a[i + 1]){
-                    a[i + 1]++;
-                }
-                else if(a[i] > a[i + 1]){
-                    a[i + 1] = a[i];
-                }
-            }
-            HashSet<Integer> set = new HashSet<>();
-            for(int e : a){
-                set.add(e);
+            long c[] = sc.readLongArray(n);
+
+            sort(c);
+
+            long res = c[0];
+            long prev = c[0];
+            for(int i = 1; i < n; i++){
+                prev = (c[i] % mod - c[i - 1] % mod - 1 + prev % mod) % mod;
+                res = (res % mod * prev % mod) % mod;
             }
 
-            System.out.println(set.size());
+            System.out.println(res);
         }
      }
  

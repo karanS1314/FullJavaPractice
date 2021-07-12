@@ -24,53 +24,56 @@ package codeForces.codeforces731;
      }
  
  //==================================================================================================
- 
+     static ArrayList<Pair> al = new ArrayList<>();
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
             int b[] = sc.readArray(n);
+            int a[] = sc.readArray(n);
+
 
             int sum = 0;
-            int s1 = 0;
-            
-            if(sum != 0) {
-                System.out.println(-1);
-                continue;
+          
+            for(int i = 0; i < n; i++){
+                sum += a[i] - b[i];
             }
-            
-            ArrayList<String> al = new ArrayList<>();
 
-            for(int i = 0; i < n - 1; i++){
-                if(a[i] > b[i]){
-                    for(int j = 0; j < a[i] - b[i]; j++){
-                        int k = i + 2;
-                        int xx = i + 1;
-                        al.add(xx + " " + k);
-                        b[i]++;
-                        b[i + 1]--;
-                    }
+            if(sum != 0){
+                System.out.println(-1);
+                continue; 
+            }
+
+            al = new ArrayList<>();
+            int i = 0;
+            int j = 0;
+
+            while(true){
+                while(i < n && a[i] >= b[i]){
+                    i++;
                 }
-                else{
-                    for(int j = 0; j < b[i] - a[i]; j++){
-                        int k = i + 2;
-                        int xx = i + 1;
-                        al.add(k + " " + xx);
-                        b[i]--;
-                        b[i + 1]++;
-                    }
+                while(j < n && b[j] >= a[j]){
+                    j++;
+                }
+                if(i == n && j == n) break;
+
+                while(a[i] < b[i] && a[j] > b[j]){
+                    al.add(new Pair(i + 1 , j + 1));
+                    a[i]++;
+                    a[j]--;
                 }
             }
+
+
 
             System.out.println(al.size());
-            for(String s : al){
-                System.out.println(s);
+            for(Pair pp : al){
+                System.out.println(pp.a + " " + pp.b);
             }
         }
      }
- 
+     
  //==================================================================================================
  
  

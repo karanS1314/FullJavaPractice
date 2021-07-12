@@ -28,9 +28,53 @@ package codeForces.codeforces731;
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        while(t-->0){
+      o:while(t-->0){
             int n = sc.nextInt();
+            int a[] = sc.readArray(n);
+            int b[] = new int[n];
 
+            for(int i = 0; i < n; i++){
+                b[i] = a[i];
+            }
+            sort(b);
+
+            HashMap<Integer , Pair> map = new HashMap<>();
+            for(int i = 0; i < n; i++){
+                map.putIfAbsent(b[i], new Pair(0 , 0));
+                if((i & 1) == 1){
+                    map.get(b[i]).a++;
+                }
+                else{
+                    map.get(b[i]).b++;
+                }
+            }
+
+            for(int i = 0; i < n; i++){
+                boolean ee = false;
+                if((i & 1) == 1){
+                    if(map.get(a[i]).a <= 0){
+                        ee = false;
+                    }
+                    else{
+                        map.get(a[i]).a--;
+                        ee = true;
+                    }
+                }
+                else{
+                    if(map.get(a[i]).b <= 0){
+                        ee = false;
+                    }
+                    else{
+                        map.get(a[i]).b--;
+                        ee = true;
+                    }
+                }
+                if(ee == false){
+                    System.out.println("NO");
+                    continue o;
+                }
+            }
+            System.out.println("YES");
         }
      }
  

@@ -30,39 +30,56 @@ package codeForces.codeforces731;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            if(n < 3){ 
-                System.out.println("NO");
-                continue;
-            }
-            int b[] = new int[n];
+            int m = sc.nextInt();
+
+            String a[] = new String[n];
+            int org[][] = new int[m][26];
             for(int i = 0; i < n; i++){
-                b[i] = a[n - i - 1];
-            }
-
-            // System.out.println(LCS(a , b));
-            if(LCS(a , b) >= 3) System.out.println("YES");
-            else System.out.println("NO");
-        }
-     }
-     static int LCS(int a[] , int b[]){
-        int n = a.length;
-
-        int dp[][] = new int[n + 1][n + 1];
-
-        for(int i = 1; i <= n; i++){
-            for(int j = 1; j <= n; j++){
-                if(a[i - 1] == b[j - 1]){
-                    dp[i][j] = dp[i - 1][j - 1] + 1;
-                }
-                else{
-                    dp[i][j] = Math.max(dp[i][j - 1] , dp[i - 1][j]);
+                a[i] = sc.nextLine();
+                for(int j = 0; j < m; j++){
+                    org[j][a[i].charAt(j) - 'a']++;
                 }
             }
-        }
 
-        return dp[n][n];
+            String b[] = new String[n - 1];
+            int per[][] = new int[m][26];
+            for(int i = 0; i < n - 1; i++){
+                b[i] = sc.nextLine();
+                for(int j = 0; j < m; j++){
+                    per[j][b[i].charAt(j) - 'a']++;
+                }
+            }
+
+            String ans = "";
+            for(String s : a){
+                for(int j = 0; j < m; j++){
+                    org[j][s.charAt(j) - 'a']--;
+                }
+
+                boolean pos = true;
+                for(int i = 0; i < m; i++){
+                    for(int j = 0; j < 26; j++){
+                        if(org[i][j] != per[i][j]){
+                            pos = false;
+                            break;
+                        }
+                    }
+                }
+                if(pos){
+                    ans = s;
+                    break;
+                }
+
+                for(int j = 0; j < m; j++){
+                    org[j][s.charAt(j) - 'a']++;
+                }
+            }
+
+            System.out.println(ans);
+        }
      }
+    
+    
  
  //==================================================================================================
  

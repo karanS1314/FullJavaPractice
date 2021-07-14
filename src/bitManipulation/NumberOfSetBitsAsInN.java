@@ -29,7 +29,7 @@ package bitManipulation;
         }
         int res = 0;
         long mask = 1L << i;
-        if((n&mask) == 0) {
+        if((n & mask) == 0) {
             res = sol(n , k , i-1);
         } 
         else {

@@ -13,7 +13,7 @@ public class RSB {
         int n = sc.nextInt();
         // find the and of n and n''
         int x = ~n +1 ;
-		//x can be equal to -n
+		//x can also be writen as -n
 
         int rsb = (n&x);
         System.out.println(rsb);

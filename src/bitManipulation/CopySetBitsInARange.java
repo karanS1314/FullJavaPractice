@@ -22,6 +22,7 @@ package bitManipulation;
          
          mask = (mask <<  (left -1));
 
+         mask &= a;
          b = b | mask;
 
          System.out.println(b);
@@ -46,7 +47,6 @@ package bitManipulation;
              a[i]=a[oi];
              a[oi]=temp;
          }
-         
          //then sort
          Arrays.sort(a);
      }

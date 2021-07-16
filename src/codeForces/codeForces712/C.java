@@ -13,15 +13,27 @@ public class C {
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
+
+			if(n > 45){
+				System.out.println(-1);
+			}
+			else{
+				String str = "";
+				for(int i = 9; i > 0; i--){
+					if(n - i >= 0){
+						str += i;
+						n -= i;
+					}
+				}
+
+				for(int i = str.length() - 1; i >= 0; i--){
+					System.out.print(str.charAt(i));
+				}
+				System.out.println();
+			}
         }
 	}
 
-
-
-
-
-
- 
 	// Use this instead of Arrays.sort() on an array of ints. Arrays.sort() is n^2
 	// worst case since it uses a version of quicksort. Although this would never
 	// actually show up in the real world, in codeforces, people can hack, so

@@ -35,7 +35,7 @@ package codeForces.Practicer;
         Arrays.sort(a);
         long l = a[n/2];
         long r = 2_000_000_000;
-        while(l != r){
+        while(l < r){
             long mid = l + (r - l + 1)/2;
             if(check(mid , a , k)){
                 l = mid;

@@ -1,4 +1,4 @@
-package codeForces.codeForces712;
+package amex1;
 
 //   * * * fuck you * * *   //
 import java.io.BufferedReader;
@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.util.*;
  
 
-public class C {
+public class B {
 	public static void main(String[] args) {
 		FastScanner sc = new FastScanner();
         int t = sc.nextInt();

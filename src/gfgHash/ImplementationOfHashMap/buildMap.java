@@ -18,7 +18,7 @@ public class buildMap {
         private LinkedList<HMNode>[] buckets;
 
         public HashMap(){
-            initbuckets(4);
+            initbuckets(4); // default size of outer array
             size = 0;
         }
 
@@ -29,21 +29,21 @@ public class buildMap {
             }
         }
 
-        public void put(K key , V val){
+        public void put(K key , V val){ //Remember, hashmap's get and put operation takes O(1) time only in case of good hashcode implementation which distributes items across buckets.
             int bi = hashfn(key);
             int di = getIndexWithinBucket(key , bi);
             
-            if(di != -1){//update krni hai value is key ke corresponding
+            if(di != -1){   //update krni hai value is key ke corresponding
                 HMNode node = buckets[bi].get(di);
                 node.val = val;
             }
-            else{// new value insert
+            else{   // new value insert
                 HMNode node = new HMNode(key , val);
                 buckets[bi].add(node);
                 size++; // this is the total no. of elements in the map and not the length of buckets
             }
             
-            double lambda = size * 1.0 / buckets.length;
+            double lambda = (double) size / (double) buckets.length;
             if(lambda > 2.0){
                 rehash();
             }
@@ -75,7 +75,7 @@ public class buildMap {
             return true;
         }
 
-        public V get(K key){
+        public V get(K key){ //Remember, hashmap's get and put operation takes O(1) time only in case of good hashcode implementation which distributes items across buckets.
             int bi = hashfn(key);
             int di = getIndexWithinBucket(key, bi);
 
@@ -118,6 +118,7 @@ public class buildMap {
             LinkedList<HMNode>[] oldBucket = buckets;
 
             initbuckets(oldBucket.length * 2);
+
             size = 0;
 
             for(int i = 0; i < oldBucket.length; i++){
@@ -128,6 +129,20 @@ public class buildMap {
         }
     }
     public static void main(String[] args) {
+        HashMap<String , Integer> map = new HashMap<>();
 
+        map.put("aa" , 2);
+        map.put("aa" , 3);
+        map.put("bb" , 1);
+        map.put("cc" , 1);
+
+        System.out.println(map.get("aa"));
+        System.out.println(map.size() + " size");
+        System.out.println(map.get("bb"));
+ 
+
+        for(String s : map.keySet()){
+            System.out.println(s);
+        }
     }
 }

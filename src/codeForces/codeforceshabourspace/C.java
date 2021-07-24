@@ -1,4 +1,4 @@
-package amex1;
+package codeForces.codeforceshabourspace;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package amex1;
  import java.util.*;
   
  
- public class A {
+ public class C {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,47 +29,70 @@ package amex1;
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
+            String s = sc.nextLine();
 
-            int r = sc.nextInt();
-             
-            if(r == n){
-                System.out.println(0);
-                continue;
+            char ca[] = s.toCharArray();
+
+            int ev = 0;
+            int od = 0;
+            int sec = 0;
+            int first = 0;
+            int ans = 10;
+            for(int i = 0; i < s.length(); i++){  // firstWin
+                if((i & 1) == 0){
+                    if(ca[i] == '?'){
+                        sec++;
+                    }
+                    else{
+                        ev += ca[i] - '0';
+                    }
+                }
+                
+                else if((i & 1) == 1){ // 2nd team
+                    if(ca[i] == '?'){
+                        first++;
+                    }
+                    else{
+                        od += ca[i] - '0';
+                    }
+                }
+                if(od + first > ev + (9 - i) / 2){
+                    ans = i + 1;
+                    break;
+                }
+                if(ev + sec > od + (10 - i ) / 2){
+                    ans = i + 1;
+                    break;
+                }
             }
+
+            // for(int i = 0; i < 10; i++){  // secondWin
+            //     if((i & 1) == 1){ // 2nd team
+            //         if(ca[i] == '?'){
+            //             secWin++;
+            //         }
+            //         else{
+            //             secWin += ca[i] - '0';
+            //         }
+            //         if(secWin >= firstLoss + (9 - i) / 2){
+            //             ans = Math.min(ans , i + 1);
+            //         }
+            //     }
+            //     else{
+            //         if(ca[i] == '?'){
+
+            //         }
+            //         else{
+            //             firstLoss += ca[i] - '0';
+            //         }
+            //         if(secWin >= firstLoss + (9 - i + 1) / 2){
+            //             ans = Math.min(ans , i + 1);
+            //         }
+            //     }
+            // }
             
-            HashMap<Integer , Integer> map = new HashMap<>();
-           
-            for(int k = 0; k < n; k++){
-                map.put(a[k] , map.getOrDefault(a[k], 0) + 1);
-            }
-
-            int i = 0;
-            int j = 0;
-
-            for(; j < r; j++){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
-                }
-            }
-
-            int res = map.size();
-
-            while(j < n){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                map.put(a[i] , map.getOrDefault(a[i], 0) + 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
-                }
-                i++;
-                j++;
-
-                res = Math.max(res , map.size());
-            }
-
-            System.out.println(res);
+ 
+            System.out.println(ans);
         }
      }
  

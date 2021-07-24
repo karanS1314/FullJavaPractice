@@ -32,7 +32,7 @@ public class B {
 			g[a[i]].add(b[i]);
 			g[b[i]].add(a[i]);
 		}
-
+	
 		boolean vis[] = new boolean[n + 1];
 		mainRes = 0;
 		dfs(0 , g , vis);

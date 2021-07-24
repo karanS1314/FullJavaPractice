@@ -1,4 +1,4 @@
-package amex1;
+package codeForces.codeforceshabourspace;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package amex1;
  import java.util.*;
   
  
- public class A {
+ public class F {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -29,47 +29,56 @@ package amex1;
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
+            String a = sc.nextLine();
+            String b = sc.nextLine();
 
-            int r = sc.nextInt();
-             
-            if(r == n){
-                System.out.println(0);
+            char fb = b.charAt(0);
+            int n = a.length();
+            ArrayList<Integer> al = new ArrayList<>();
+      
+            for(int i = 0; i < n; i++){
+                if(a.charAt(i) == fb){
+                    al.add(i);
+                }
+            }
+            if(al.size() == 0){
+                System.out.println("NO");
                 continue;
             }
-            
-            HashMap<Integer , Integer> map = new HashMap<>();
-           
-            for(int k = 0; k < n; k++){
-                map.put(a[k] , map.getOrDefault(a[k], 0) + 1);
-            }
+            char ba[] = b.toCharArray();
 
-            int i = 0;
-            int j = 0;
+            boolean pre = false;
+            for(int strI : al){
+                int j = 1;
+                int m = ba.length;
+                boolean found = false;
+                for(int i = strI + 1; i < n && j < m; i++){
+                    if(a.charAt(i) != ba[j++]){
+                        found = true;
+                        strI = i;
+                        j--;
+                        break;
+                    }
+                }
 
-            for(; j < r; j++){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
+                for(int i = (found ? strI - 2 : n - 2); i >= 0 && j < m; i--){
+                    if(a.charAt(i) != ba[j++]){
+                        strI = i;
+                        j--;
+                        break;
+                    }
+                }
+
+                if(j == m){
+                    System.out.println("YES");
+                    pre = true;
+                    break;
                 }
             }
 
-            int res = map.size();
-
-            while(j < n){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                map.put(a[i] , map.getOrDefault(a[i], 0) + 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
-                }
-                i++;
-                j++;
-
-                res = Math.max(res , map.size());
+            if(!pre){
+                System.out.println("NO");
             }
-
-            System.out.println(res);
         }
      }
  

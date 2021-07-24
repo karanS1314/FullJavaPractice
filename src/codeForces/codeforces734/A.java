@@ -1,4 +1,4 @@
-package amex1;
+package codeForces.codeforces734;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -30,46 +30,22 @@ package amex1;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-
-            int r = sc.nextInt();
-             
-            if(r == n){
-                System.out.println(0);
-                continue;
-            }
             
-            HashMap<Integer , Integer> map = new HashMap<>();
-           
-            for(int k = 0; k < n; k++){
-                map.put(a[k] , map.getOrDefault(a[k], 0) + 1);
+            if(n % 3 == 0){
+                int x = n / 3;
+                System.out.println(x + " " + x);
+            }
+            else if(n % 3 == 1){
+                int x = n / 3;
+                int y = x + 1;
+                System.out.println(y + " " + x);
+            }
+            else{
+                int x = n / 3;
+                int y = x + 1;
+                System.out.println(x + " " + y);
             }
 
-            int i = 0;
-            int j = 0;
-
-            for(; j < r; j++){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
-                }
-            }
-
-            int res = map.size();
-
-            while(j < n){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                map.put(a[i] , map.getOrDefault(a[i], 0) + 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
-                }
-                i++;
-                j++;
-
-                res = Math.max(res , map.size());
-            }
-
-            System.out.println(res);
         }
      }
  

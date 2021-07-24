@@ -1,4 +1,4 @@
-package amex1;
+package codeForces.codeforceshabourspace;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package amex1;
  import java.util.*;
   
  
- public class A {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,52 +24,54 @@ package amex1;
      }
  
  //==================================================================================================
- 
+     static ArrayList<Integer> one;
+     static ArrayList<Integer> two;
+     static StringBuilder sb1;
+     static StringBuilder sb2;
+     static int n;
+     static int m;
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
+        int q = sc.nextInt();
+        while(q-->0){
+            String s = sc.nextLine();
+            
+            String t = sc.nextLine();
 
-            int r = sc.nextInt();
-             
-            if(r == n){
-                System.out.println(0);
+            char tt[] = t.toCharArray();
+            if(s.equals(t)){
+                System.out.println("YES");
                 continue;
             }
-            
-            HashMap<Integer , Integer> map = new HashMap<>();
-           
-            for(int k = 0; k < n; k++){
-                map.put(a[k] , map.getOrDefault(a[k], 0) + 1);
+            if(t.length() > s.length()){
+                System.out.println("NO");
+                continue;
             }
+            n = s.length();
+            m = t.length();
+            // Queue q = new LinkedList
+            one = new ArrayList<>();
+            two = new ArrayList<>();
+            sb1 = new StringBuilder("");
+            sb2 = new StringBuilder("");
 
-            int i = 0;
-            int j = 0;
 
-            for(; j < r; j++){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
+            for(int i = 0; i < n; i++){
+                if((i & 1) == 1){
+                    sb1.append(s.charAt(i));
+                    one.add(i);
+                }
+                else{
+                    sb2.append(s.charAt(i));
+                    two.add(i);
                 }
             }
 
-            int res = map.size();
+            boolean pos = false;
+            if((solve(tt , 0) | solve(tt , 1)) == 1) pos = true;
 
-            while(j < n){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                map.put(a[i] , map.getOrDefault(a[i], 0) + 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
-                }
-                i++;
-                j++;
-
-                res = Math.max(res , map.size());
-            }
-
-            System.out.println(res);
+            if(pos) System.out.println("YES");
+            else System.out.println("NO");
         }
      }
  
@@ -115,6 +117,57 @@ package amex1;
 			 arr[i] = res.get(i);
 		 }
 	 } 
+
+     static int solve(char[] tt , int s){
+        int l1 = sb1.length();
+        int l2 = sb2.length();
+
+        ArrayList<Integer> a[] = new ArrayList[27];
+        ArrayList<Integer> b[] = new ArrayList[27];
+
+        for(int i = 0; i < 27; i++){
+            a[i] = new ArrayList<>();
+            b[i] = new ArrayList<>();
+        }
+
+        for(int i = 0; i < l1; i++){
+            a[sb1.charAt(i) - 97].add(one.get(i));
+        }
+
+        for(int i = 0; i < l2; i++){
+            b[sb2.charAt(i) - 97].add(two.get(i));
+        }
+
+        int x = 0;
+        for(int i = 0; i < m; i++){
+            int ascii = tt[i] - 97;
+    
+            if(s == 1){
+    
+                int lb = lowBound(a[ascii] , x , 0 , a[ascii].size() - 1);
+                if(lb < a[ascii].size()){
+                    x = lb;
+                }
+                else{
+                    return 0;
+                }
+                s = 0;
+            }
+            else{
+                int lb = lowBound(b[ascii] , x , 0 , b[ascii].size() - 1);
+                if(lb < b[ascii].size()){
+                    x = lb;
+                }
+                else{
+                    return 0;
+                }
+                s = 1;
+            }
+    
+        }
+
+        return 1;
+     }
      
      // Use this to input code since it is faster than a Scanner
      static class FastScanner {

@@ -1,4 +1,4 @@
-package amex1;
+package codeForces.codeforces734;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -6,9 +6,11 @@ package amex1;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
+
+
   
  
- public class A {
+ public class C {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -24,52 +26,98 @@ package amex1;
      }
  
  //==================================================================================================
- 
+     static class CC implements Comparator<Pair>{
+         public int compare(Pair one , Pair two){
+             return two.a - one.a;
+         }
+     }
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
+            int k = sc.nextInt();
+
             int a[] = sc.readArray(n);
 
-            int r = sc.nextInt();
-             
-            if(r == n){
-                System.out.println(0);
-                continue;
-            }
+            // Pair pa[] = new Pair[n];
+
+            // for(int i = 0; i < n; i++){
+            //     pa[i] = new Pair(a[i] , i);
+            // }
+            // Map<Integer , Integer> map = new HashMap<>();
+            // PriorityQueue<Pair> pq = new PriorityQueue<>(new CC());
             
+            // for(int i = 1; i <= k; i++){
+            //     pq.add(new Pair(k , i));
+            // }
+
             HashMap<Integer , Integer> map = new HashMap<>();
+            HashSet<Integer> set = new HashSet<>();
+
+            ArrayList<Integer> b[] = new ArrayList[2 * 1000_00 + 1];
+            for(int i = 0; i < n + 1; i++){
+                b[i] = new ArrayList<>();
+            }
            
-            for(int k = 0; k < n; k++){
-                map.put(a[k] , map.getOrDefault(a[k], 0) + 1);
-            }
-
-            int i = 0;
-            int j = 0;
-
-            for(; j < r; j++){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
-                }
-            }
-
-            int res = map.size();
-
-            while(j < n){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
+            for(int i = 0; i < n; i++){
+                set.add(a[i]);
+                b[a[i]].add(i);
                 map.put(a[i] , map.getOrDefault(a[i], 0) + 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
-                }
-                i++;
-                j++;
-
-                res = Math.max(res , map.size());
             }
 
-            System.out.println(res);
+            int c[] = new int[n];
+
+            ArrayList<Integer> al = new ArrayList<>();
+
+            for(int e : set){
+                if(map.get(e) >= k){
+                    for(int i = 0; i < k; i++){
+                        c[b[e].get(i)] = i + 1;
+                    }
+                }
+                else{
+                    for(int f : b[e]){
+                        al.add(f);
+                    }
+                }
+            }
+
+            // for(int i = 0; i < n; i++)[
+            //     set.put(a[i] , new HashSet<>());
+            // ]
+            // for(Pair p : pa){
+            //     map.put(p.a , map.getOrDefault(p.a , 0) + 1);
+            //     if(map.get(p.a) <= k){
+            //         while(set[p.a].contains)
+            //         Pair ppp = pq.poll();
+            //         pq.add(new Pair(ppp.a - 1, ppp.b));
+            //         a[p.b] = ppp.b;
+            //     }
+            //     else{
+            //         a[p.b] = 0;
+            //     }
+            // }
+            
+            int sz = (al.size() / k) * k;
+            int temp = 1;
+            // // System.out.println("RESULT");
+            // for(int e : a){
+            //     System.out.print(e + " ");
+            // }
+            // System.out.println();
+
+            for(int i = 1; i < sz + 1; i++){
+                if((i - 1) % k == 0){
+                    temp = 1;
+                }
+
+                c[al.get(i - 1)] = temp;
+                temp++;
+            }
+
+            // System.out.println("RESULT");
+            print(c);
         }
      }
  

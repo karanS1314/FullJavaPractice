@@ -1,4 +1,4 @@
-package amex1;
+package codeForces.codeforceshabourspace;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -6,9 +6,8 @@ package amex1;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
-  
  
- public class A {
+ public class upB {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -27,50 +26,67 @@ package amex1;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-        while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
+        int q = sc.nextInt();
+        while(q-->0){
+            String s = sc.nextLine();
+            String t = sc.nextLine();
 
-            int r = sc.nextInt();
-             
-            if(r == n){
-                System.out.println(0);
+            if(s.equals(t)){
+                System.out.println("YES");
                 continue;
             }
+            char sa[] = s.toCharArray();
+            char ta[] = t.toCharArray();
+
             
-            HashMap<Integer , Integer> map = new HashMap<>();
-           
-            for(int k = 0; k < n; k++){
-                map.put(a[k] , map.getOrDefault(a[k], 0) + 1);
-            }
+            int n = s.length();
 
-            int i = 0;
-            int j = 0;
-
-            for(; j < r; j++){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
+            boolean found = false;
+            for(int i = 0; i < n; i++){
+                if(sa[i] == ta[0]){
+                    if(t.length() == 1 || op(i , 1 , sa , ta , false)){
+                        found = true;
+                        break;
+                    }
                 }
+                if(found) break;
             }
 
-            int res = map.size();
-
-            while(j < n){
-                map.put(a[j] , map.getOrDefault(a[j], 0) - 1);
-                map.put(a[i] , map.getOrDefault(a[i], 0) + 1);
-                if(map.get(a[j]) == 0){
-                    map.remove(a[j]);
-                }
-                i++;
-                j++;
-
-                res = Math.max(res , map.size());
-            }
-
-            System.out.println(res);
+            if(found) System.out.println("YES");
+            else System.out.println("NO");
         }
+     }
+
+     static boolean op(int i , int j , char sa[] , char ta[] , boolean turn){
+        if(j == ta.length) return true;
+        if(i == sa.length) return false;
+
+        if(i != 0){
+            if(sa[i - 1] == ta[j]){
+                if(op(i - 1 , j + 1 , sa , ta , true)) return true;
+            }
+        }
+        if(i != sa.length - 1 ){
+            if(sa[i + 1] == ta[j] && !turn){
+                if(op(i + 1 , j + 1 , sa , ta , false)) return true;
+            }
+        }
+
+        
+        
+        return false;
+     }
+
+     static boolean isEqual(char sa[] , char ta[] , int i , int j){
+        int m = ta.length;
+
+        while(j < m && i >= 0){
+            if(sa[i--] != ta[j++]){
+                return false;
+            }
+        }
+        if(j != m) return false;
+        return true;
      }
  
  //==================================================================================================

@@ -12,8 +12,8 @@ public class TowerOfHanoi {
 	            return;
 	        }
 	        toh(s,d,h,n-1);
-	         System.out.println("move disk " +n+ " from rod "+ s+ " to rod " +d);
-	         toh(h,s,d,n-1);
+	        System.out.println("move disk " +n+ " from rod "+ s+ " to rod " +d);
+	        toh(h,s,d,n-1);
 	    }
 		public static void main (String[] args) {
 			Scanner sc=new Scanner (System.in);

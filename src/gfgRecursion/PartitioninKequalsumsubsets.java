@@ -50,7 +50,7 @@ package gfgRecursion;
                 System.out.println();
             }
             return;
-    }
+        }
         for(int i = 0; i < ans.size(); i++){
             if(ans.get(i).size() > 0){
                 ans.get(i).add(idx);

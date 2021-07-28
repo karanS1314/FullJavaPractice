@@ -1,12 +1,10 @@
 package codeForces.codeforcesglobalround15;
 
- 
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
-  
  
  public class C {
      static class Pair implements Comparable<Pair>{
@@ -31,15 +29,49 @@ package codeForces.codeforcesglobalround15;
        o: while(t-->0){
             int n = sc.nextInt();
             int a[] = sc.readArray(n);
-   
             sort(a);
-            print(a);
-
+            if(n == 1){
+                if(a[0] >= 0){
+                    System.out.println("YES");
+                }
+                else{
+                    System.out.println("NO");
+                }
+                continue;
+            }
+    
+            boolean z = false;
+            for(int e : a){
+                if(e == 0){
+                    z = true;
+                    break;
+                }
+            }
+            if(z){
+                System.out.println("YES");
+                continue;
+            }
+            HashSet<Integer> set = new HashSet<>();
+            for(int e : a){
+                if(set.contains(e)){
+                    System.out.println("YES");
+                    continue o; 
+                }
+                set.add(e);
+            }
+ 
+            for(int i = 0; i < n; i++){
+                if(check(i , a)){
+                    System.out.println("YES");
+                    continue o;
+                }
+            }        
+ 
             int  diff[] = new int[n - 1];
             for(int i = 1; i < n; i++){
                 diff[i - 1] = a[i] - a[i - 1];
             }
-            print(diff);
+            
             for(int i = 0; i < n - 1; i++){
                 if(check(i, diff)){
                     System.out.println("YES");
@@ -49,21 +81,40 @@ package codeForces.codeforcesglobalround15;
             System.out.println("NO");
         }
      }
-
      static boolean check(int ind , int a[]){
          
         int n = a.length;
         int x = a[ind];
-
+ 
+        int b[] = new int[n];
+        for(int i = 0; i < n; i++){
+            b[i] = a[i];
+        }
+ 
+        b[ind] = 0;
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(x == b[j] - b[i]){
+                    return true;
+                }
+            }
+        }
+ 
+        return false; 
+     }
+ 
+     static boolean chec(int ind , int a[]){
+         
+        int n = a.length;
+        int x = a[ind];
+ 
         int b[] = new int[n - 1];
         int z = 0;
         for(int i = 0; i < n; i++){
             if(i == ind) continue;
             b[z++] = a[i];
         }
-        sort(b);
-      
- 
+   
         for(int i = 0; i < n - 1; i++){
             for(int j = 0; j < n - 1; j++){
                 if(x == b[j] - b[i]){
@@ -71,7 +122,7 @@ package codeForces.codeforcesglobalround15;
                 }
             }
         }
-
+ 
         return false; 
      }
  
@@ -176,14 +227,14 @@ package codeForces.codeforcesglobalround15;
          }
          System.out.println();
      }
-
+ 
      static void print(long a[]){
          for(long e : a){
              System.out.print(e + " ");
          }
          System.out.println();
      }
-
+ 
      // generates all the prime numbers upto n
      static void sieveOfEratosthenes(int n , ArrayList<Integer> al)
      {
@@ -264,7 +315,7 @@ package codeForces.codeforcesglobalround15;
 		 }
 		 return maxi;
 	 }
-
+ 
      // starting exclusive ending inclusive
      static int getMin(int[] arr, int s, int e) {
 	     int mini = s;
@@ -297,7 +348,7 @@ package codeForces.codeforcesglobalround15;
 		 }
 		 return gcd(num2, num1 % num2);
 	 }
-
+ 
      //fastPow
      static long fastPow(long base, long exp) {
          if (exp==0) return 1;
@@ -393,4 +444,3 @@ package codeForces.codeforcesglobalround15;
      
      // write 
  }
- 

@@ -1,4 +1,4 @@
-package codeForces.codeforcesglobalround15;
+package codeForces.newPractice;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -6,8 +6,9 @@ package codeForces.codeforcesglobalround15;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
-
- public class D {
+  
+ 
+ public class SerejaAndSuffixes {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,102 +27,25 @@ package codeForces.codeforcesglobalround15;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
-       o: while(t-->0){
+        int t = 1;
+        while(t-->0){
             int n = sc.nextInt();
+            int m = sc.nextInt();
             int a[] = sc.readArray(n);
-            sort(a);
-            if(n == 1){
-                if(a[0] >= 0){
-                    System.out.println("YES");
-                }
-                else{
-                    System.out.println("NO");
-                }
-                continue;
-            }
-    
-            boolean z = false;
-            for(int e : a){
-                if(e == 0){
-                    z = true;
-                    break;
-                }
-            }
-            if(z){
-                System.out.println("YES");
-                continue;
-            }
+            int la[] = sc.readArray(m);
             HashSet<Integer> set = new HashSet<>();
-            for(int e : a){
-                if(set.contains(e)){
-                    System.out.println("YES");
-                    continue o; 
-                }
-                set.add(e);
+
+            int x[] = new int[n];
+            for(int i = n - 1; i >= 0; i--){
+                set.add(a[i]);
+                x[i] = set.size();
             }
 
-            // for(int i = 0; i < n; i++){
-            //     if(check(i , a)){
-            //         System.out.println("YES");
-            //         continue o;
-            //     }
-            // }        
-            for(int i = 0; i < n; i++){
-                if(a[i] < 0){
-                    System.out.println("YES");
-                    continue o;
-                }
-            }   
-        
-            System.out.println("NO");
-        }
-     }
-     static boolean check(int ind , int a[]){
-         
-        int n = a.length;
-        int x = a[ind];
-
-        int b[] = new int[n];
-        for(int i = 0; i < n; i++){
-            b[i] = a[i];
-        }
- 
-        for(int k = -100000; k < 100000+1; k++){
-            b[ind] = k;
-            for(int i = 0; i < n; i++){
-                for(int j = 0; j < n; j++){
-                    if(x == b[j] - b[i]){
-                        return true;
-                    }
-                }
+            for(int i = 0; i < m; i++){
+                System.out.println(x[la[i] - 1]);
             }
+
         }
-
-        return false; 
-     }
-
-     static boolean chec(int ind , int a[]){
-         
-        int n = a.length;
-        int x = a[ind];
-
-        int b[] = new int[n - 1];
-        int z = 0;
-        for(int i = 0; i < n; i++){
-            if(i == ind) continue;
-            b[z++] = a[i];
-        }
-   
-        for(int i = 0; i < n - 1; i++){
-            for(int j = 0; j < n - 1; j++){
-                if(x == b[j] - b[i]){
-                    return true;
-                }
-            }
-        }
-
-        return false; 
      }
  
  //==================================================================================================

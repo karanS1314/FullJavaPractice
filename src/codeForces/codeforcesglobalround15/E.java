@@ -30,6 +30,10 @@ package codeForces.codeforcesglobalround15;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
+            String s = sc.nextLine();
+            for(int i = 0; i < n; i++){
+                
+            }
 
         }
      }

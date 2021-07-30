@@ -27,10 +27,48 @@ package codeForces.codeforces734;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
             int n = sc.nextInt();
+            int a[] = sc.readArray(n);
+            HashMap<Integer , Integer> map = new HashMap<>();
+            for(int i = 0; i < n; i++){
+                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
+            }
 
+            HashMap<Integer , Integer> mapp = new HashMap<>();
+            int b[] = new int[n];
+            for(int i = 0; i < n; i++){
+                map.put(a[i] , map.get(a[i]) - 1);
+                if(map.get(a[i]) == 0) map.remove(a[i]);
+                for(int j = 1; j <= (int)Math.sqrt(a[i]); j++){
+                    if(a[i] % j == 0){
+                        if(map.containsKey(j)){
+                           mapp.put(j , mapp.getOrDefault(j, 0) + 1);
+                           mapp.put(a[i] , mapp.getOrDefault(a[i], 0) + 1);
+                        }
+                        if(map.containsKey(a[i] / j) && j * j != a[i]){
+                            mapp.put(a[i] / j , mapp.getOrDefault(a[i] / j, 0) + 1);
+                            if(j != 1)
+                            mapp.put(a[i] , mapp.getOrDefault(a[i], 0) + 1);
+                        }    
+                    }
+                }
+                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
+            }
+
+            for(Map.Entry<Integer , Integer> e : map.entrySet()){
+                if(e.getValue() >= 2){
+                    mapp.put(e.getKey() , mapp.get(e.getKey()) - 1);
+                }
+            }
+
+            for(int i = 0; i < n; i++){
+                if(mapp.containsKey(a[i])){
+                    b[i] = mapp.get(a[i]);
+                }
+            }
+            print(b);
         }
      }
  

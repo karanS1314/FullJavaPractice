@@ -1,4 +1,4 @@
-package codeForces.codeforces734;
+package codeForces.codeforces735;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.codeforces734;
  import java.util.*;
   
  
- public class A {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -30,32 +30,16 @@ package codeForces.codeforces734;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            HashMap<Integer , Integer> map = new HashMap<>();
-            for(int i = 0; i < n; i++){
-                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
+            int k = sc.nextInt();
+
+            long a[] = sc.readLongArray(n);
+
+            long res = Long.MIN_VALUE;
+            for(int i = n - 1; i > 0; i--){
+                res = Math.max(res , (i + 1) * (i) - k * (a[i] | a[i - 1]));
             }
 
-            int b[] = new int[n];
-            for(int i = 0; i < n; i++){
-                map.put(a[i] , a[i] - 1);
-                if(map.get(a[i]) == 0)map.remove(a[i]);
-                for(int j = 1; j <= (int)Math.sqrt(a[i]); i++){
-                    if(a[i] % j == 0){
-                        if(map.containsKey(j)){
-                            b[i]++;
-                        }
-                        if(map.containsKey(a[i] / j)){
-                            b[i]++;
-                        }    
-                    }
-                }
-                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
-            }
-
-
-            print(b);
-
+            System.out.println(res);
         }
      }
  

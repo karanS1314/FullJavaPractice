@@ -1,6 +1,5 @@
-package codeForces.codeforces734;
+package codeForces.codeforces735;
 
- 
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
  import java.io.IOException;
@@ -8,7 +7,7 @@ package codeForces.codeforces734;
  import java.util.*;
   
  
- public class A {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -30,35 +29,48 @@ package codeForces.codeforces734;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            HashMap<Integer , Integer> map = new HashMap<>();
-            for(int i = 0; i < n; i++){
-                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
+            int m = sc.nextInt();
+            ArrayList<Integer> al = new ArrayList<>();
+
+            for(int i = 0; i <= m; i++){
+                al.add(n ^ i);
             }
 
-            int b[] = new int[n];
-            for(int i = 0; i < n; i++){
-                map.put(a[i] , a[i] - 1);
-                if(map.get(a[i]) == 0)map.remove(a[i]);
-                for(int j = 1; j <= (int)Math.sqrt(a[i]); i++){
-                    if(a[i] % j == 0){
-                        if(map.containsKey(j)){
-                            b[i]++;
-                        }
-                        if(map.containsKey(a[i] / j)){
-                            b[i]++;
-                        }    
-                    }
-                }
-                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
-            }
-
-
-            print(b);
-
+            int y = findMex(al);
+            System.out.println(y);
         }
      }
- 
+
+     static int findMex(ArrayList<Integer> al) {
+        int n = al.size();
+        for(int i=0;i<n;i++){
+            while(al.get(i)!=i+1){
+                if(al.get(i)==i+1 || al.get(i)>n || al.get(i)<=0){
+                    break;   
+                }
+                else{
+                    if(al.get(al.get(i)-1)==al.get(i)){
+                        break;
+                    }
+                    swap(al , i , al.get(i)-1);
+                }
+            }  
+        }
+        int res = n+1;
+        for(int i=0;i<n;i++){
+            if(al.get(i)!=i+1){
+                res=i+1;
+                break;
+            }
+        }
+        return res;
+    }
+    static void swap(ArrayList<Integer> al , int i , int j){
+        int x = al.get(i);
+        int y = al.get(j);
+        al.set(i , y);
+        al.set(j , x);
+    }
  //==================================================================================================
  
  

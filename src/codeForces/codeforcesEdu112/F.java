@@ -1,4 +1,4 @@
-package codeForces.codeforces734;
+package codeForces.codeforcesEdu112;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.codeforces734;
  import java.util.*;
   
  
- public class A {
+ public class F {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -31,31 +31,6 @@ package codeForces.codeforces734;
         while(t-->0){
             int n = sc.nextInt();
             int a[] = sc.readArray(n);
-            HashMap<Integer , Integer> map = new HashMap<>();
-            for(int i = 0; i < n; i++){
-                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
-            }
-
-            int b[] = new int[n];
-            for(int i = 0; i < n; i++){
-                map.put(a[i] , a[i] - 1);
-                if(map.get(a[i]) == 0)map.remove(a[i]);
-                for(int j = 1; j <= (int)Math.sqrt(a[i]); i++){
-                    if(a[i] % j == 0){
-                        if(map.containsKey(j)){
-                            b[i]++;
-                        }
-                        if(map.containsKey(a[i] / j)){
-                            b[i]++;
-                        }    
-                    }
-                }
-                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
-            }
-
-
-            print(b);
-
         }
      }
  

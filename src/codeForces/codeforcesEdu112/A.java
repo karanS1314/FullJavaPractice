@@ -1,4 +1,4 @@
-package codeForces.codeforces734;
+package codeForces.codeforcesEdu112;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -6,7 +6,8 @@ package codeForces.codeforces734;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
-  
+
+
  
  public class A {
      static class Pair implements Comparable<Pair>{
@@ -29,33 +30,28 @@ package codeForces.codeforces734;
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            HashMap<Integer , Integer> map = new HashMap<>();
-            for(int i = 0; i < n; i++){
-                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
+            long n = sc.nextLong();
+            // int a[] = sc.readArray(n);
+            // long a = (n % 6 != 0 ? 6 - n % 6 : 0 );
+            // long b = (n % 8 != 0 ?  8 - n % 8 : 0 );
+            // long c = (n % 10 != 0 ? 10 - n % 10 : 0);
+
+            // if(a <= Math.min(b , c)){
+            //     System.out.println("A");
+            //     System.out.println((n % 6 != 0 ? (n + 6) / 6 : n / 6 )* 15);
+            // }
+            // else if(b <= Math.min(a , c)){
+            //     // System.out.println(b);
+            //     System.out.println((n % 8 != 0 ? (n + 8) / 8 : n / 8 ) * 20);
+            // }
+            // else if(c <= Math.min(a , b)){
+            //     System.out.println((n % 10 != 0 ? (n + 10) / 10 : n / 10 ) * 25);
+            // }
+            if(n <= 6){
+                System.out.println(15);
             }
-
-            int b[] = new int[n];
-            for(int i = 0; i < n; i++){
-                map.put(a[i] , a[i] - 1);
-                if(map.get(a[i]) == 0)map.remove(a[i]);
-                for(int j = 1; j <= (int)Math.sqrt(a[i]); i++){
-                    if(a[i] % j == 0){
-                        if(map.containsKey(j)){
-                            b[i]++;
-                        }
-                        if(map.containsKey(a[i] / j)){
-                            b[i]++;
-                        }    
-                    }
-                }
-                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
-            }
-
-
-            print(b);
-
+            else
+            System.out.println((n + 1)/ 2 * 5);
         }
      }
  

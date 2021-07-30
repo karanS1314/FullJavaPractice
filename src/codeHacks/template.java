@@ -28,7 +28,6 @@
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-
         }
      }
  

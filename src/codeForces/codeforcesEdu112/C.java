@@ -1,4 +1,4 @@
-package codeForces.codeforces734;
+package codeForces.codeforcesEdu112;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.codeforces734;
  import java.util.*;
   
  
- public class A {
+ public class C {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -30,32 +30,41 @@ package codeForces.codeforces734;
         int t = sc.nextInt();
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            HashMap<Integer , Integer> map = new HashMap<>();
-            for(int i = 0; i < n; i++){
-                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
-            }
+            long a[][] = new long[2][n];
 
-            int b[] = new int[n];
-            for(int i = 0; i < n; i++){
-                map.put(a[i] , a[i] - 1);
-                if(map.get(a[i]) == 0)map.remove(a[i]);
-                for(int j = 1; j <= (int)Math.sqrt(a[i]); i++){
-                    if(a[i] % j == 0){
-                        if(map.containsKey(j)){
-                            b[i]++;
-                        }
-                        if(map.containsKey(a[i] / j)){
-                            b[i]++;
-                        }    
-                    }
+            for(int i = 0; i < 2; i++){
+                for(int j = 0; j < n; j++){
+                    a[i][j] = sc.nextLong();
                 }
-                map.put(a[i] , map.getOrDefault(a[i] , 0) + 1);
             }
+            if(n == 1){
+                System.out.println(0);
+                continue;
+            }
+            long p1[] = new long[n];
+            long p2[] = new long[n];
 
+            p1[n - 1] = a[0][n - 1];
+            for(int i = n - 2; i >= 0; i--){
+                p1[i] = p1[i + 1] + a[0][i];
+            }
+            p2[0] = a[1][0];
+            for(int i = 1; i < n; i++){
+                p2[i] = p2[i - 1] + a[1][i];
+            }
+            // print(p1);
+            long ans = 0;
+            int ind = -1;
+            long min = imx;
+            for(int i = 0; i < n; i++){
+               min = Math.min(min , Math.max(i < n - 1 ? p1[i + 1] : 0, i > 0 ? p2[i - 1] : 0));
+            }
+            ans = min;
+            // if(ans == 0 && p1[1] != 0){
+            //     ans = p2[n - 1] - a[1][n - 1];
+            // }
 
-            print(b);
-
+            System.out.println(ans);
         }
      }
  

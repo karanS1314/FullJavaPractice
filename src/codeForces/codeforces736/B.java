@@ -1,5 +1,4 @@
-package codeForces.codeforcesEdu112;
-
+package codeForces.codeforces736;
  
  //   * * * the goal is to be worlds best * * *   //
  import java.io.BufferedReader;
@@ -8,7 +7,7 @@ package codeForces.codeforcesEdu112;
  import java.util.*;
   
  
- public class E {
+ public class B {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,30 +25,53 @@ package codeForces.codeforcesEdu112;
  //==================================================================================================
  
      public static void main(String[] args) {
-        try{
-            FastScanner sc = new FastScanner();
-            long t = sc.nextInt();
-            // sc.nextLine();
-            while(t-->0){
-                int n = sc.nextInt();
-                int a[] = sc.readArray(n);
-                HashMap<Integer , Integer> map = new HashMap<>();
-                for(int e : a){
-                    map.put(e , map.getOrDefault(e, 0) + 1);
+        FastScanner sc = new FastScanner();
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            // int a[] = sc.readArray(n);
+            String e = sc.nextLine();
+            String g = sc.nextLine();
+            
+            char ce[] = e.toCharArray();
+            char cg[] = g.toCharArray();
+            int r = 0;
+            for(int i = 0; i < n; i++){
+                if(ce[i] == '0'){
+                    if(cg[i] == '1'){
+                        r++;
+                        cg[i] = 0;
+                    }
+                    continue;
                 }
-
-                long res = 0;
-
-                for(Map.Entry<Integer , Integer> e : map.entrySet()){
-                    for(int i = 0; i < e.getValue(); i++)
-                        res += n - e.getValue();
+                if(i == 0){
+                    if(cg[i + 1] == '1'){
+                        r++;
+                        cg[i + 1] = 0;
+                    }
                 }
-
-               System.out.println(res);
-
+                else if(i == n - 1){    
+                    if(cg[i - 1] == '1'){
+                        r++;
+                        cg[i - 1] = 0;
+                    };
+                }
+                else{
+                    if(cg[i - 1] == '1'){
+                        r++;
+                        cg[i - 1] = 0;
+                    }
+                    else{
+                        if(cg[i + 1] == '1'){
+                            r++;
+                            cg[i + 1] = 0;
+                        }
+                    }
+                }
             }
-        }catch(Exception e){
-            return;
+
+            System.out.println(r);
+
         }
      }
  

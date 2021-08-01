@@ -38,31 +38,22 @@ package codeForces.codeforcesEdu112;
             int w = sc.nextInt();
             int h = sc.nextInt();
 
-            int mx = Math.max(w , h);
-            int mi = Math.min(w , h);
-            // // corner mei lgadia table ko
-            // int xa = W - (x2 - x1);
-            // int ya = H - (y2 - y1);
+            if(x2 - x1 + w > W && y2 - y1 + h > H){
+                System.out.println(-1);
+                continue;
+            }
 
-            // boolean can = true;
-            // if(mx > H || mi > xa){
-            //     can = false;
-            // }
-            // if(!(can == false && (mx > W || mi > ya))){
-            //     can = true;
-            // }
-            int xl = x1;
-            
-            int xr = W - x2;
+            int ans = imx;
+            if(x2 - x1 + w <= W){
+                ans = Math.min(w - x1 , x2 - (W - w));
+            }
+            if(y2 - y1 + h <= H){
+                ans = Math.min(ans , Math.min(h - y1 , y2 - (H - h)));
+            }
 
-            int yd = y1;
+            ans = Math.max(ans , 0);
 
-            int yu = H - y2;
-
-            int mxx = Math.max(xl , xr);
-            int mxy = Math.max(yu , yd);    
-
-            double ans = 0;
+            System.out.println(ans);
                 
         }
      }

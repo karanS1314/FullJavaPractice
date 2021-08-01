@@ -54,7 +54,6 @@ package codeForces.codeforcesEdu112;
             }
             // print(p1);
             long ans = 0;
-            int ind = -1;
             long min = imx;
             for(int i = 0; i < n; i++){
                min = Math.min(min , Math.max(i < n - 1 ? p1[i + 1] : 0, i > 0 ? p2[i - 1] : 0));

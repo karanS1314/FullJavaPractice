@@ -31,14 +31,7 @@ package codeForces.codeforces735;
         while(t-->0){
             int n = sc.nextInt();
             int m = sc.nextInt();
-            // ArrayList<Integer> al = new ArrayList<>();
-
-            // for(int i = 0; i <= m; i++){
-            //     al.add(n ^ i);
-            // }
-
-            // int y = findMex(al);
-            // System.out.println(y);
+        
             int res = Mex(n , m);
             System.out.println(res);
         }

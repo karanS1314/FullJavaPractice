@@ -1,4 +1,4 @@
-package codeForces.codeforcesEdu112;
+package codeForces.codeforces736;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -8,7 +8,7 @@ package codeForces.codeforcesEdu112;
  import java.util.*;
   
  
- public class E {
+ public class D {
      static class Pair implements Comparable<Pair>{
          int a;
          int b;
@@ -26,30 +26,66 @@ package codeForces.codeforcesEdu112;
  //==================================================================================================
  
      public static void main(String[] args) {
-        try{
-            FastScanner sc = new FastScanner();
-            long t = sc.nextInt();
-            // sc.nextLine();
-            while(t-->0){
-                int n = sc.nextInt();
-                int a[] = sc.readArray(n);
-                HashMap<Integer , Integer> map = new HashMap<>();
-                for(int e : a){
-                    map.put(e , map.getOrDefault(e, 0) + 1);
-                }
+        FastScanner sc = new FastScanner();
+        int t = 1;
+        while(t-->0){
+            int n = sc.nextInt();
+            int m = sc.nextInt();
 
-                long res = 0;
-
-                for(Map.Entry<Integer , Integer> e : map.entrySet()){
-                    for(int i = 0; i < e.getValue(); i++)
-                        res += n - e.getValue();
-                }
-
-               System.out.println(res);
-
+            PriorityQueue<Integer> g[] = new PriorityQueue[n + 1];
+            for(int i = 1; i < n + 1; i++){
+                g[i] = new PriorityQueue<>();
             }
-        }catch(Exception e){
-            return;
+
+
+            for(int i = 0; i < m; i++){
+                int u = sc.nextInt();
+                int v = sc.nextInt();
+                g[u].add(v);
+                g[v].add(u);
+            }
+
+            ArrayList<Integer> vul = new ArrayList<>();
+
+            for(int i = 1; i < n; i++){
+                if(g[i].size() > 0){
+                    if(g[i].peek() > i){
+                        vul.add(i);
+                    }
+                }
+            }
+
+            int qq = sc.nextInt();
+
+            while(qq-->0){
+                int ff = sc.nextInt();
+                int ss = sc.nextInt();
+                int tt = sc.nextInt();
+
+                if(ff == 1){
+                    g[tt].add(ss);
+                    g[ss].add(tt);
+                }
+                else if(ff == 2){
+                    g[tt].remove(ff);
+                    g[ss].remove(tt);
+                }
+                else if(ff == 3){
+                    int r = 0;
+                    for(int v : vul){
+                        for(int e : g[v]){
+                            int x = g[e].poll();
+                            if(g[e].size() > 0){
+                                if(g[e].peek() > e){
+                                    r++;
+                                }
+                            }
+                            g[e].add(x);
+                        }
+                    }
+                    System.out.println(r);
+                }
+            }
         }
      }
  

@@ -1,4 +1,4 @@
-package codeForces.codeforcesEdu112;
+package codeForces.codeforces736;
 
  
  //   * * * the goal is to be worlds best * * *   //
@@ -26,30 +26,17 @@ package codeForces.codeforcesEdu112;
  //==================================================================================================
  
      public static void main(String[] args) {
-        try{
-            FastScanner sc = new FastScanner();
-            long t = sc.nextInt();
-            // sc.nextLine();
-            while(t-->0){
-                int n = sc.nextInt();
-                int a[] = sc.readArray(n);
-                HashMap<Integer , Integer> map = new HashMap<>();
-                for(int e : a){
-                    map.put(e , map.getOrDefault(e, 0) + 1);
-                }
-
-                long res = 0;
-
-                for(Map.Entry<Integer , Integer> e : map.entrySet()){
-                    for(int i = 0; i < e.getValue(); i++)
-                        res += n - e.getValue();
-                }
-
-               System.out.println(res);
-
+        FastScanner sc = new FastScanner();
+        int t = sc.nextInt();
+        o:while(t-->0){
+            int p = sc.nextInt();
+            if((p & 1) == 1){
+                p--;
+                System.out.println(2 + " " + p);
             }
-        }catch(Exception e){
-            return;
+            else{
+                System.out.println(2 + " " + p);
+            }
         }
      }
  

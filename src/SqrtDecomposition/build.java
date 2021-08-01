@@ -26,6 +26,7 @@ public class build {
         }
 
         int q = sc.nextInt();
+        for(int i = 0; i <n n;)
 
         while(q-->0){
             int type = sc.nextInt();
@@ -37,7 +38,7 @@ public class build {
                 int res = Integer.MAX_VALUE;
     
                 while(l <= r){
-                    if(l % len == 0 && l + len - 1 <= r){
+                    if(l % len == 0 && l + len < r){
                         res = Math.min(res , dec[l/len]);
                         l += len;
                         continue;

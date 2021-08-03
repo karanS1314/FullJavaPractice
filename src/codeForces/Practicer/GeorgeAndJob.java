@@ -30,7 +30,9 @@ package codeForces.Practicer;
         for(int i=m;i<n;i++){
             s[i+1] = s[i] + p[i] - p[i-m];
         }
-
+        // for(long e : s){
+        //     System.out.print(e + " ");
+        // }
         long dp[][] = new long[n+1][k+1];
 
         for(int i=m;i<=n;i++){

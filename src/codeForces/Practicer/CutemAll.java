@@ -6,24 +6,22 @@ package codeForces.Practicer;
  import java.io.BufferedReader;
  import java.io.IOException;
  import java.io.InputStreamReader;
- import java.util.*;
- import java.util.Map.Entry;
-  
+ import java.util.*;  
  
  public class CutemAll {
      static int ans = 0;
 
-     static void dfs(ArrayList<Integer> g[] , int cnt[] , int v , int par){
-        cnt[v] = 1;
-
-        for(int e : g[v]){
-            if(e != par){
-                dfs(g , cnt , e , v);
-                if((cnt[e] & 1) != 1){
+     static void dfs(ArrayList<Integer> g[] , int cnt[] , int src , int par , boolean vis[]){
+        cnt[src] = 1;
+        vis[src] = true;
+        for(int nbr : g[src]){
+            if(!vis[nbr]){
+                dfs(g , cnt , nbr , src , vis);
+                if((cnt[nbr] & 1) != 1){
                     ans++;
-                    cnt[e] = 0;
+                    cnt[nbr] = 0;
                 }
-                cnt[v] += cnt[e];
+                cnt[src] += cnt[nbr];
             }
         }
      }   
@@ -47,8 +45,8 @@ package codeForces.Practicer;
         }
         else{
             int cnt[] = new int[n + 1];
-
-            dfs(g, cnt , 1 , 0);
+            boolean vis[] = new boolean[n + 1];
+            dfs(g, cnt , 1 , 0 , vis);
     
             int res = ans;
     

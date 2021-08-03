@@ -23,14 +23,19 @@ package codeForces.Practicer;
      static void union(Pair a[] , int l , int r , int par[] , int rank[]){
         if(rank[l] > rank[r]){
             par[r] = l;
-        }
-        else if(rank[r] > rank[l]){
-            par[l] = r;
+            rank[r]++;
         }
         else{
             par[l] = r;
-            rank[r]++;
+            rank[l]++;
         }
+     }
+     static int get(int par[] , int x){
+         if(par[x] != x){
+             return par[par[x]];
+         }
+
+         return par[x];
      }
     
      public static void main(String[] args) {
@@ -45,11 +50,13 @@ package codeForces.Practicer;
             Pair pp = new Pair(x , y);
             a[i] = pp;
         }
+        
         int par[] = new int[n];
         int rank[] = new int[n];
        
-        Arrays.fill(par , -1);
-
+        for(int i = 0; i < n; i++){
+            par[i] = i;
+        }
 
         for(int i=0;i<n-1;i++){
             for(int j=i+1;j<n;j++){
@@ -58,16 +65,17 @@ package codeForces.Practicer;
                 }
             }
         }
-
+        for(int i = 0; i < n; i++){
+            par[i] = get(par , i);
+        }
         int res = 0;
 
-        for(int i=0;i<n;i++){
-            if(par[i] == -1){
-                res++;
-            }
+        HashSet<Integer> set = new HashSet<>();
+        for(int i = 0; i < n; i++){
+            set.add(par[i]);
         }
-
-        System.out.println(res-1);
+        res = set.size() - 1;
+        System.out.println(res);
  
      }
  

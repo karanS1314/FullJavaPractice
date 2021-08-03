@@ -37,7 +37,6 @@ package codeForces.codeforces736;
                 g[i] = new PriorityQueue<>();
             }
 
-
             for(int i = 0; i < m; i++){
                 int u = sc.nextInt();
                 int v = sc.nextInt();

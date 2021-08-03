@@ -88,7 +88,7 @@ package codeForces.codeforces736;
                     }
                 }
                 else if(ff == 3){
-                    System.out.println("R " + set.size());
+                    System.out.println(set.size());
                 }
             }
 

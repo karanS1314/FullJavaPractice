@@ -28,15 +28,10 @@ package codeForces.codeforces736;
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
-        o:while(t-->0){
-            int p = sc.nextInt();
-            if((p & 1) == 1){
-                p--;
-                System.out.println(2 + " " + p);
-            }
-            else{
-                System.out.println(2 + " " + p);
-            }
+        while(t-->0){
+            int a[] = sc.readArray(4);
+            sort(a);
+            System.out.println(a[0] * a[2]);
         }
      }
  

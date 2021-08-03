@@ -12,47 +12,25 @@ public class LongestSimpleCycle {
 		FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
-            int n = sc.nextInt();
+			int n = sc.nextInt();
             int c[] = sc.readArray(n);
             int a[] = sc.readArray(n);
             int b[] = sc.readArray(n);
-
-			int ans1 = 0;
-			int ans2 = 0;
-			int mx1 = Integer.MIN_VALUE;
-			int mx2 = Integer.MIN_VALUE;
-
-			for(int i=1;i<n;i++){
-				ans1+=2;
-				ans1+=Math.abs(a[i]-b[i]);
-				ans1+=c[i]-1;
-				mx1=Math.max(mx1 , ans1);
-				ans1=0;
-			}
-
-			for(int i=0;i<n;i++){
-				if(i!=0)
-					ans2+=2;
-				if(i==n-1 || (a[i+1]==b[i+1])){
-					ans2+=c[i]-1;
-					// System.out.println(ans2);
-					mx2=Math.max(mx2 , ans2);
-					ans2=0;
-				}
-				else{
-					if(i==0){
-						ans2+=Math.abs(a[i+1]-b[i+1]);
-					}
-					else{
-						ans2+=c[i]-1-Math.abs(a[i+1]-b[i+1]);
-					}// System.out.println(ans2);
-				}
-			}
-			// System.out.println(mx1+ " " + mx2);
-			System.out.println(Math.max(mx1 , mx2));
-
-            
-
+            int diff[] = new int[n];
+            for(int i = 0; i < n; i++){
+                diff[i] = Math.abs(b[i] - a[i]);
+            }
+            long dp[] = new long[n];
+            dp[0] = 0;
+ 
+            for(int i = 1; i < n; i++){
+                dp[i] = (long)(c[i] - 1) + 2L + (long)(diff[i] == 0 ? 0 : Math.max(dp[i - 1] - diff[i] , diff[i]));
+            }
+            long mx = Long.MIN_VALUE;
+            for(long e : dp){
+                mx = Math.max(e , mx);
+            }
+            System.out.println(mx);
         }
 	}   
 

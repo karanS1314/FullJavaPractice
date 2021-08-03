@@ -6,8 +6,6 @@ package codeForces.codeForces722;
  import java.io.IOException;
  import java.io.InputStreamReader;
  import java.util.*;
- import java.util.Map.Entry;
-  
  
  public class upC {
      static class Pair implements Comparable<Pair>{
@@ -32,7 +30,7 @@ package codeForces.codeForces722;
 			dest=j;
 		}
 	}
-     public static void main(String[] args) {
+    public static void main(String[] args) {
         FastScanner sc = new FastScanner();
         int t = sc.nextInt();
         while(t-->0){
@@ -60,16 +58,20 @@ package codeForces.codeForces722;
                 graph[(int)d].add(s);
             }
             long dp[][] = new long[n + 1][2];
-            solve(graph , a, 1 , 0 , dp);
+            boolean vis[] = new boolean[n + 1];
+            solve(graph , a , 1 , 0 , dp , vis);
             System.out.println(Math.max(dp[1][0] , dp[1][1]));
         } 
-     }
-     static void solve(ArrayList<Integer>[] g , long a[][] , int v , int par , long dp[][]){
-        for(int n : g[(int)v]){
-            if(n != par){
-                solve(g , a , n , v , dp);
-                dp[(int)v][0] += Math.max(Math.abs(a[v][0] - a[n][0]) + dp[n][0] , Math.abs(a[v][0] - a[n][1]) + dp[n][1]);
-                dp[(int)v][1] += Math.max(Math.abs(a[v][1] - a[n][0]) + dp[n][0] , Math.abs(a[v][1] - a[n][1]) + dp[n][1]);
+    }
+     static void solve(ArrayList<Integer>[] g , long a[][] , int src , int par , long dp[][] , boolean vis[]){
+        vis[src] = true;
+        for(int nbr : g[(int)src]){
+            if(!vis[nbr]){
+                solve(g , a , nbr , src , dp , vis);
+                dp[(int)src][0] += Math.max(Math.abs(a[src][0] - a[src][0]) + dp[nbr][0] ,
+                                        Math.abs(a[src][0] - a[nbr][1]) + dp[nbr][1]);
+                dp[(int)src][1] += Math.max(Math.abs(a[src][1] - a[nbr][0]) + dp[nbr][0] , 
+                                        Math.abs(a[src][1] - a[nbr][1]) + dp[nbr][1]);
             }
         }
      }

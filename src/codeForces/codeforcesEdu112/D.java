@@ -27,11 +27,39 @@ package codeForces.codeforcesEdu112;
  
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
-            System.out.println(n);
+            int qq = sc.nextInt();
+            String s = sc.nextLine();
+
+            StringBuilder arr[] = new StringBuilder[6];
+            arr[0] = new StringBuilder("ab");
+            arr[1] = new StringBuilder("bc");
+            arr[2] = new StringBuilder("ca");
+            arr[3] = new StringBuilder("ba");
+            arr[4] = new StringBuilder("ac");
+            arr[5] = new StringBuilder("cb");
+
+            for(int i = 0; i < 6; i++){
+                boolean big = false;
+                if((int)arr[i].charAt(0) < (int)arr[i].charAt(1)){
+                    big = true;
+                }
+                for(int j = 2; j < n; j++){
+                    if(big){
+                        arr[i].append((char)((arr[i].charAt(j - 1) + 1 - 'a') % 3  + 'a'));
+                        big = false;
+                    }
+                    else{
+                        arr[i].append((char)((arr[i].charAt(j - 1) - 1 - 'a' + 3) % 3 + 'a'));
+                        big = true;
+                    }
+                }
+            }
+            for(StringBuilder ss : arr){
+                System.out.println(ss);
+            }
         }
      }
  

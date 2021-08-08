@@ -62,23 +62,22 @@ package codeForces.newPractice;
                 par[i] = find(a[i]);
             }
 
-            HashMap<Integer , LinkedList<Integer>> map = new HashMap<>();
+            HashMap<Integer , ArrayList<Integer>> map = new HashMap<>();
 
             for(int i = 1; i < n + 1; i++){
                 if(!map.containsKey(par[i])){
-                    map.put(par[i] , new LinkedList<>());
+                    map.put(par[i] , new ArrayList<>());
                 }
                 map.get(par[i]).add(a[i]); //7 -- 1 4 7
             }
 
-            for(Map.Entry<Integer , LinkedList<Integer>> e : map.entrySet()){
+            for(Map.Entry<Integer , ArrayList<Integer>> e : map.entrySet()){
                 Collections.sort(e.getValue());
-                Collections.reverse(e.getValue());
             }
 
             for(int i = 1; i < n + 1; i++){
-                a[i] = map.get(par[i]).get(0);
-                map.get(par[i]).remove(0);
+                a[i] = map.get(par[i]).get(map.get(par[i]).size() - 1);
+                map.get(par[i]).remove(map.get(par[i]).size() - 1);
                 System.out.print(a[i] + " ");
             }
             System.out.println();

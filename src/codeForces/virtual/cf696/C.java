@@ -49,16 +49,16 @@ package codeForces.virtual.cf696;
                 
                 ArrayList<Pair> al = new ArrayList<>();
                 for(int i = n - 1; i >= 0; i--){
-                    if(map.get(a[i]) == 0){
-                        continue;
-                    }
-
+                    if(!map.containsKey(a[i])) continue;
+                    
                     int f1 = x - a[i];
                     map.put(a[i] , map.get(a[i]) - 1);
+                    if(map.get(a[i]) == 0) map.remove(a[i]);
 
-                    if(map.containsKey(f1) && map.get(f1) > 0){
+                    if(map.containsKey(f1)){
                         al.add(new Pair(a[i] , f1));
                         map.put(f1 , map.get(f1) - 1);
+                        if(map.get(f1) == 0) map.remove(f1);
                         x = Math.max(f1 , a[i]);
                     }
                     else{

@@ -24,14 +24,65 @@ package codeForces.codeforcesEdu112;
      }
  
  //==================================================================================================
- 
+     static int res[];
      public static void main(String[] args) {
         FastScanner sc = new FastScanner();
-        int t = sc.nextInt();
+        int t = 1;
         while(t-->0){
             int n = sc.nextInt();
-            int a[] = sc.readArray(n);
+            int b[][] = new int[n][2];
+            for(int i = 0; i < n - 1; i++){
+                b[i][0] = sc.nextInt();
+                b[i][1] = sc.nextInt();
+            }
+            int c[] = sc.readArray(n);
+            solve(n , b , c);
         }
+     }
+     static TreeSet<Integer> ans;
+     static void solve(int n , int b[][] , int c[]){
+        ArrayList<Integer> g[] = new ArrayList[n];
+
+        for(int i = 0; i < n; i++) g[i] = new ArrayList<>();
+
+        for(int i = 0; i < n; i++){
+            g[b[i][0]].add(b[i][1]);
+            g[b[i][1]].add(b[i][0]);
+        }
+        res = new int[n];
+        // n -> 2 * 10 ^ 5
+
+        // 1 sec
+        TreeSet<Integer> set = new TreeSet<>();
+        for(int i = 0; i <= n; i++){ // nlogn
+            set.add(i);
+        }
+        ans = new TreeSet<>();
+        for(int i = 0; i <= n; i++){ // nlogn
+            set.add(i);
+        }
+
+        boolean vis[] = new boolean[n];
+
+        dfs(g , 0 , vis , c , set); // n*(3logn)
+
+        print(res);
+     }
+
+     static void dfs(ArrayList<Integer> g[], int src, boolean vis[], int c[], TreeSet<Integer> set){
+
+        vis[src] = true;
+
+        for(int nbr : g[src]){
+            if(!vis[nbr]){
+                dfs(g , nbr , vis , c , set);
+            }
+        }
+        set.remove(c[src]); // logn
+
+        res[src] = set.first();
+
+        set.add(c[src]); // logn
      }
  
  //==================================================================================================

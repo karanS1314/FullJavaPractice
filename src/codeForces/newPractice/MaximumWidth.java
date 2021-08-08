@@ -49,7 +49,7 @@ package codeForces.newPractice;
             int temp = -1;
             for(int i = 0; i < m; i++){
                 char x = t.charAt(i);
-                int ind = upBound(mp1.get(x) , temp , 0 , mp1.get(x).size());
+                int ind = upBound(mp1.get(x) , temp , 0 , mp1.get(x).size() - 1);
                 pmn[i] = mp1.get(x).get(ind);
                 temp = pmn[i];
             }
@@ -58,12 +58,12 @@ package codeForces.newPractice;
             for(int i = m - 1; i >= 0; i--){
                 temp = Math.min(temp , mp1.get(t.charAt(i)).get(mp1.get(t.charAt(i)).size() - 1));
                 char x = t.charAt(i);
-                int ind = lowBound(mp1.get(x) , temp , 0 , mp1.get(x).size());
+                int ind = lowBound(mp1.get(x) , temp , 0 , mp1.get(x).size() - 1);
                 pmx[i] = mp1.get(x).get(ind);
                 temp = pmx[i];
             }
 
-            int mx = imi;
+            int mx = 1;
             for(int i = 1; i < m; i++){
                 mx = Math.max(mx , pmx[i] - pmn[i - 1]);
             }
@@ -343,8 +343,8 @@ package codeForces.newPractice;
          }
      }
       
-     // returns the index of the element which is just smaller than or
-     // equal to the tar in the given arraylist 
+    //  returns the index of the next smallest number just greater than or equal to that number
+    // if lowBound == n then lowBound X does not exits 
      static int lowBound(ArrayList<Integer> ll,long tar ,int l,int r){
          if(l>r) return l;
  
@@ -357,8 +357,8 @@ package codeForces.newPractice;
          return lowBound(ll,tar,mid+1,r);
      }
  
-     // returns the index of the element which is just greater than or
-     // equal to the tar in the given arraylist 
+     // returns an iterator pointing to the first element in the range [first, last) that is greater than value, or last if no such element is found. 
+     // if upBound == n then upBound X does not exits 
      static int upBound(ArrayList<Integer> ll,long tar,int l ,int r){
          if(l>r) return l;
  

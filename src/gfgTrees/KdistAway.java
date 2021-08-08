@@ -95,9 +95,8 @@ package gfgTrees;
             System.out.println("Node with this data is not present in the tree");
         }
         else{
-            
             for(int i=0; i<path.size() && i<=k; i++){
-                printXnodesDown(path.get(i), k-i , i==0? null : path.get(i-1) );
+                printXnodesDown(path.get(i), k-i , i==0 ? null : path.get(i-1) );
             }
 
             path.clear();

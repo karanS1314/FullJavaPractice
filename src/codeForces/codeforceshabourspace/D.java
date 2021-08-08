@@ -38,39 +38,23 @@ package codeForces.codeforceshabourspace;
             
             String t = sc.nextLine();
 
-            char tt[] = t.toCharArray();
-            if(s.equals(t)){
-                System.out.println("YES");
-                continue;
-            }
-            if(t.length() > s.length()){
-                System.out.println("NO");
-                continue;
-            }
-            n = s.length();
-            m = t.length();
-            // Queue q = new LinkedList
-            one = new ArrayList<>();
-            two = new ArrayList<>();
-            sb1 = new StringBuilder("");
-            sb2 = new StringBuilder("");
+            int n = s.length();
+            int m = t.length();
 
 
-            for(int i = 0; i < n; i++){
-                if((i & 1) == 1){
-                    sb1.append(s.charAt(i));
-                    one.add(i);
+            int i = n - 1;
+            int j = m - 1;
+
+            while(i >= 0 && j >= 0){
+                if(s.charAt(i) == t.charAt(j)){
+                    i--;
+                    j--;
                 }
                 else{
-                    sb2.append(s.charAt(i));
-                    two.add(i);
+                    i -= 2;
                 }
             }
-
-            boolean pos = false;
-            if((solve(tt , 0) | solve(tt , 1)) == 1) pos = true;
-
-            if(pos) System.out.println("YES");
+            if(j == -1 && i >= -1) System.out.println("YES");
             else System.out.println("NO");
         }
      }

@@ -33,32 +33,53 @@ package codeForces.codeforcesEdu112;
             int qq = sc.nextInt();
             String s = sc.nextLine();
 
-            StringBuilder arr[] = new StringBuilder[6];
-            arr[0] = new StringBuilder("ab");
-            arr[1] = new StringBuilder("bc");
-            arr[2] = new StringBuilder("ca");
-            arr[3] = new StringBuilder("ba");
-            arr[4] = new StringBuilder("ac");
-            arr[5] = new StringBuilder("cb");
-
+            StringBuilder a[] = new StringBuilder[6];
+            for(int i = 0; i < 6; i++) a[i] = new StringBuilder("");
+            
             for(int i = 0; i < 6; i++){
-                boolean big = false;
-                if((int)arr[i].charAt(0) < (int)arr[i].charAt(1)){
-                    big = true;
+                int k = 0;
+                int j = 2;
+                if(i < 3){
+                    k = i;
+                    for(int tt = 0; tt < n; tt++){
+                        a[i].append((char)((k++) % 3 + 'a'));
+                    }
                 }
-                for(int j = 2; j < n; j++){
-                    if(big){
-                        arr[i].append((char)((arr[i].charAt(j - 1) + 1 - 'a') % 3  + 'a'));
-                        big = false;
-                    }
-                    else{
-                        arr[i].append((char)((arr[i].charAt(j - 1) - 1 - 'a' + 3) % 3 + 'a'));
-                        big = true;
-                    }
+                else{
+                    j = 6 - i - 1;
+                    for(int tt = 0; tt < n; tt++){
+                        a[i].append((char)((j < 0 ? j += 3 : j) % 3 + 'a'));
+                        j--;
+                    }   
                 }
             }
-            for(StringBuilder ss : arr){
-                System.out.println(ss);
+
+            int preCost[][] = new int[6][n];
+
+            for(int i = 0; i < 6; i++){
+                String ss = a[i].toString();
+                // System.out.println(ss+ " sssss");
+                preCost[i][0] = ss.charAt(0) == s.charAt(0) ? 0 : 1;
+                for(int j = 1; j < n; j++){
+                    if(ss.charAt(j) != s.charAt(j)){
+                        preCost[i][j]++;
+                    }
+                    preCost[i][j] += preCost[i][j - 1];
+                }
+            }
+
+            for(int q = 0; q < qq; q++){
+                int l = sc.nextInt();
+                int r = sc.nextInt();
+                l--;
+                r--;
+
+                int min = imx;
+                for(int i = 0; i < 6; i++){
+                    min = Math.min(min , preCost[i][r] - (l > 0 ? preCost[i][l - 1] : 0));
+                }
+
+                System.out.println(min);
             }
         }
      }
